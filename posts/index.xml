@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My blogging setup</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to showcase and learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO directly converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
+Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</description><content>&lt;h2 id="why-am-i-doing-this">Why am I doing this?&lt;/h2>
+&lt;ul>
+&lt;li>A Repository or a store for whatever cool concepts I study/Understand.&lt;/li>
+&lt;li>It&amp;rsquo;s really important to showcase and learn in Public.&lt;/li>
+&lt;/ul>
+&lt;h2 id="how-am-i-doing-this">How am I doing this?&lt;/h2>
+&lt;ul>
+&lt;li>Obsidian &lt;a href="https://obsidian.md/">https://obsidian.md/&lt;/a>&lt;/li>
+&lt;li>&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203121609.png" alt="Image Description">&lt;/li>
+&lt;li>Hugo for building the static website blazingly fast.&lt;/li>
+&lt;/ul>
+&lt;h2 id="why-are-we-using-hugo">Why are we using HUGO?&lt;/h2>
+&lt;p>The simple answer is HUGO directly converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)&lt;/p>
+&lt;ul>
+&lt;li>Prerequisites for Hugo
+&lt;ul>
+&lt;li>Git -&amp;gt; Install According to Operating System.
+&lt;ul>
+&lt;li>Prompt: How do Install Git in &amp;ldquo;Operating System&amp;rdquo;.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Go -&amp;gt; Install According to Operating System.
+&lt;ul>
+&lt;li>Prompt: How to Install Go in &amp;ldquo;Operating system&amp;rdquo;.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Install HUGO following the official documentation &lt;a href="https://gohugo.io/installation/linux/">https://gohugo.io/installation/linux/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="the-next-steps">The next Steps&lt;/h2>
+&lt;ul>
+&lt;li>Create a Folder for your blogs.&lt;/li>
+&lt;li>Move into that folder and use command&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo new site &amp;lt;NameOfSite&amp;gt;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>The required files will be created.&lt;/li>
+&lt;li>Initialize a Git repository&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git init
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Choose a exciting theme of choice. -&amp;gt; &lt;a href="https://themes.gohugo.io/">https://themes.gohugo.io/&lt;/a>
+&lt;ul>
+&lt;li>After choosing a theme, -&amp;gt; &lt;a href="https://themes.gohugo.io/themes/hugo-theme-terminal/">https://themes.gohugo.io/themes/hugo-theme-terminal/&lt;/a>&lt;/li>
+&lt;li>Find &amp;ldquo;Install theme as submodule&amp;rdquo; this is the easiest and best way to use the Theme.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">//similar to this command
+git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/terminal
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>We need to configure the &amp;ldquo;config.toml&amp;rdquo; file in order to render the theme (e.g. Config file for terminal theme)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-config.toml" data-lang="config.toml">
+&lt;span style="color:#960050;background-color:#1e0010">//&lt;/span> &lt;span style="color:#a6e22e">Example&lt;/span> &lt;span style="color:#a6e22e">config&lt;/span> &lt;span style="color:#a6e22e">for&lt;/span> &lt;span style="color:#a6e22e">terminal&lt;/span> &lt;span style="color:#a6e22e">theme&lt;/span>
+&lt;span style="color:#a6e22e">baseurl&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">languageCode&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;en-us&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Add it only if you keep the theme in the `themes` directory. &lt;/span>
+&lt;span style="color:#75715e"># Remove it if you use the theme as a remote Hugo Module. &lt;/span>
+&lt;span style="color:#a6e22e">theme&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;terminal&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">paginate&lt;/span> = &lt;span style="color:#ae81ff">5&lt;/span>
+[&lt;span style="color:#a6e22e">params&lt;/span>]
+&lt;span style="color:#75715e"># dir name of your main content (default is `content/posts`). &lt;/span>
+&lt;span style="color:#75715e"># the list of set content will show up on your index page (baseurl). &lt;/span>
+&lt;span style="color:#a6e22e">contentTypeName&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;posts&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># if you set this to 0, only submenu trigger will be visible &lt;/span>
+&lt;span style="color:#a6e22e">showMenuItems&lt;/span> = &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;span style="color:#75715e"># show selector to switch language &lt;/span>
+&lt;span style="color:#a6e22e">showLanguageSelector&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#75715e"># set theme to full screen width &lt;/span>
+&lt;span style="color:#a6e22e">fullWidthTheme&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#75715e"># center theme with default width &lt;/span>
+&lt;span style="color:#a6e22e">centerTheme&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#75715e"># if your resource directory contains an image called `cover.(jpg|png|webp)`, &lt;/span>
+&lt;span style="color:#75715e"># then the file will be used as a cover automatically. &lt;/span>
+&lt;span style="color:#75715e"># With this option you don&amp;#39;t have to put the `cover` param in a front-matter. &lt;/span>
+&lt;span style="color:#a6e22e">autoCover&lt;/span> = &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#75715e"># set post to show the last updated # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated &lt;/span>
+&lt;span style="color:#a6e22e">showLastUpdated&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#75715e"># Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author &lt;/span>
+&lt;span style="color:#75715e"># updatedDatePrefix = &amp;#34;Updated&amp;#34; # whether to show a page&amp;#39;s estimated reading time # readingTime = false # default &lt;/span>
+&lt;span style="color:#75715e"># whether to show a table of contents &lt;/span>
+&lt;span style="color:#75715e"># can be overridden in a page&amp;#39;s front-matter &lt;/span>
+&lt;span style="color:#75715e"># Toc = false # default &lt;/span>
+&lt;span style="color:#75715e"># set title for the table of contents &lt;/span>
+&lt;span style="color:#75715e"># can be overridden in a page&amp;#39;s front-matter &lt;/span>
+&lt;span style="color:#75715e"># TocTitle = &amp;#34;Table of Contents&amp;#34; &lt;/span>
+&lt;span style="color:#75715e"># default [params.twitter] &lt;/span>
+&lt;span style="color:#75715e"># set Twitter handles for Twitter cards &lt;/span>
+&lt;span style="color:#75715e"># see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution &lt;/span>
+&lt;span style="color:#75715e"># do not include &lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">@&lt;/span> &lt;span style="color:#a6e22e">creator&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">site&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+[&lt;span style="color:#a6e22e">languages&lt;/span>]
+[&lt;span style="color:#a6e22e">languages&lt;/span>.&lt;span style="color:#a6e22e">en&lt;/span>]
+&lt;span style="color:#a6e22e">languageName&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;English&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">title&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Terminal&amp;#34;&lt;/span>
+[&lt;span style="color:#a6e22e">languages&lt;/span>.&lt;span style="color:#a6e22e">en&lt;/span>.&lt;span style="color:#a6e22e">params&lt;/span>]
+&lt;span style="color:#a6e22e">subtitle&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;A simple, retro theme for Hugo&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">owner&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">keywords&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">copyright&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">menuMore&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Show more&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">readMore&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Read more&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">readOtherPosts&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Read other posts&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">newerPosts&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Newer posts&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">olderPosts&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Older posts&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">missingContentMessage&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Page not found...&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">missingBackButtonLabel&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Back to home page&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">minuteReadingTime&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;min read&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">words&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;words&amp;#34;&lt;/span>
+[&lt;span style="color:#a6e22e">languages&lt;/span>.&lt;span style="color:#a6e22e">en&lt;/span>.&lt;span style="color:#a6e22e">params&lt;/span>.&lt;span style="color:#a6e22e">logo&lt;/span>]
+&lt;span style="color:#a6e22e">logoText&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Terminal&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">logoHomeLink&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>
+[&lt;span style="color:#a6e22e">languages&lt;/span>.&lt;span style="color:#a6e22e">en&lt;/span>.&lt;span style="color:#a6e22e">menu&lt;/span>]
+[[&lt;span style="color:#a6e22e">languages&lt;/span>.&lt;span style="color:#a6e22e">en&lt;/span>.&lt;span style="color:#a6e22e">menu&lt;/span>.&lt;span style="color:#a6e22e">main&lt;/span>]]
+&lt;span style="color:#a6e22e">identifier&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;about&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">name&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;About&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">url&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;/about&amp;#34;&lt;/span>
+[[&lt;span style="color:#a6e22e">languages&lt;/span>.&lt;span style="color:#a6e22e">en&lt;/span>.&lt;span style="color:#a6e22e">menu&lt;/span>.&lt;span style="color:#a6e22e">main&lt;/span>]]
+&lt;span style="color:#a6e22e">identifier&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;showcase&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">name&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;Showcase&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">url&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;/showcase&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>After this a simple command of&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo server -t &amp;lt;themename&amp;gt;
+&lt;/code>&lt;/pre>&lt;h2 id="now-lets-see-some-text-rendering-">Now lets see some text rendering? 🖋️&lt;/h2>
+&lt;ul>
+&lt;li>But there seems to be problem😐 that, the obsidian blog folder and our hugo blog folder are in different locations.&lt;/li>
+&lt;li>The content in them should almost sync simultaneously.&lt;/li>
+&lt;li>We solve this problem using a very specific command&lt;/li>
+&lt;/ul>
+&lt;p>linux&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">rsync -av --delete &amp;quot;sourcepath&amp;quot; &amp;quot;destinationpath&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>Windows&lt;/p>
+&lt;pre tabindex="0">&lt;code>robocopy sourcepath destination path /mir
+&lt;/code>&lt;/pre>&lt;h2 id="now-lets-render-the-images">Now lets render the images&lt;/h2>
+&lt;ul>
+&lt;li>One more problem that we see is the rendering of images.&lt;/li>
+&lt;li>The problem arises because obsidian keeps a different attachments folder for media.&lt;/li>
+&lt;li>Now we need to copy the images used in our blog to the Hugo codebase.&lt;/li>
+&lt;li>So we will use a python script to copy all the used images from the attachments folder to folder inside static/images/&lt;/li>
+&lt;li>Create a python script known as images.py and copy the below script&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-Python" data-lang="Python">&lt;span style="color:#75715e"># create a directory inside static known as images and then use the below code.&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> os
+&lt;span style="color:#f92672">import&lt;/span> re
+&lt;span style="color:#f92672">import&lt;/span> shutil
+&lt;span style="color:#75715e"># Paths&lt;/span>
+posts_dir &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/home/aniketkumar/blogs/AnikiBlog/content/posts/Blogs&amp;#34;&lt;/span>
+attachments_dir &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">r&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/mnt/c/Users/kanik/OneDrive/Documents/MAIN/101 templates&amp;#34;&lt;/span>
+static_images_dir &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/home/aniketkumar/blogs/AnikiBlog/static/images&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Ensure static images directory exists&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">not&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>exists(static_images_dir):
+    os&lt;span style="color:#f92672">.&lt;/span>makedirs(static_images_dir)
+&lt;span style="color:#75715e"># Process each markdown file in the posts directory&lt;/span>
+&lt;span style="color:#66d9ef">for&lt;/span> filename &lt;span style="color:#f92672">in&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>listdir(posts_dir):
+    &lt;span style="color:#66d9ef">if&lt;/span> filename&lt;span style="color:#f92672">.&lt;/span>endswith(&lt;span style="color:#e6db74">&amp;#34;.md&amp;#34;&lt;/span>):
+        filepath &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>join(posts_dir, filename)
+        &lt;span style="color:#66d9ef">with&lt;/span> open(filepath, &lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> file:
+            content &lt;span style="color:#f92672">=&lt;/span> file&lt;span style="color:#f92672">.&lt;/span>read()
+        &lt;span style="color:#75715e"># Find all image links in the format `![Image Description](/images/filename.png)`&lt;/span>
+        images &lt;span style="color:#f92672">=&lt;/span> re&lt;span style="color:#f92672">.&lt;/span>findall(&lt;span style="color:#e6db74">r&lt;/span>&lt;span style="color:#e6db74">&amp;#34;!\[\[([^]]+\.png)\]\]&amp;#34;&lt;/span>, content)
+        &lt;span style="color:#66d9ef">for&lt;/span> image &lt;span style="color:#f92672">in&lt;/span> images:
+            &lt;span style="color:#75715e"># Original filename with spaces&lt;/span>
+            image_with_spaces &lt;span style="color:#f92672">=&lt;/span> image
+            &lt;span style="color:#75715e"># Markdown-compatible filename with `%20`&lt;/span>
+            image_with_encoded_spaces &lt;span style="color:#f92672">=&lt;/span> image&lt;span style="color:#f92672">.&lt;/span>replace(&lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;%20&amp;#34;&lt;/span>)
+            &lt;span style="color:#75715e"># Path to the original image&lt;/span>
+            image_source &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>join(attachments_dir, image_with_spaces)
+            print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Checking for image: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>image_source&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>)
+            &lt;span style="color:#75715e"># Replace Markdown link with a Hugo-compatible link&lt;/span>
+            new_image_link &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;![Image Description](/images/&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>image_with_encoded_spaces&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">)&amp;#34;&lt;/span>
+            content &lt;span style="color:#f92672">=&lt;/span> content&lt;span style="color:#f92672">.&lt;/span>replace(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;![[&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>image_with_spaces&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">]]&amp;#34;&lt;/span>, new_image_link)
+            &lt;span style="color:#75715e"># Copy the image to the static directory if it exists&lt;/span>
+            &lt;span style="color:#66d9ef">if&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>exists(image_source):
+                &lt;span style="color:#75715e"># Copy the image to the static directory without changing its name&lt;/span>
+                shutil&lt;span style="color:#f92672">.&lt;/span>copy(image_source, os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>join(static_images_dir, image_with_spaces))
+                print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Copied: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>image_source&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> -&amp;gt; &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>static_images_dir&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>image_with_spaces&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>)
+            &lt;span style="color:#66d9ef">else&lt;/span>:
+                print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Image not found: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>image_source&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>)
+        &lt;span style="color:#75715e"># Write updated content back to the file&lt;/span>
+        &lt;span style="color:#66d9ef">with&lt;/span> open(filepath, &lt;span style="color:#e6db74">&amp;#34;w&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> file:
+            file&lt;span style="color:#f92672">.&lt;/span>write(content)
+print(&lt;span style="color:#e6db74">&amp;#34;Markdown files processed and images copied successfully.&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>After using the below script run&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-terminal" data-lang="terminal">python3 images.py
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>
+&lt;p>This will copy all the images used in the current blog to the images folder inside static
+&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203173907.png" alt="Image Description">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>After the images are copied again run the file syncing command and start the Hugo server.
+&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203181859.png" alt="Image Description">&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="do-we-always-have-to-run-the-sync-command-then-copy-the-images">Do we always have to run the sync command then copy the images?&lt;/h2>
+&lt;ul>
+&lt;li>The simple answer is yes, but we will automate the entire task using a long python script at the end of the blog.&lt;/li>
+&lt;/ul>
+&lt;h2 id="now-lets-put-this-for-people-to-see-">Now let&amp;rsquo;s put this for people to see 😁&lt;/h2>
+&lt;ul>
+&lt;li>Remember the &amp;ldquo;git init&amp;rdquo; command we used to initialize a git repository now we will use this.&lt;/li>
+&lt;li>Step 1: Go to &lt;a href="http://www.github.com">www.github.com&lt;/a>&lt;/li>
+&lt;li>Step 2: Create a new repository&lt;/li>
+&lt;li>step 3: Connect the local repository to your remote repository&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git remote add origin &amp;lt;/ssh /https link&amp;gt;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>step 4: Run Hugo to create all the necessary changes&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Step 5: Now commit add and commit these changes to the locally&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git add.
+git commit -m &amp;quot;My, first commit to the blog&amp;quot;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Step 6: Push these changes to GitHub/ remote.&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>git push -u origin master
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Now we will be able to see the changes in our Github Repository.&lt;/li>
+&lt;/ul>
+&lt;h2 id="now-the-moment-of-truth-where-should-we-host-our-website-">Now the moment of Truth, where should we host our website 🤔?&lt;/h2>
+&lt;ul>
+&lt;li>Vercel/ GitHub pages/ Hostinger&lt;/li>
+&lt;li>I personally will be using GitHub pages
+&lt;ul>
+&lt;li>It&amp;rsquo;s good for static websites.&lt;/li>
+&lt;li>It&amp;rsquo;s free 😍&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Choice made, lets get on to it.&lt;/li>
+&lt;/ul></content></item></channel></rss>
