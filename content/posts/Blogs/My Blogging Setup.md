@@ -7,7 +7,7 @@ date: 03/12/2025
 - It's really important to showcase and learn in Public.
 ## How am I doing this?
 - Obsidian https://obsidian.md/
-- ![Image Description](/images/Pasted%20image%2020241203121609.png)
+- ![Image Description](/images/Pastedimage20241203121609.png)
 - Hugo for building the static website blazingly fast. 
 ## Why are we using HUGO?
 The simple answer is HUGO directly converts Markdown files to Website code directly(Isn't this convenient😁)
