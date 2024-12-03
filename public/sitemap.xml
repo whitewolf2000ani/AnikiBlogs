@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/</loc>
+    <loc>https://localhost:1313/</loc>
   </url><url>
-    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/categories/</loc>
+    <loc>https://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</loc>
+    <loc>https://localhost:1313/posts/blogs/my-blogging-setup/</loc>
   </url><url>
-    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</loc>
+    <loc>https://localhost:1313/posts/</loc>
   </url><url>
-    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/tags/</loc>
+    <loc>https://localhost:1313/tags/</loc>
   </url>
 </urlset>
