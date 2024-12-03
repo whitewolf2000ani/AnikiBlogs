@@ -22,7 +22,7 @@
 &lt;h2 id=&#34;how-am-i-doing-this&#34;&gt;How am I doing this?&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Obsidian &lt;a href=&#34;https://obsidian.md/&#34;&gt;https://obsidian.md/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;img src=&#34;https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203121609.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203121609.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/li&gt;
 &lt;li&gt;Hugo for building the static website blazingly fast.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;why-are-we-using-hugo&#34;&gt;Why are we using HUGO?&lt;/h2&gt;
@@ -221,7 +221,7 @@ print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Markdown files processe
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;This will copy all the images used in the current blog to the images folder inside static
-&lt;img src=&#34;https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203173907.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203173907.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;After the images are copied again run the file syncing command and start the Hugo server.&lt;/p&gt;
