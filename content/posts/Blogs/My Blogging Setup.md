@@ -21,23 +21,23 @@ The simple answer is HUGO directly converts Markdown files to Website code direc
 ## The next Steps
 - Create a Folder for your blogs.
 - Move into that folder and use command
-```
+``` Terminal
 hugo new site <NameOfSite>
 ```
 - The required files will be created.
 - Initialize a Git repository
-```
+``` Terminal
 git init
 ```
 - Choose a exciting theme of choice. -> https://themes.gohugo.io/
 	- After choosing a theme, -> https://themes.gohugo.io/themes/hugo-theme-terminal/
 	- Find "Install theme as submodule" this is the easiest and best way to use the Theme.
-```
+``` Terminal
 //similar to this command 
 git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/terminal
 ```
 - We need to configure the "config.toml" file in order to render the theme (e.g. Config file for terminal theme)
-``` config.toml
+``` config.toml 
 
 // Example config for terminal theme
 baseurl = "/" 
@@ -118,7 +118,7 @@ site = ""
 				url = "/showcase"
 ```
 - After this a simple command of 
-```
+``` Terminal
 hugo server -t <themename>
 ```
 
@@ -128,7 +128,7 @@ hugo server -t <themename>
 - We solve this problem using a very specific command
 
 linux
-```
+``` Terminal
 rsync -av --delete "sourcepath" "destinationpath"
 ```
 
@@ -200,4 +200,37 @@ python3 images.py
 ![Image Description](/static/images/Pasted%20image%2020241203173907.png)
 
 - After the images are copied again run the file syncing command and start the Hugo server.
-- 
+![Image Description](/static/images/Pasted%20image%2020241203181859.png)
+
+## Do we always have to run the sync command then copy the images?
+- The simple answer is yes, but we will automate the entire task using a long python script at the end of the blog.
+
+## Now let's put this for people to see 😁
+- Remember the "git init" command we used to initialize a git repository now we will use this.
+- Step 1: Go to www.github.com
+- Step 2: Create a new repository
+- step 3: Connect the local repository to your remote repository
+``` Terminal
+git remote add origin </ssh /https link>
+```
+- step 4: Run Hugo to create all the necessary changes
+``` Terminal
+hugo
+```
+- Step 5: Now commit add and commit these changes to the locally 
+``` Terminal
+git add.  
+git commit -m "My, first commit to the blog"
+```
+- Step 6: Push these changes to GitHub/ remote.
+```
+git push -u origin master
+```
+- Now we will be able to see the changes in our Github Repository.
+
+## Now the moment of Truth, where should we host our website 🤔?
+- Vercel/ GitHub pages/ Hostinger
+- I personally will be using GitHub pages
+	- It's good for static websites.
+	- It's free 😍
+- Choice made, lets get on to it.
