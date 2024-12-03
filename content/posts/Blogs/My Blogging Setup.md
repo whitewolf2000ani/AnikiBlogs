@@ -7,7 +7,7 @@ date: 03/12/2025
 - It's really important to showcase and learn in Public.
 ## How am I doing this?
 - Obsidian https://obsidian.md/
-- ![Image Description](/images/Pastedimage20241203121609.png)
+- ![Image Description](/images/Pasted%20image%2020241203121609.png)
 - Hugo for building the static website blazingly fast. 
 ## Why are we using HUGO?
 The simple answer is HUGO directly converts Markdown files to Website code directly(Isn't this convenient😁)
@@ -197,7 +197,7 @@ print("Markdown files processed and images copied successfully.")
 python3 images.py
 ```
 - This will copy all the images used in the current blog to the images folder inside static
-![Image Description](/images/Pastedimage20241203173907.png)
+![Image Description](/images/Pasted%20image%2020241203173907.png)
 
 - After the images are copied again run the file syncing command and start the Hugo server.
 - 
