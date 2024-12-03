@@ -1,40 +1,27 @@
-name: Publish to GH Pages
+name: Deploy Hugo to GitHub Pages
 on:
   push:
     branches:
-      - master
-  pull_request:
-
+      - master  # Your main branch name
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: Checkout code
         uses: actions/checkout@v3
         with:
-          submodules: true
+          submodules: true  # Fetch submodules if any
 
-      - name: Checkout destination
-        uses: actions/checkout@v3
-        if: github.ref == 'refs/heads/master'
+      - name: Install Hugo
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v0.92.2/hugo_extended_0.92.2_Linux-64bit.tar.gz
+          tar -xzf hugo_extended_0.92.2_Linux-64bit.tar.gz -C /usr/local/bin
+
+      - name: Build site
+        run: hugo --minify
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          ref: gh-pages
-          path: built-site
-
-      - name: Setup Hugo
-        run: |
-          curl -L -o /tmp/hugo.tar.gz 'https://github.com/gohugoio/hugo/releases/download/v0.116.0/hugo_extended_0.116.0_linux-amd64.tar.gz'
-          tar -C ${RUNNER_TEMP} -zxvf /tmp/hugo.tar.gz hugo          
-      - name: Build
-        run: ${RUNNER_TEMP}/hugo
-
-      - name: Deploy
-        if: github.ref == 'refs/heads/master'
-        run: |
-          cp -R public/* ${GITHUB_WORKSPACE}/built-site/
-          cd ${GITHUB_WORKSPACE}/built-site
-          git add .
-          git config user.name 'whitewolf200ani'
-          git config user.email 'kaniket123456789@gmail.com'
-          git commit -m 'Updated site'
-          git push          
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
