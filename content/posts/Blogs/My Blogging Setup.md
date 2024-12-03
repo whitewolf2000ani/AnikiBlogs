@@ -197,7 +197,7 @@ print("Markdown files processed and images copied successfully.")
 python3 images.py
 ```
 - This will copy all the images used in the current blog to the images folder inside static
-![Image Description](/images/Pasted%20image%2020241203173907.png)
+![Image Description](/images/Pastedimage20241203173907.png)
 
 - After the images are copied again run the file syncing command and start the Hugo server.
 - 
