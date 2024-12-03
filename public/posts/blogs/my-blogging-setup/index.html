@@ -225,12 +225,12 @@
 <li>Create a Folder for your blogs.</li>
 <li>Move into that folder and use command</li>
 </ul>
-<pre tabindex="0"><code>hugo new site &lt;NameOfSite&gt;
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">hugo new site &lt;NameOfSite&gt;
 </code></pre><ul>
 <li>The required files will be created.</li>
 <li>Initialize a Git repository</li>
 </ul>
-<pre tabindex="0"><code>git init
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">git init
 </code></pre><ul>
 <li>Choose a exciting theme of choice. -&gt; <a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a>
 <ul>
@@ -239,7 +239,7 @@
 </ul>
 </li>
 </ul>
-<pre tabindex="0"><code>//similar to this command 
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">//similar to this command 
 git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/terminal
 </code></pre><ul>
 <li>We need to configure the &ldquo;config.toml&rdquo; file in order to render the theme (e.g. Config file for terminal theme)</li>
@@ -325,7 +325,7 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 </code></pre></div><ul>
 <li>After this a simple command of</li>
 </ul>
-<pre tabindex="0"><code>hugo server -t &lt;themename&gt;
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">hugo server -t &lt;themename&gt;
 </code></pre><h2 id="now-lets-see-some-text-rendering-">Now lets see some text rendering? 🖋️<a href="#now-lets-see-some-text-rendering-" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <ul>
 <li>But there seems to be problem😐 that, the obsidian blog folder and our hugo blog folder are in different locations.</li>
@@ -333,7 +333,7 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 <li>We solve this problem using a very specific command</li>
 </ul>
 <p>linux</p>
-<pre tabindex="0"><code>rsync -av --delete &quot;sourcepath&quot; &quot;destinationpath&quot;
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">rsync -av --delete &quot;sourcepath&quot; &quot;destinationpath&quot;
 </code></pre><p>Windows</p>
 <pre tabindex="0"><code>robocopy sourcepath destination path /mir
 </code></pre><h2 id="now-lets-render-the-images">Now lets render the images<a href="#now-lets-render-the-images" class="hanchor" ariaLabel="Anchor">#</a> </h2>
@@ -400,9 +400,48 @@ print(<span style="color:#e6db74">&#34;Markdown files processed and images copie
 <img src="/static/images/Pasted%20image%2020241203173907.png" alt="Image Description"></p>
 </li>
 <li>
-<p>After the images are copied again run the file syncing command and start the Hugo server.</p>
+<p>After the images are copied again run the file syncing command and start the Hugo server.
+<img src="/static/images/Pasted%20image%2020241203181859.png" alt="Image Description"></p>
 </li>
-<li></li>
+</ul>
+<h2 id="do-we-always-have-to-run-the-sync-command-then-copy-the-images">Do we always have to run the sync command then copy the images?<a href="#do-we-always-have-to-run-the-sync-command-then-copy-the-images" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>The simple answer is yes, but we will automate the entire task using a long python script at the end of the blog.</li>
+</ul>
+<h2 id="now-lets-put-this-for-people-to-see-">Now let&rsquo;s put this for people to see 😁<a href="#now-lets-put-this-for-people-to-see-" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Remember the &ldquo;git init&rdquo; command we used to initialize a git repository now we will use this.</li>
+<li>Step 1: Go to <a href="http://www.github.com">www.github.com</a></li>
+<li>Step 2: Create a new repository</li>
+<li>step 3: Connect the local repository to your remote repository</li>
+</ul>
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">git remote add origin &lt;/ssh /https link&gt;
+</code></pre><ul>
+<li>step 4: Run Hugo to create all the necessary changes</li>
+</ul>
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">hugo
+</code></pre><ul>
+<li>Step 5: Now commit add and commit these changes to the locally</li>
+</ul>
+<pre tabindex="0"><code class="language-Terminal" data-lang="Terminal">git add.  
+git commit -m &quot;My, first commit to the blog&quot;
+</code></pre><ul>
+<li>Step 6: Push these changes to GitHub/ remote.</li>
+</ul>
+<pre tabindex="0"><code>git push -u origin master
+</code></pre><ul>
+<li>Now we will be able to see the changes in our Github Repository.</li>
+</ul>
+<h2 id="now-the-moment-of-truth-where-should-we-host-our-website-">Now the moment of Truth, where should we host our website 🤔?<a href="#now-the-moment-of-truth-where-should-we-host-our-website-" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Vercel/ GitHub pages/ Hostinger</li>
+<li>I personally will be using GitHub pages
+<ul>
+<li>It&rsquo;s good for static websites.</li>
+<li>It&rsquo;s free 😍</li>
+</ul>
+</li>
+<li>Choice made, lets get on to it.</li>
 </ul>
 
       </div></div>

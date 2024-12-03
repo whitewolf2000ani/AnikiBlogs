@@ -49,12 +49,12 @@
 &lt;li&gt;Create a Folder for your blogs.&lt;/li&gt;
 &lt;li&gt;Move into that folder and use command&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo new site &amp;lt;NameOfSite&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;hugo new site &amp;lt;NameOfSite&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;The required files will be created.&lt;/li&gt;
 &lt;li&gt;Initialize a Git repository&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;git init
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;Choose a exciting theme of choice. -&amp;gt; &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;https://themes.gohugo.io/&lt;/a&gt;
 &lt;ul&gt;
@@ -63,7 +63,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;//similar to this command 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;//similar to this command 
 git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/terminal
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;We need to configure the &amp;ldquo;config.toml&amp;rdquo; file in order to render the theme (e.g. Config file for terminal theme)&lt;/li&gt;
@@ -149,7 +149,7 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;After this a simple command of&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo server -t &amp;lt;themename&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;hugo server -t &amp;lt;themename&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;now-lets-see-some-text-rendering-&#34;&gt;Now lets see some text rendering? 🖋️&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;But there seems to be problem😐 that, the obsidian blog folder and our hugo blog folder are in different locations.&lt;/li&gt;
@@ -157,7 +157,7 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 &lt;li&gt;We solve this problem using a very specific command&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;linux&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;rsync -av --delete &amp;quot;sourcepath&amp;quot; &amp;quot;destinationpath&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;rsync -av --delete &amp;quot;sourcepath&amp;quot; &amp;quot;destinationpath&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Windows&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;robocopy sourcepath destination path /mir
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;now-lets-render-the-images&#34;&gt;Now lets render the images&lt;/h2&gt;
@@ -224,9 +224,48 @@ print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Markdown files processe
 &lt;img src=&#34;https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203173907.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;After the images are copied again run the file syncing command and start the Hugo server.&lt;/p&gt;
+&lt;p&gt;After the images are copied again run the file syncing command and start the Hugo server.
+&lt;img src=&#34;https://whitewolf2000ani.github.io/AnikiBlogs/static/images/Pasted%20image%2020241203181859.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;do-we-always-have-to-run-the-sync-command-then-copy-the-images&#34;&gt;Do we always have to run the sync command then copy the images?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The simple answer is yes, but we will automate the entire task using a long python script at the end of the blog.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;now-lets-put-this-for-people-to-see-&#34;&gt;Now let&amp;rsquo;s put this for people to see 😁&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Remember the &amp;ldquo;git init&amp;rdquo; command we used to initialize a git repository now we will use this.&lt;/li&gt;
+&lt;li&gt;Step 1: Go to &lt;a href=&#34;http://www.github.com&#34;&gt;www.github.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Step 2: Create a new repository&lt;/li&gt;
+&lt;li&gt;step 3: Connect the local repository to your remote repository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;git remote add origin &amp;lt;/ssh /https link&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;step 4: Run Hugo to create all the necessary changes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;hugo
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Step 5: Now commit add and commit these changes to the locally&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-Terminal&#34; data-lang=&#34;Terminal&#34;&gt;git add.  
+git commit -m &amp;quot;My, first commit to the blog&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Step 6: Push these changes to GitHub/ remote.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Now we will be able to see the changes in our Github Repository.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;now-the-moment-of-truth-where-should-we-host-our-website-&#34;&gt;Now the moment of Truth, where should we host our website 🤔?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Vercel/ GitHub pages/ Hostinger&lt;/li&gt;
+&lt;li&gt;I personally will be using GitHub pages
+&lt;ul&gt;
+&lt;li&gt;It&amp;rsquo;s good for static websites.&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s free 😍&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Choice made, lets get on to it.&lt;/li&gt;
 &lt;/ul&gt;
 </content>
     </item>
