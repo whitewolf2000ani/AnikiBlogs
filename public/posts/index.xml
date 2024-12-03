@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Terminal</title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on Terminal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My blogging setup</title>
+      <link>/posts/blogs/my-blogging-setup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/blogs/my-blogging-setup/</guid>
+      <description>Why am I doing this?  A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to showcase and learn in Public.  How am I doing this?  Obsidian https://obsidian.md/  Hugo for building the static website blazingly fast.  Why are we using HUGO? The simple answer is HUGO directly converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
+ Prerequisites for Hugo  Git -&amp;gt; Install According to Operating System.</description>
+      <content>&lt;h2 id=&#34;why-am-i-doing-this&#34;&gt;Why am I doing this?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A Repository or a store for whatever cool concepts I study/Understand.&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s really important to showcase and learn in Public.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;how-am-i-doing-this&#34;&gt;How am I doing this?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Obsidian &lt;a href=&#34;https://obsidian.md/&#34;&gt;https://obsidian.md/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;/images/Pasted%20image%2020241203121609.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/li&gt;
+&lt;li&gt;Hugo for building the static website blazingly fast.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;why-are-we-using-hugo&#34;&gt;Why are we using HUGO?&lt;/h2&gt;
+&lt;p&gt;The simple answer is HUGO directly converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Prerequisites for Hugo
+&lt;ul&gt;
+&lt;li&gt;Git -&amp;gt; Install According to Operating System.
+&lt;ul&gt;
+&lt;li&gt;Prompt: How do Install Git in &amp;ldquo;Operating System&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Go -&amp;gt; Install According to Operating System.
+&lt;ul&gt;
+&lt;li&gt;Prompt: How to Install Go in &amp;ldquo;Operating system&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Install HUGO following the official documentation &lt;a href=&#34;https://gohugo.io/installation/linux/&#34;&gt;https://gohugo.io/installation/linux/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-next-steps&#34;&gt;The next Steps&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a Folder for your blogs.&lt;/li&gt;
+&lt;li&gt;Move into that folder and use command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo new site &amp;lt;NameOfSite&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;The required files will be created.&lt;/li&gt;
+&lt;li&gt;Initialize a Git repository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;Choose a exciting theme of choice. -&amp;gt; &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;https://themes.gohugo.io/&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;After choosing a theme, -&amp;gt; &lt;a href=&#34;https://themes.gohugo.io/themes/hugo-theme-terminal/&#34;&gt;https://themes.gohugo.io/themes/hugo-theme-terminal/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Find &amp;ldquo;Install theme as submodule&amp;rdquo; this is the easiest and best way to use the Theme.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;//similar to this command 
+git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/terminal
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;We need to configure the &amp;ldquo;config.toml&amp;rdquo; file in order to render the theme (e.g. Config file for terminal theme)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-config.toml&#34; data-lang=&#34;config.toml&#34;&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Example&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;terminal&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;baseurl&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt; 
+&lt;span style=&#34;color:#a6e22e&#34;&gt;languageCode&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;en-us&amp;#34;&lt;/span&gt; 
+&lt;span style=&#34;color:#75715e&#34;&gt;# Add it only if you keep the theme in the `themes` directory. &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# Remove it if you use the theme as a remote Hugo Module. &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;terminal&amp;#34;&lt;/span&gt; 
+&lt;span style=&#34;color:#a6e22e&#34;&gt;paginate&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt; 
+
+[&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;] 
+&lt;span style=&#34;color:#75715e&#34;&gt;# dir name of your main content (default is `content/posts`). &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# the list of set content will show up on your index page (baseurl). &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;contentTypeName&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;posts&amp;#34;&lt;/span&gt; 
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# if you set this to 0, only submenu trigger will be visible &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;showMenuItems&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; 
+&lt;span style=&#34;color:#75715e&#34;&gt;# show selector to switch language &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;showLanguageSelector&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; 
+&lt;span style=&#34;color:#75715e&#34;&gt;# set theme to full screen width &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;fullWidthTheme&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; 
+&lt;span style=&#34;color:#75715e&#34;&gt;# center theme with default width &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;centerTheme&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; 
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# if your resource directory contains an image called `cover.(jpg|png|webp)`, &lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# then the file will be used as a cover automatically. &lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# With this option you don&amp;#39;t have to put the `cover` param in a front-matter. &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;autoCover&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; 
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# set post to show the last updated # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;showLastUpdated&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; 
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# updatedDatePrefix = &amp;#34;Updated&amp;#34; # whether to show a page&amp;#39;s estimated reading time # readingTime = false # default &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# whether to show a table of contents &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# can be overridden in a page&amp;#39;s front-matter &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# Toc = false # default &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# set title for the table of contents &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# can be overridden in a page&amp;#39;s front-matter &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# TocTitle = &amp;#34;Table of Contents&amp;#34; &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# default [params.twitter] &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# set Twitter handles for Twitter cards &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution &lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# do not include &lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;creator&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 
+&lt;span style=&#34;color:#a6e22e&#34;&gt;site&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 
+[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;] 
+	[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;] 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;languageName&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;English&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Terminal&amp;#34;&lt;/span&gt; 
+	
+	[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;] 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;subtitle&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A simple, retro theme for Hugo&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;owner&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;keywords&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;copyright&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;menuMore&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Show more&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;readMore&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Read more&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;readOtherPosts&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Read other posts&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;newerPosts&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Newer posts&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;olderPosts&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Older posts&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;missingContentMessage&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Page not found...&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;missingBackButtonLabel&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Back to home page&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;minuteReadingTime&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;min read&amp;#34;&lt;/span&gt; 
+		&lt;span style=&#34;color:#a6e22e&#34;&gt;words&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;words&amp;#34;&lt;/span&gt; 
+		[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;params&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;logo&lt;/span&gt;] 
+			&lt;span style=&#34;color:#a6e22e&#34;&gt;logoText&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Terminal&amp;#34;&lt;/span&gt; 
+			&lt;span style=&#34;color:#a6e22e&#34;&gt;logoHomeLink&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt; 
+		[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu&lt;/span&gt;] 
+			[[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;]] 
+				&lt;span style=&#34;color:#a6e22e&#34;&gt;identifier&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;about&amp;#34;&lt;/span&gt; 
+				&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;About&amp;#34;&lt;/span&gt; 
+				&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/about&amp;#34;&lt;/span&gt; 
+			[[&lt;span style=&#34;color:#a6e22e&#34;&gt;languages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;en&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;menu&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;]] 
+				&lt;span style=&#34;color:#a6e22e&#34;&gt;identifier&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;showcase&amp;#34;&lt;/span&gt; 
+				&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Showcase&amp;#34;&lt;/span&gt; 
+				&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/showcase&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;After this a simple command of&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo server -t &amp;lt;themename&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;now-lets-see-some-text-rendering-&#34;&gt;Now lets see some text rendering? 🖋️&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;But there seems to be problem😐 that, the obsidian blog folder and our hugo blog folder are in different locations.&lt;/li&gt;
+&lt;li&gt;The content in them should almost sync simultaneously.&lt;/li&gt;
+&lt;li&gt;We solve this problem using a very specific command&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;linux&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;rsync -av --delete &amp;quot;sourcepath&amp;quot; &amp;quot;destinationpath&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Windows&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;robocopy sourcepath destination path /mir
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;now-lets-render-the-images&#34;&gt;Now lets render the images&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;One more problem that we see is the rendering of images.&lt;/li&gt;
+&lt;li&gt;The problem arises because obsidian keeps a different attachments folder for media.&lt;/li&gt;
+&lt;li&gt;Now we need to copy the images used in our blog to the Hugo codebase.&lt;/li&gt;
+&lt;li&gt;So we will use a python script to copy all the used images from the attachments folder to folder inside static/images/&lt;/li&gt;
+&lt;li&gt;Create a python script known as images.py and copy the below script&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# create a directory inside static known as images and then use the below code.&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; re
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; shutil
+  
+&lt;span style=&#34;color:#75715e&#34;&gt;# Paths&lt;/span&gt;
+posts_dir &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/home/aniketkumar/blogs/AnikiBlog/content/posts/Blogs&amp;#34;&lt;/span&gt;
+attachments_dir &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/mnt/c/Users/kanik/OneDrive/Documents/MAIN/101 templates&amp;#34;&lt;/span&gt;
+static_images_dir &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/home/aniketkumar/blogs/AnikiBlog/static/images&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Ensure static images directory exists&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exists(static_images_dir):
+    os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;makedirs(static_images_dir)
+&lt;span style=&#34;color:#75715e&#34;&gt;# Process each markdown file in the posts directory&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; filename &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;listdir(posts_dir):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; filename&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;endswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.md&amp;#34;&lt;/span&gt;):
+        filepath &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join(posts_dir, filename)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(filepath, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;r&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; file:
+            content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; file&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read()
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Find all image links in the format `![Image Description](/images/filename.png)`&lt;/span&gt;
+        images &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; re&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;findall(&lt;span style=&#34;color:#e6db74&#34;&gt;r&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;!\[\[([^]]+\.png)\]\]&amp;#34;&lt;/span&gt;, content)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; image &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; images:
+            &lt;span style=&#34;color:#75715e&#34;&gt;# Original filename with spaces&lt;/span&gt;
+            image_with_spaces &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image
+            &lt;span style=&#34;color:#75715e&#34;&gt;# Markdown-compatible filename with `%20`&lt;/span&gt;
+            image_with_encoded_spaces &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;replace(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%20&amp;#34;&lt;/span&gt;)
+            &lt;span style=&#34;color:#75715e&#34;&gt;# Path to the original image&lt;/span&gt;
+            image_source &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join(attachments_dir, image_with_spaces)
+            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Checking for image: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;image_source&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+            &lt;span style=&#34;color:#75715e&#34;&gt;# Replace Markdown link with a Hugo-compatible link&lt;/span&gt;
+            new_image_link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;![Image Description](/images/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;image_with_encoded_spaces&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt;
+            content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; content&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;replace(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;![[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;image_with_spaces&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]]&amp;#34;&lt;/span&gt;, new_image_link)
+            &lt;span style=&#34;color:#75715e&#34;&gt;# Copy the image to the static directory if it exists&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exists(image_source):
+                &lt;span style=&#34;color:#75715e&#34;&gt;# Copy the image to the static directory without changing its name&lt;/span&gt;
+                shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy(image_source, os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join(static_images_dir, image_with_spaces))
+                print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Copied: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;image_source&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; -&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;static_images_dir&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;image_with_spaces&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+                print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Image not found: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;image_source&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Write updated content back to the file&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; open(filepath, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;w&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; file:
+            file&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;write(content)
+
+print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Markdown files processed and images copied successfully.&amp;#34;&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;After using the below script run&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-terminal&#34; data-lang=&#34;terminal&#34;&gt;python3 images.py
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;This will copy all the images used in the current blog to the images folder inside static
+&lt;img src=&#34;/images/Pasted%20image%2020241203173907.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;After the images are copied again run the file syncing command and start the Hugo server.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
