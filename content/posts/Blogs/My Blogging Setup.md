@@ -7,7 +7,7 @@ date: 03/12/2025
 - It's really important to learn in Public.
 ## How am I doing this?
 - Obsidian https://obsidian.md/
-- ![[Pasted image 20241203121609.png]]
+- ![Image Description](/images/Pasted%20image%2020241203121609.png)
 - Hugo for building the static website blazingly fast. 
 ## Why are we using HUGO?
 The simple answer is HUGO converts Markdown files to Website code directly(Isn't this convenient😁)
@@ -164,7 +164,7 @@ for filename in os.listdir(posts_dir):
         filepath = os.path.join(posts_dir, filename)
         with open(filepath, "r") as file:
             content = file.read()
-        # Find all image links in the format `![[filename.png]]`
+        # Find all image links in the format `![Image Description](/images/filename.png)`
         images = re.findall(r"!\[\[([^]]+\.png)\]\]", content)
         for image in images:
             # Original filename with spaces
@@ -197,14 +197,14 @@ print("Markdown files processed and images copied successfully.")
 python3 images.py
 ```
 - This will copy all the images used in the current blog to the images folder inside static.
-![[Pasted image 20241203173907.png]]
+![Image Description](/images/Pasted%20image%2020241203173907.png)
 
 - After the images are copied.
 - Run the file syncing command.
 - Start the Hugo server.
 
 Whoosh the image has been rendered on our localhost.
-![[Pasted image 20241203181859.png]]
+![Image Description](/images/Pasted%20image%2020241203181859.png)
 
 ## Do we always have to run the sync command and then copy the images?
 - The simple answer is yes, but we will automate the entire task using a python script at the end of the blog.
@@ -253,7 +253,7 @@ git push origin gh-pages
 	- Navigate to the Code and Automation Section.
 	- Click on Actions.
 	- Click on General.
-![[Pasted image 20241204215856.png]]
+![Image Description](/images/Pasted%20image%2020241204215856.png)
 - Under the Workflow permissions-> click on Read and Write permissions. 
 - Step 3: Under the Pages section set the source to gh-pages branch and /root directory.
 - Step 4: Now checkout to the master branch
