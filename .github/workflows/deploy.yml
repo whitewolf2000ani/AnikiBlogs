@@ -18,7 +18,7 @@ jobs:
           tar -xzf hugo_extended_0.92.2_Linux-64bit.tar.gz -C /usr/local/bin
 
       - name: Build site
-        run: hugo server -t terminal
+        run: hugo --minify
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
