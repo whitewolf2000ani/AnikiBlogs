@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/obsidian-to-blogs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/obsidian-to-blogs/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ ![[Pasted image 20241203121609.png]] Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
 Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</description><content>&lt;h2 id="why-am-i-doing-this">Why am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>A Repository or a store for whatever cool concepts I study/Understand.&lt;/li>
@@ -7,7 +7,7 @@ Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</des
 &lt;h2 id="how-am-i-doing-this">How am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>Obsidian &lt;a href="https://obsidian.md/">https://obsidian.md/&lt;/a>&lt;/li>
-&lt;li>&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203121609.png" alt="Image Description">&lt;/li>
+&lt;li>![[Pasted image 20241203121609.png]]&lt;/li>
 &lt;li>Hugo for building the static website blazingly fast.&lt;/li>
 &lt;/ul>
 &lt;h2 id="why-are-we-using-hugo">Why are we using HUGO?&lt;/h2>
@@ -162,7 +162,7 @@ static_images_dir &lt;span style="color:#f92672">=&lt;/span> &lt;span style="col
         filepath &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>join(posts_dir, filename)
         &lt;span style="color:#66d9ef">with&lt;/span> open(filepath, &lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> file:
             content &lt;span style="color:#f92672">=&lt;/span> file&lt;span style="color:#f92672">.&lt;/span>read()
-        &lt;span style="color:#75715e"># Find all image links in the format `![Image Description](/images/filename.png)`&lt;/span>
+        &lt;span style="color:#75715e"># Find all image links in the format `![[filename.png]]`&lt;/span>
         images &lt;span style="color:#f92672">=&lt;/span> re&lt;span style="color:#f92672">.&lt;/span>findall(&lt;span style="color:#e6db74">r&lt;/span>&lt;span style="color:#e6db74">&amp;#34;!\[\[([^]]+\.png)\]\]&amp;#34;&lt;/span>, content)
         &lt;span style="color:#66d9ef">for&lt;/span> image &lt;span style="color:#f92672">in&lt;/span> images:
             &lt;span style="color:#75715e"># Original filename with spaces&lt;/span>
@@ -193,7 +193,7 @@ print(&lt;span style="color:#e6db74">&amp;#34;Markdown files processed and image
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
 &lt;p>This will copy all the images used in the current blog to the images folder inside static.
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203173907.png" alt="Image Description">&lt;/p>
+![[Pasted image 20241203173907.png]]&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>After the images are copied.&lt;/p>
@@ -206,7 +206,7 @@ print(&lt;span style="color:#e6db74">&amp;#34;Markdown files processed and image
 &lt;/li>
 &lt;/ul>
 &lt;p>Whoosh the image has been rendered on our localhost.
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203181859.png" alt="Image Description">&lt;/p>
+![[Pasted image 20241203181859.png]]&lt;/p>
 &lt;h2 id="do-we-always-have-to-run-the-sync-command-and-then-copy-the-images">Do we always have to run the sync command and then copy the images?&lt;/h2>
 &lt;ul>
 &lt;li>The simple answer is yes, but we will automate the entire task using a python script at the end of the blog.&lt;/li>
@@ -261,7 +261,7 @@ git push origin gh-pages
 &lt;li>Navigate to the Code and Automation Section.&lt;/li>
 &lt;li>Click on Actions.&lt;/li>
 &lt;li>Click on General.
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241204215856.png" alt="Image Description">&lt;/li>
+![[Pasted image 20241204215856.png]]&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>Under the Workflow permissions-&amp;gt; click on Read and Write permissions.&lt;/li>
