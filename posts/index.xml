@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My blogging setup</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to showcase and learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO directly converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/obsidian-to-blogs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/obsidian-to-blogs/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
 Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</description><content>&lt;h2 id="why-am-i-doing-this">Why am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>A Repository or a store for whatever cool concepts I study/Understand.&lt;/li>
-&lt;li>It&amp;rsquo;s really important to showcase and learn in Public.&lt;/li>
+&lt;li>It&amp;rsquo;s really important to learn in Public.&lt;/li>
 &lt;/ul>
 &lt;h2 id="how-am-i-doing-this">How am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>Obsidian &lt;a href="https://obsidian.md/">https://obsidian.md/&lt;/a>&lt;/li>
-&lt;li>&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203121609.png" alt="Image Description">&lt;/li>
+&lt;li>&lt;img src="../images/Pasted%20image%2020241203121609.png" alt="Image Description">&lt;/li>
 &lt;li>Hugo for building the static website blazingly fast.&lt;/li>
 &lt;/ul>
 &lt;h2 id="why-are-we-using-hugo">Why are we using HUGO?&lt;/h2>
-&lt;p>The simple answer is HUGO directly converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)&lt;/p>
+&lt;p>The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)&lt;/p>
 &lt;ul>
 &lt;li>Prerequisites for Hugo
 &lt;ul>
@@ -36,7 +36,7 @@ Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</des
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo new site &amp;lt;NameOfSite&amp;gt;
 &lt;/code>&lt;/pre>&lt;ul>
-&lt;li>The required files will be created.&lt;/li>
+&lt;li>The required files for HUGO will be created.&lt;/li>
 &lt;li>Initialize a Git repository&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git init
@@ -129,9 +129,9 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo server -t &amp;lt;themename&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="now-lets-see-some-text-rendering-">Now lets see some text rendering? 🖋️&lt;/h2>
 &lt;ul>
-&lt;li>But there seems to be problem😐 that, the obsidian blog folder and our hugo blog folder are in different locations.&lt;/li>
-&lt;li>The content in them should almost sync simultaneously.&lt;/li>
-&lt;li>We solve this problem using a very specific command&lt;/li>
+&lt;li>But there seems to be problem😐, the obsidian blog folder and our hugo blog folder are in different locations.&lt;/li>
+&lt;li>The content in them should sync simultaneously.&lt;/li>
+&lt;li>We will solve this problem using a very specific command both in linux and Windows.&lt;/li>
 &lt;/ul>
 &lt;p>linux&lt;/p>
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">rsync -av --delete &amp;quot;sourcepath&amp;quot; &amp;quot;destinationpath&amp;quot;
@@ -139,11 +139,11 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 &lt;pre tabindex="0">&lt;code>robocopy sourcepath destination path /mir
 &lt;/code>&lt;/pre>&lt;h2 id="now-lets-render-the-images">Now lets render the images&lt;/h2>
 &lt;ul>
-&lt;li>One more problem that we see is the rendering of images.&lt;/li>
+&lt;li>One more problem that we see here is the rendering of images.&lt;/li>
 &lt;li>The problem arises because obsidian keeps a different attachments folder for media.&lt;/li>
 &lt;li>Now we need to copy the images used in our blog to the Hugo codebase.&lt;/li>
 &lt;li>So we will use a python script to copy all the used images from the attachments folder to folder inside static/images/&lt;/li>
-&lt;li>Create a python script known as images.py and copy the below script&lt;/li>
+&lt;li>Use this python script naming it as images.py and run it to see the magic😁.&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-Python" data-lang="Python">&lt;span style="color:#75715e"># create a directory inside static known as images and then use the below code.&lt;/span>
 &lt;span style="color:#f92672">import&lt;/span> os
@@ -187,55 +187,129 @@ static_images_dir &lt;span style="color:#f92672">=&lt;/span> &lt;span style="col
             file&lt;span style="color:#f92672">.&lt;/span>write(content)
 print(&lt;span style="color:#e6db74">&amp;#34;Markdown files processed and images copied successfully.&amp;#34;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>After using the below script run&lt;/li>
+&lt;li>After using the below script run.&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code class="language-terminal" data-lang="terminal">python3 images.py
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
-&lt;p>This will copy all the images used in the current blog to the images folder inside static
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203173907.png" alt="Image Description">&lt;/p>
+&lt;p>This will copy all the images used in the current blog to the images folder inside static.
+&lt;img src="../images/Pasted%20image%2020241203173907.png" alt="Image Description">&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>After the images are copied again run the file syncing command and start the Hugo server.
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203181859.png" alt="Image Description">&lt;/p>
+&lt;p>After the images are copied.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Run the file syncing command.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Start the Hugo server.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="do-we-always-have-to-run-the-sync-command-then-copy-the-images">Do we always have to run the sync command then copy the images?&lt;/h2>
+&lt;p>Whoosh the image has been rendered on our localhost.
+&lt;img src="../images/Pasted%20image%2020241203181859.png" alt="Image Description">&lt;/p>
+&lt;h2 id="do-we-always-have-to-run-the-sync-command-and-then-copy-the-images">Do we always have to run the sync command and then copy the images?&lt;/h2>
 &lt;ul>
-&lt;li>The simple answer is yes, but we will automate the entire task using a long python script at the end of the blog.&lt;/li>
+&lt;li>The simple answer is yes, but we will automate the entire task using a python script at the end of the blog.&lt;/li>
 &lt;/ul>
-&lt;h2 id="now-lets-put-this-for-people-to-see-">Now let&amp;rsquo;s put this for people to see 😁&lt;/h2>
+&lt;h2 id="now-lets-put-this-out-in-the-openpun-intended">Now let&amp;rsquo;s put this out in the open(Pun intended)😁&lt;/h2>
 &lt;ul>
-&lt;li>Remember the &amp;ldquo;git init&amp;rdquo; command we used to initialize a git repository now we will use this.&lt;/li>
+&lt;li>Remember the &amp;ldquo;git init&amp;rdquo; command we used to initialize a git repository, now we will use the local repo.&lt;/li>
 &lt;li>Step 1: Go to &lt;a href="http://www.github.com">www.github.com&lt;/a>&lt;/li>
-&lt;li>Step 2: Create a new repository&lt;/li>
-&lt;li>step 3: Connect the local repository to your remote repository&lt;/li>
+&lt;li>Step 2: Create a new repository.&lt;/li>
+&lt;li>step 3: Connect the local repository to your remote repository.&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git remote add origin &amp;lt;/ssh /https link&amp;gt;
 &lt;/code>&lt;/pre>&lt;ul>
-&lt;li>step 4: Run Hugo to create all the necessary changes&lt;/li>
+&lt;li>step 4: Run Hugo to create all the necessary changes.&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo
 &lt;/code>&lt;/pre>&lt;ul>
-&lt;li>Step 5: Now commit add and commit these changes to the locally&lt;/li>
+&lt;li>Step 5: Now add all the changes made.&lt;/li>
+&lt;li>Step 6: Commit these changes with a valid comment.&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git add.
 git commit -m &amp;quot;My, first commit to the blog&amp;quot;
 &lt;/code>&lt;/pre>&lt;ul>
-&lt;li>Step 6: Push these changes to GitHub/ remote.&lt;/li>
+&lt;li>Step 7: Push these changes to GitHub/ remote.&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code>git push -u origin master
 &lt;/code>&lt;/pre>&lt;ul>
-&lt;li>Now we will be able to see the changes in our Github Repository.&lt;/li>
+&lt;li>Now we will see the changes in our Remote GitHub Repository(or simply on the GitHub Website).&lt;/li>
 &lt;/ul>
 &lt;h2 id="now-the-moment-of-truth-where-should-we-host-our-website-">Now the moment of Truth, where should we host our website 🤔?&lt;/h2>
 &lt;ul>
-&lt;li>Vercel/ GitHub pages/ Hostinger&lt;/li>
-&lt;li>I personally will be using GitHub pages
+&lt;li>Vercel/ GitHub pages/ Hostinger.&lt;/li>
+&lt;li>I will be using GitHub pages.
 &lt;ul>
 &lt;li>It&amp;rsquo;s good for static websites.&lt;/li>
-&lt;li>It&amp;rsquo;s free 😍&lt;/li>
+&lt;li>It&amp;rsquo;s free 😍.&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>Choice made, lets get on to it.&lt;/li>
+&lt;li>Let&amp;rsquo;s do it.&lt;/li>
+&lt;li>Step 1: We are creating a separate branch for deploying the Blog.&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git checkout --orphan gh-pages
+git rm -rf .
+echo &amp;quot;This is the gh-pages branch&amp;quot; &amp;gt; README.md
+git add README.md
+git commit -m &amp;quot;Initialize gh-pages branch&amp;quot;
+git push origin gh-pages
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Step 2: Configure GitHub pages.
+&lt;ul>
+&lt;li>Inside your blogs repository there is click on the settings icon.&lt;/li>
+&lt;li>Navigate to the Code and Automation Section.&lt;/li>
+&lt;li>Click on Actions.&lt;/li>
+&lt;li>Click on General.
+&lt;img src="../images/Pasted%20image%2020241204215856.png" alt="Image Description">&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Under the Workflow permissions-&amp;gt; click on Read and Write permissions.&lt;/li>
+&lt;li>Step 3: Under the Pages section set the source to gh-pages branch and /root directory.&lt;/li>
+&lt;li>Step 4: Now checkout to the master branch&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">git checkout master
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Step 5: Create the &lt;code>.github/workflows/deploy.yml&lt;/code> file with the deployment instructions.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-deploy.yml" data-lang="deploy.yml">&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Deploy Hugo to GitHub Pages&lt;/span>
+&lt;span style="color:#f92672">on&lt;/span>:
+&lt;span style="color:#f92672">push&lt;/span>:
+&lt;span style="color:#f92672">branches&lt;/span>:
+- &lt;span style="color:#ae81ff">master &lt;/span> &lt;span style="color:#75715e"># Your main branch name&lt;/span>
+&lt;span style="color:#f92672">jobs&lt;/span>:
+&lt;span style="color:#f92672">deploy&lt;/span>:
+&lt;span style="color:#f92672">runs-on&lt;/span>: &lt;span style="color:#ae81ff">ubuntu-latest&lt;/span>
+&lt;span style="color:#f92672">steps&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Checkout code&lt;/span>
+&lt;span style="color:#f92672">uses&lt;/span>: &lt;span style="color:#ae81ff">actions/checkout@v3&lt;/span>
+&lt;span style="color:#f92672">with&lt;/span>:
+&lt;span style="color:#f92672">submodules&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span> &lt;span style="color:#75715e"># Fetch submodules if any&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Install Hugo&lt;/span>
+&lt;span style="color:#f92672">run&lt;/span>: |&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> wget https://github.com/gohugoio/hugo/releases/download/v0.92.2/hugo_extended_0.92.2_Linux-64bit.tar.gz
+&lt;/span>&lt;span style="color:#e6db74"> tar -xzf hugo_extended_0.92.2_Linux-64bit.tar.gz -C /usr/local/bin&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Build site&lt;/span>
+&lt;span style="color:#f92672">run&lt;/span>: &lt;span style="color:#ae81ff">hugo --minify&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Deploy to gh-pages&lt;/span>
+&lt;span style="color:#f92672">uses&lt;/span>: &lt;span style="color:#ae81ff">peaceiris/actions-gh-pages@v3&lt;/span>
+&lt;span style="color:#f92672">with&lt;/span>:
+&lt;span style="color:#f92672">github_token&lt;/span>: &lt;span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}&lt;/span>
+&lt;span style="color:#f92672">publish_dir&lt;/span>: &lt;span style="color:#ae81ff">./public&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Use the corrected &lt;code>master&lt;/code> branch for your main branch and &lt;code>gh-pages&lt;/code> for deployment.&lt;/li>
+&lt;li>Step 6: Ensure your &lt;code>hugo&lt;/code> configuration points to the correct &lt;code>baseURL&lt;/code> in &lt;code>config.toml&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-config.toml" data-lang="config.toml">&lt;span style="color:#a6e22e">baseURL&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;https://&amp;lt;username&amp;gt;.github.io/&amp;lt;repo-name&amp;gt;/&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Step 7: Run these commands below to start the workflow now.&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code class="language-Terminal" data-lang="Terminal">hugo
+git add .
+git commit -m &amp;quot;Add GitHub Pages deployment workflow&amp;quot;
+git push origin master
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Step 8: Take a breather till the actions are getting completed.&lt;/li>
+&lt;li>Step 9: After the actions are completed go the same settings/ pages option and open the deployment link.(As the link you are using to read the blog)&lt;/li>
+&lt;li>Step 10: Here you go your Blog site is up and running for everyone to see.😍&lt;/li>
 &lt;/ul></content></item></channel></rss>
