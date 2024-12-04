@@ -7,7 +7,7 @@ Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</des
 &lt;h2 id="how-am-i-doing-this">How am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>Obsidian &lt;a href="https://obsidian.md/">https://obsidian.md/&lt;/a>&lt;/li>
-&lt;li>&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203121609.png" alt="Image Description">&lt;/li>
+&lt;li>&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203121609.png" alt="Image Description">&lt;/li>
 &lt;li>Hugo for building the static website blazingly fast.&lt;/li>
 &lt;/ul>
 &lt;h2 id="why-are-we-using-hugo">Why are we using HUGO?&lt;/h2>
@@ -193,11 +193,11 @@ print(&lt;span style="color:#e6db74">&amp;#34;Markdown files processed and image
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
 &lt;p>This will copy all the images used in the current blog to the images folder inside static
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203173907.png" alt="Image Description">&lt;/p>
+&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203173907.png" alt="Image Description">&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>After the images are copied again run the file syncing command and start the Hugo server.
-&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted%20image%2020241203181859.png" alt="Image Description">&lt;/p>
+&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203181859.png" alt="Image Description">&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="do-we-always-have-to-run-the-sync-command-then-copy-the-images">Do we always have to run the sync command then copy the images?&lt;/h2>
