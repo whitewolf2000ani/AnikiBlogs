@@ -327,7 +327,7 @@ git push origin master
 Ughh the process seems so cumbersome 🤔. 
 
 ## The Ultimate python script for one command notes-> blog
-- Save the script with `.sh`
+- Save the script with `.sh` extension
 ```shell 
 #!/bin/bash
 set -euo pipefail
@@ -419,16 +419,19 @@ fi
 echo "All done! Site synced, processed, committed, built, and deployed."
 ```
 
-- Run the script using 
+- Gives your script execution permission.
 ```
-chmmod +x updateblog.sh
+chmmod +x updateblog.sh 
 ```
-
+- Now lets run the scipt.
 ```
 bash updateblog.sh
 ```
 
-That directly puts out your content to the GitHub pages.
+## Finally
+- Just make changes to your blog, add more blogs
+- go to your terminal, run the magic command `bash updateblog.sh`
+- That directly puts out your content to the GitHub pages.
+- Credits: Network Chuck(https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn)
 
-Credits: Network Chuck(https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn)
-Be Tuned for more blogs 🤗.
+## Be Tuned for more blogs 🤗.
