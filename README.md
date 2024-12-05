@@ -1,1 +1,1 @@
-Trying to fix the image rendering error with all my strength
+A simple yet effective deployable Pipeline to deploy blogs right from obsidian.

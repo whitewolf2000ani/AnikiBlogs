@@ -80,7 +80,7 @@ else
 fi
 
 # Step 7: Push all changes to the main branch
-echo "Deploying to GitHub Main..."
+echo "Deploying to GitHub Master..."
 if ! git push origin master; then
     echo "Failed to push to master branch."
     exit 1
