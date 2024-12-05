@@ -90,7 +90,7 @@ Aniki's Blog
 <h2 id=how-am-i-doing-this>How am I doing this?<a href=#how-am-i-doing-this class=hanchor arialabel=Anchor>#</a> </h2>
 <ul>
 <li>Obsidian <a href=https://obsidian.md/>https://obsidian.md/</a></li>
-<li><img src=/images/Pasted%20image%2020241203121609.png alt="Image Description"></li>
+<li><img src=https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203121609.png alt="Image Description"></li>
 <li>Hugo for building the static website blazingly fast.</li>
 </ul>
 <h2 id=why-are-we-using-hugo>Why are we using HUGO?<a href=#why-are-we-using-hugo class=hanchor arialabel=Anchor>#</a> </h2>
@@ -255,7 +255,7 @@ static_images_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>&
         filepath <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(posts_dir, filename)
         <span style=color:#66d9ef>with</span> open(filepath, <span style=color:#e6db74>&#34;r&#34;</span>) <span style=color:#66d9ef>as</span> file:
             content <span style=color:#f92672>=</span> file<span style=color:#f92672>.</span>read()
-        <span style=color:#75715e># Find all image links in the format `![Image Description](/images/filename.png)`</span>
+        <span style=color:#75715e># Find all image links in the format `![Image Description](https://whitewolf2000ani.github.io/AnikiBlogs/images/filename.png)`</span>
         images <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#34;!\[\[([^]]+\.png)\]\]&#34;</span>, content)
         <span style=color:#66d9ef>for</span> image <span style=color:#f92672>in</span> images:
             <span style=color:#75715e># Original filename with spaces</span>
@@ -289,7 +289,7 @@ print(<span style=color:#e6db74>&#34;Markdown files processed and images copied 
 </code></pre><ul>
 <li>
 <p>This will copy all the images used in the current blog to the images folder inside static.
-<img src=/images/Pasted%20image%2020241203173907.png alt="Image Description"></p>
+<img src=https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203173907.png alt="Image Description"></p>
 </li>
 <li>
 <p>After the images are copied.</p>
@@ -302,7 +302,7 @@ print(<span style=color:#e6db74>&#34;Markdown files processed and images copied 
 </li>
 </ul>
 <p>Whoosh the image has been rendered on our localhost.
-<img src=/images/Pasted%20image%2020241203181859.png alt="Image Description"></p>
+<img src=https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241203181859.png alt="Image Description"></p>
 <h2 id=do-we-always-have-to-run-the-sync-command-and-then-copy-the-images>Do we always have to run the sync command and then copy the images?<a href=#do-we-always-have-to-run-the-sync-command-and-then-copy-the-images class=hanchor arialabel=Anchor>#</a> </h2>
 <ul>
 <li>The simple answer is yes, but we will automate the entire task using a python script at the end of the blog.</li>
@@ -357,7 +357,7 @@ git push origin gh-pages
 <li>Navigate to the Code and Automation Section.</li>
 <li>Click on Actions.</li>
 <li>Click on General.
-<img src=/images/Pasted%20image%2020241204215856.png alt="Image Description"></li>
+<img src=https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241204215856.png alt="Image Description"></li>
 </ul>
 </li>
 <li>Under the Workflow permissions-> click on Read and Write permissions.</li>
