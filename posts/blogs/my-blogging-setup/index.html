@@ -39,7 +39,7 @@
 <meta property="og:image:height" content="627">
 </head>
 <body>
-<div class="container center">
+<div class="container full">
 <header class=header>
 <div class=header__inner>
 <div class=header__logo>
@@ -435,8 +435,104 @@ Ughh the process seems so cumbersome 🤔.</li>
 </ul>
 <h2 id=the-ultimate-python-script-for-one-command-notes--blog>The Ultimate python script for one command notes-> blog<a href=#the-ultimate-python-script-for-one-command-notes--blog class=hanchor arialabel=Anchor>#</a> </h2>
 <ul>
-<li></li>
+<li>Save the script with <code>.sh</code></li>
 </ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e>#!/bin/bash
+</span><span style=color:#75715e></span>set -euo pipefail
+<span style=color:#75715e># Change to the script&#39;s directory</span>
+SCRIPT_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>cd <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>dirname <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>BASH_SOURCE[0]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>&amp;&amp;</span> pwd<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+cd <span style=color:#e6db74>&#34;</span>$SCRIPT_DIR<span style=color:#e6db74>&#34;</span>
+<span style=color:#75715e># Set variables for Obsidian to Hugo copy</span>
+sourcePath<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&lt;source in obsidian&gt;&#34;</span>
+destinationPath<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&lt;Destination inside hugo content/blogs&gt;&#34;</span>
+<span style=color:#75715e># Set GitHub Repo</span>
+myrepo<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;reponame&#34;</span>
+
+<span style=color:#75715e># Check for required commands</span>
+<span style=color:#66d9ef>for</span> cmd in git rsync python3 hugo; <span style=color:#66d9ef>do</span>
+    <span style=color:#66d9ef>if</span> ! command -v $cmd &amp;&gt; /dev/null; <span style=color:#66d9ef>then</span>
+        echo <span style=color:#e6db74>&#34;</span>$cmd<span style=color:#e6db74> is not installed or not in PATH.&#34;</span>
+        exit <span style=color:#ae81ff>1</span>
+    <span style=color:#66d9ef>fi</span>
+<span style=color:#66d9ef>done</span>
+
+<span style=color:#75715e># Step 1: Check if Git is initialized, and initialize if necessary</span>
+<span style=color:#66d9ef>if</span> ! git remote | grep -q <span style=color:#e6db74>&#39;origin&#39;</span>; <span style=color:#66d9ef>then</span>
+    git remote add origin <span style=color:#e6db74>&#34;</span>$myrepo<span style=color:#e6db74>&#34;</span>
+    echo <span style=color:#e6db74>&#34;Remote &#39;origin&#39; added.&#34;</span>
+<span style=color:#66d9ef>else</span>
+    echo <span style=color:#e6db74>&#34;Remote &#39;origin&#39; already exists.&#34;</span>
+
+<span style=color:#66d9ef>fi</span>
+
+<span style=color:#75715e># Step 2: Sync posts from Obsidian to Hugo content folder using rsync</span>
+echo <span style=color:#e6db74>&#34;Syncing posts from Obsidian...&#34;</span>
+<span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -d <span style=color:#e6db74>&#34;</span>$sourcePath<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;Source path does not exist: </span>$sourcePath<span style=color:#e6db74>&#34;</span>
+    exit <span style=color:#ae81ff>1</span>
+<span style=color:#66d9ef>fi</span>
+
+<span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -d <span style=color:#e6db74>&#34;</span>$destinationPath<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;Destination path does not exist: </span>$destinationPath<span style=color:#e6db74>&#34;</span>
+    exit <span style=color:#ae81ff>1</span>
+<span style=color:#66d9ef>fi</span>
+
+rsync -av --delete <span style=color:#e6db74>&#34;</span>$sourcePath<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$destinationPath<span style=color:#e6db74>&#34;</span>
+
+<span style=color:#75715e># Step 3: Process Markdown files with Python script to handle image links</span>
+echo <span style=color:#e6db74>&#34;Processing image links in Markdown files...&#34;</span>
+<span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -f <span style=color:#e6db74>&#34;images.py&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;Python script images.py not found.&#34;</span>
+    exit <span style=color:#ae81ff>1</span>
+<span style=color:#66d9ef>fi</span>
+
+<span style=color:#66d9ef>if</span> ! python3 images.py; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;Failed to process image links.&#34;</span>
+    exit <span style=color:#ae81ff>1</span>
+<span style=color:#66d9ef>fi</span>
+
+  
+
+<span style=color:#75715e># Step 4: Build the Hugo site</span>
+echo <span style=color:#e6db74>&#34;Building the Hugo site...&#34;</span>
+<span style=color:#66d9ef>if</span> ! hugo; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;Hugo build failed.&#34;</span>
+    exit <span style=color:#ae81ff>1</span>
+<span style=color:#66d9ef>fi</span>
+
+<span style=color:#75715e># Step 5: Add changes to Git</span>
+echo <span style=color:#e6db74>&#34;Staging changes for Git...&#34;</span>
+<span style=color:#66d9ef>if</span> git diff --quiet <span style=color:#f92672>&amp;&amp;</span> git diff --cached --quiet; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;No changes to stage.&#34;</span>
+<span style=color:#66d9ef>else</span>
+    git add .
+<span style=color:#66d9ef>fi</span>
+
+<span style=color:#75715e># Step 6: Commit changes with a dynamic message</span>
+commit_message<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;New Blog Post on </span><span style=color:#66d9ef>$(</span>date +<span style=color:#e6db74>&#39;%Y-%m-%d %H:%M:%S&#39;</span><span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+<span style=color:#66d9ef>if</span> git diff --cached --quiet; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;No changes to commit.&#34;</span>
+<span style=color:#66d9ef>else</span>
+    echo <span style=color:#e6db74>&#34;Committing changes...&#34;</span>
+    git commit -S -m <span style=color:#e6db74>&#34;</span>$commit_message<span style=color:#e6db74>&#34;</span>
+<span style=color:#66d9ef>fi</span>
+
+<span style=color:#75715e># Step 7: Push all changes to the main branch</span>
+echo <span style=color:#e6db74>&#34;Deploying to GitHub Master...&#34;</span>
+<span style=color:#66d9ef>if</span> ! git push origin master; <span style=color:#66d9ef>then</span>
+    echo <span style=color:#e6db74>&#34;Failed to push to master branch.&#34;</span>
+    exit <span style=color:#ae81ff>1</span>
+<span style=color:#66d9ef>fi</span>
+
+echo <span style=color:#e6db74>&#34;All done! Site synced, processed, committed, built, and deployed.&#34;</span>
+</code></pre></div><ul>
+<li>Run the script using</li>
+</ul>
+<pre tabindex=0><code>chmmod +x updateblog.sh
+</code></pre><pre tabindex=0><code>bash updateblog.sh
+</code></pre><p>That directly puts out your content to the GitHub pages.</p>
+<p>Credits: Network Chuck(<a href="https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn">https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn</a>)
+Be Tuned for more blogs 🤗.</p>
 </div></div>
 </article>
 </div>
