@@ -420,11 +420,11 @@ echo "All done! Site synced, processed, committed, built, and deployed."
 ```
 
 - Gives your script execution permission.
-```
+```shell
 chmmod +x updateblog.sh 
 ```
 - Now lets run the scipt.
-```
+```shell
 bash updateblog.sh
 ```
 
