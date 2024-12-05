@@ -331,7 +331,7 @@ Ughh the process seems so cumbersome 🤔.&lt;/li>
 &lt;/ul>
 &lt;h2 id="the-ultimate-python-script-for-one-command-notes--blog">The Ultimate python script for one command notes-&amp;gt; blog&lt;/h2>
 &lt;ul>
-&lt;li>Save the script with &lt;code>.sh&lt;/code>&lt;/li>
+&lt;li>Save the script with &lt;code>.sh&lt;/code> extension&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e">#!/bin/bash
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>set -euo pipefail
@@ -407,10 +407,18 @@ echo &lt;span style="color:#e6db74">&amp;#34;Deploying to GitHub Master...&amp;#
 &lt;span style="color:#66d9ef">fi&lt;/span>
 echo &lt;span style="color:#e6db74">&amp;#34;All done! Site synced, processed, committed, built, and deployed.&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Run the script using&lt;/li>
+&lt;li>Gives your script execution permission.&lt;/li>
 &lt;/ul>
 &lt;pre tabindex="0">&lt;code>chmmod +x updateblog.sh
-&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>bash updateblog.sh
-&lt;/code>&lt;/pre>&lt;p>That directly puts out your content to the GitHub pages.&lt;/p>
-&lt;p>Credits: Network Chuck(&lt;a href="https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn">https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn&lt;/a>)
-Be Tuned for more blogs 🤗.&lt;/p></content></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Now lets run the scipt.&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>bash updateblog.sh
+&lt;/code>&lt;/pre>&lt;h2 id="finally">Finally&lt;/h2>
+&lt;ul>
+&lt;li>Just make changes to your blog, add more blogs&lt;/li>
+&lt;li>go to your terminal, run the magic command &lt;code>bash updateblog.sh&lt;/code>&lt;/li>
+&lt;li>That directly puts out your content to the GitHub pages.&lt;/li>
+&lt;li>Credits: Network Chuck(&lt;a href="https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn">https://youtu.be/dnE7c0ELEH8?si=ctH_oufnQeyGmUkn&lt;/a>)&lt;/li>
+&lt;/ul>
+&lt;h2 id="be-tuned-for-more-blogs-">Be Tuned for more blogs 🤗.&lt;/h2></content></item></channel></rss>
