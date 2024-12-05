@@ -236,52 +236,64 @@ git submodule add -f https://github.com/panr/hugo-theme-terminal.git themes/term
 <li>So we will use a python script to copy all the used images from the attachments folder to folder inside static/images/</li>
 <li>Use this python script naming it as images.py and run it to see the magic😁.</li>
 </ul>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Python data-lang=Python><span style=color:#75715e># create a directory inside static known as images and then use the below code.</span>
-<span style=color:#f92672>import</span> os
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Python data-lang=Python><span style=color:#f92672>import</span> os
 <span style=color:#f92672>import</span> re
 <span style=color:#f92672>import</span> shutil
-  
+
 <span style=color:#75715e># Paths</span>
-posts_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/home/aniketkumar/blogs/AnikiBlog/content/posts/Blogs&#34;</span>
-attachments_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>r</span><span style=color:#e6db74>&#34;/mnt/c/Users/kanik/OneDrive/Documents/MAIN/101 templates&#34;</span>
-static_images_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/home/aniketkumar/blogs/AnikiBlog/static/images&#34;</span>
+posts_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&lt;Blog.md Destination inside&gt;&#34;</span>
+attachments_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>r</span><span style=color:#e6db74>&#34;&lt;Path where obsidian stores its images&gt;&#34;</span>
+static_images_dir <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&lt;Path of static/images directory where you want to copy your images&#34;</span>
+
+<span style=color:#75715e># Base URL for Hugo</span>
+baseURL <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://whitewolf2000ani.github.io/AnikiBlogs&#34;</span>
 
 <span style=color:#75715e># Ensure static images directory exists</span>
 <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>exists(static_images_dir):
     os<span style=color:#f92672>.</span>makedirs(static_images_dir)
-<span style=color:#75715e># Process each markdown file in the posts directory</span>
+
+<span style=color:#75715e># Function to normalize image names (replace spaces with underscores)</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>normalize_image_name</span>(image_name):
+    <span style=color:#66d9ef>return</span> image_name<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#34; &#34;</span>, <span style=color:#e6db74>&#34;_&#34;</span>)
+    
+<span style=color:#75715e># Process each Markdown file in the posts directory</span>
 <span style=color:#66d9ef>for</span> filename <span style=color:#f92672>in</span> os<span style=color:#f92672>.</span>listdir(posts_dir):
     <span style=color:#66d9ef>if</span> filename<span style=color:#f92672>.</span>endswith(<span style=color:#e6db74>&#34;.md&#34;</span>):
         filepath <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(posts_dir, filename)
         <span style=color:#66d9ef>with</span> open(filepath, <span style=color:#e6db74>&#34;r&#34;</span>) <span style=color:#66d9ef>as</span> file:
             content <span style=color:#f92672>=</span> file<span style=color:#f92672>.</span>read()
-        <span style=color:#75715e># Find all image links in the format `![Image Description](https://whitewolf2000ani.github.io/AnikiBlogs/images/filename.png)`</span>
-        images <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#34;!\[\[([^]]+\.png)\]\]&#34;</span>, content)
+            
+        <span style=color:#75715e># Find all image links in the format `![[filename.extension]]`</span>
+        images <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>findall(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#34;!\[\[([^]]+\.(?:png|jpg|jpeg|gif|webp))\]\]&#34;</span>, content)
+
         <span style=color:#66d9ef>for</span> image <span style=color:#f92672>in</span> images:
-            <span style=color:#75715e># Original filename with spaces</span>
+            <span style=color:#75715e># Normalize the image filename</span>
+            normalized_image_name <span style=color:#f92672>=</span> normalize_image_name(image)
+            <span style=color:#75715e># Original and normalized filenames</span>
             image_with_spaces <span style=color:#f92672>=</span> image
-            <span style=color:#75715e># Markdown-compatible filename with `%20`</span>
-            image_with_encoded_spaces <span style=color:#f92672>=</span> image<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#34; &#34;</span>, <span style=color:#e6db74>&#34;%20&#34;</span>)
+            image_with_encoded_spaces <span style=color:#f92672>=</span> normalized_image_name
+
             <span style=color:#75715e># Path to the original image</span>
             image_source <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(attachments_dir, image_with_spaces)
             print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Checking for image: </span><span style=color:#e6db74>{</span>image_source<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+
             <span style=color:#75715e># Replace Markdown link with a Hugo-compatible link</span>
-            new_image_link <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;![Image Description](/images/</span><span style=color:#e6db74>{</span>image_with_encoded_spaces<span style=color:#e6db74>}</span><span style=color:#e6db74>)&#34;</span>
+            new_image_link <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;![Image Description](</span><span style=color:#e6db74>{</span>baseURL<span style=color:#e6db74>}</span><span style=color:#e6db74>/images/</span><span style=color:#e6db74>{</span>image_with_encoded_spaces<span style=color:#e6db74>}</span><span style=color:#e6db74>)&#34;</span>
             content <span style=color:#f92672>=</span> content<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;![[</span><span style=color:#e6db74>{</span>image_with_spaces<span style=color:#e6db74>}</span><span style=color:#e6db74>]]&#34;</span>, new_image_link)
+
             <span style=color:#75715e># Copy the image to the static directory if it exists</span>
             <span style=color:#66d9ef>if</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>exists(image_source):
-                <span style=color:#75715e># Copy the image to the static directory without changing its name</span>
-                shutil<span style=color:#f92672>.</span>copy(image_source, os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(static_images_dir, image_with_spaces))
-                print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Copied: </span><span style=color:#e6db74>{</span>image_source<span style=color:#e6db74>}</span><span style=color:#e6db74> -&gt; </span><span style=color:#e6db74>{</span>static_images_dir<span style=color:#e6db74>}</span><span style=color:#e6db74>/</span><span style=color:#e6db74>{</span>image_with_spaces<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+                <span style=color:#75715e># Copy the image to the static directory with a normalized name</span>
+                shutil<span style=color:#f92672>.</span>copy(image_source, os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(static_images_dir, normalized_image_name))
+                print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Copied: </span><span style=color:#e6db74>{</span>image_source<span style=color:#e6db74>}</span><span style=color:#e6db74> -&gt; </span><span style=color:#e6db74>{</span>static_images_dir<span style=color:#e6db74>}</span><span style=color:#e6db74>/</span><span style=color:#e6db74>{</span>normalized_image_name<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
             <span style=color:#66d9ef>else</span>:
                 print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Image not found: </span><span style=color:#e6db74>{</span>image_source<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
-
+                
         <span style=color:#75715e># Write updated content back to the file</span>
         <span style=color:#66d9ef>with</span> open(filepath, <span style=color:#e6db74>&#34;w&#34;</span>) <span style=color:#66d9ef>as</span> file:
             file<span style=color:#f92672>.</span>write(content)
 
 print(<span style=color:#e6db74>&#34;Markdown files processed and images copied successfully.&#34;</span>)
-
 </code></pre></div><ul>
 <li>After using the below script run.</li>
 </ul>
@@ -412,6 +424,18 @@ git push origin master
 <li>Step 8: Take a breather till the actions are getting completed.</li>
 <li>Step 9: After the actions are completed go the same settings/ pages option and open the deployment link.(As the link you are using to read the blog)</li>
 <li>Step 10: Here you go your Blog site is up and running for everyone to see.😍</li>
+</ul>
+<h2 id=lets-summarize>Let&rsquo;s Summarize<a href=#lets-summarize class=hanchor arialabel=Anchor>#</a> </h2>
+<ul>
+<li>We write our content inside Obsidian.</li>
+<li>Copy this .md file into our Blogs directory using rsync/robocopy</li>
+<li>We create a copy of the images used in our blog to the <code>static/images</code> folder using <code>images.py</code></li>
+<li>Now we push it to our master branch after which the <code>deployment.yml</code> deploys it to our GitHub page using the <code>gh-pg</code> branch.<br>
+Ughh the process seems so cumbersome 🤔.</li>
+</ul>
+<h2 id=the-ultimate-python-script-for-one-command-notes--blog>The Ultimate python script for one command notes-> blog<a href=#the-ultimate-python-script-for-one-command-notes--blog class=hanchor arialabel=Anchor>#</a> </h2>
+<ul>
+<li></li>
 </ul>
 </div></div>
 </article>
