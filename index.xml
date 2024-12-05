@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/new-note/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/new-note/</guid><description/><content>&lt;p>&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20241205222744.png" alt="Image Description">&lt;/p></content></item><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
 Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</description><content>&lt;h2 id="why-am-i-doing-this">Why am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>A Repository or a store for whatever cool concepts I study/Understand.&lt;/li>
@@ -409,12 +409,12 @@ echo &lt;span style="color:#e6db74">&amp;#34;All done! Site synced, processed, c
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Gives your script execution permission.&lt;/li>
 &lt;/ul>
-&lt;pre tabindex="0">&lt;code>chmmod +x updateblog.sh
-&lt;/code>&lt;/pre>&lt;ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">chmmod +x updateblog.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Now lets run the scipt.&lt;/li>
 &lt;/ul>
-&lt;pre tabindex="0">&lt;code>bash updateblog.sh
-&lt;/code>&lt;/pre>&lt;h2 id="finally">Finally&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">bash updateblog.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="finally">Finally&lt;/h2>
 &lt;ul>
 &lt;li>Just make changes to your blog, add more blogs&lt;/li>
 &lt;li>go to your terminal, run the magic command &lt;code>bash updateblog.sh&lt;/code>&lt;/li>
