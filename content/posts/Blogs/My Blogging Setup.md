@@ -1,6 +1,6 @@
 ---
 title: Obsidian Notes -> Blogs
-date: 03/12/2025
+date: 5/12/2024
 ---
 ## Why am I doing this?
 - A Repository or a store for whatever cool concepts I study/Understand.
@@ -145,52 +145,64 @@ robocopy sourcepath destination path /mir
 - So we will use a python script to copy all the used images from the attachments folder to folder inside static/images/
 - Use this python script naming it as images.py and run it to see the magic😁. 
 ``` Python
-# create a directory inside static known as images and then use the below code.
 import os
 import re
 import shutil
-  
+
 # Paths
-posts_dir = "/home/aniketkumar/blogs/AnikiBlog/content/posts/Blogs"
-attachments_dir = r"/mnt/c/Users/kanik/OneDrive/Documents/MAIN/101 templates"
-static_images_dir = "/home/aniketkumar/blogs/AnikiBlog/static/images"
+posts_dir = "<Blog.md Destination inside>"
+attachments_dir = r"<Path where obsidian stores its images>"
+static_images_dir = "<Path of static/images directory where you want to copy your images"
+
+# Base URL for Hugo
+baseURL = "https://whitewolf2000ani.github.io/AnikiBlogs"
 
 # Ensure static images directory exists
 if not os.path.exists(static_images_dir):
     os.makedirs(static_images_dir)
-# Process each markdown file in the posts directory
+
+# Function to normalize image names (replace spaces with underscores)
+def normalize_image_name(image_name):
+    return image_name.replace(" ", "_")
+    
+# Process each Markdown file in the posts directory
 for filename in os.listdir(posts_dir):
     if filename.endswith(".md"):
         filepath = os.path.join(posts_dir, filename)
         with open(filepath, "r") as file:
             content = file.read()
-        # Find all image links in the format `![Image Description](https://whitewolf2000ani.github.io/AnikiBlogs/images/filename.png)`
-        images = re.findall(r"!\[\[([^]]+\.png)\]\]", content)
+            
+        # Find all image links in the format `![[filename.extension]]`
+        images = re.findall(r"!\[\[([^]]+\.(?:png|jpg|jpeg|gif|webp))\]\]", content)
+
         for image in images:
-            # Original filename with spaces
+            # Normalize the image filename
+            normalized_image_name = normalize_image_name(image)
+            # Original and normalized filenames
             image_with_spaces = image
-            # Markdown-compatible filename with `%20`
-            image_with_encoded_spaces = image.replace(" ", "%20")
+            image_with_encoded_spaces = normalized_image_name
+
             # Path to the original image
             image_source = os.path.join(attachments_dir, image_with_spaces)
             print(f"Checking for image: {image_source}")
+
             # Replace Markdown link with a Hugo-compatible link
-            new_image_link = f"![Image Description](/images/{image_with_encoded_spaces})"
+            new_image_link = f"![Image Description]({baseURL}/images/{image_with_encoded_spaces})"
             content = content.replace(f"![[{image_with_spaces}]]", new_image_link)
+
             # Copy the image to the static directory if it exists
             if os.path.exists(image_source):
-                # Copy the image to the static directory without changing its name
-                shutil.copy(image_source, os.path.join(static_images_dir, image_with_spaces))
-                print(f"Copied: {image_source} -> {static_images_dir}/{image_with_spaces}")
+                # Copy the image to the static directory with a normalized name
+                shutil.copy(image_source, os.path.join(static_images_dir, normalized_image_name))
+                print(f"Copied: {image_source} -> {static_images_dir}/{normalized_image_name}")
             else:
                 print(f"Image not found: {image_source}")
-
+                
         # Write updated content back to the file
         with open(filepath, "w") as file:
             file.write(content)
 
 print("Markdown files processed and images copied successfully.")
-
 ```
 - After using the below script run.
 ```terminal
@@ -307,3 +319,12 @@ git push origin master
 - Step 9: After the actions are completed go the same settings/ pages option and open the deployment link.(As the link you are using to read the blog)
 - Step 10: Here you go your Blog site is up and running for everyone to see.😍
 
+## Let's Summarize
+- We write our content inside Obsidian.
+- Copy this .md file into our Blogs directory using rsync/robocopy 
+- We create a copy of the images used in our blog to the `static/images` folder using `images.py`
+- Now we push it to our master branch after which the `deployment.yml` deploys it to our GitHub page using the `gh-pg` branch.  
+Ughh the process seems so cumbersome 🤔. 
+
+## The Ultimate python script for one command notes-> blog
+- 
