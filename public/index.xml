@@ -5,11 +5,12 @@
     <link>https://whitewolf2000ani.github.io/AnikiBlogs/</link>
     <description>Recent content on Aniki&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Thu, 05 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Obsidian Notes -&gt; Blogs</title>
       <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 05 Dec 2024 00:00:00 +0000</pubDate>
       
       <guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid>
       <description>Why am I doing this?  A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public.  How am I doing this?  Obsidian https://obsidian.md/  Hugo for building the static website blazingly fast.  Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)

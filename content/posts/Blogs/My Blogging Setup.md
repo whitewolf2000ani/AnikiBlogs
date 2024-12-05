@@ -1,6 +1,6 @@
 ---
 title: Obsidian Notes -> Blogs
-date: 5/12/2024
+date: 2024-12-05
 ---
 ## Why am I doing this?
 - A Repository or a store for whatever cool concepts I study/Understand.
