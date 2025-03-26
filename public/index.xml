@@ -6,7 +6,17 @@
     <description>Recent content on Aniki&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fine-Tuning Models</title>
+      <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</link>
+      <pubDate>Sun, 23 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</guid>
+      <description>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.
+Setting Up Your Colab Environment # 1. Connect to a GPU runtime # Go to Runtime &amp;gt; Change runtime type &amp;gt; GPU # 2. Verify GPU is available !nvidia-smi # 3. Install necessary libraries !pip install -q transformers datasets accelerate peft bitsandbytes trl tensorboard Method 1: QLoRA Fine-Tuning for Large Models This approach is ideal for 7B+ parameter models on Colab&amp;rsquo;s limited GPU:</description>
+    </item>
+    
     <item>
       <title>Obsidian Notes -&gt; Blogs</title>
       <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link>
