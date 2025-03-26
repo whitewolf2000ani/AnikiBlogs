@@ -6,7 +6,17 @@
     <description>Recent content on Aniki&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 21 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implementing Open LLM Models with JAX and Flax</title>
+      <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</link>
+      <pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</guid>
+      <description>Before diving into the implementation details, I want to summarize our approach: we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.
+Project Overview JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.</description>
+    </item>
+    
     <item>
       <title>Fine-Tuning Models</title>
       <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</link>
