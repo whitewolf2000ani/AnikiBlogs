@@ -76,7 +76,7 @@ paginate = 5
 
       [languages.en.params.logo]
         logoText = "Aniki's Blog"
-        logoHomeLink = "/"
+        logoHomeLink = "/AnikiBlogs/"
 
       [languages.en.menu]
         [[languages.en.menu.main]]
