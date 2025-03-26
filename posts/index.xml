@@ -1,4 +1,255 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 23 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Fine-Tuning Models</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</link><pubDate>Sun, 23 Feb 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</guid><description>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 21 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Implementing Open LLM Models with JAX and Flax</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</guid><description>Before diving into the implementation details, I want to summarize our approach: we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.
+Project Overview JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.</description><content>&lt;hr>
+&lt;p>Before diving into the implementation details,
+I want to summarize our approach:
+we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.&lt;/p>
+&lt;h2 id="project-overview">Project Overview&lt;/h2>
+&lt;p>JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.&lt;/p>
+&lt;h2 id="implementation-roadmap">Implementation Roadmap&lt;/h2>
+&lt;h3 id="phase-1-environment-setup-and-core-components">Phase 1: Environment Setup and Core Components&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Development Environment Setup&lt;/strong>
+&lt;ul>
+&lt;li>Install JAX with hardware-specific optimizations (GPU/TPU)&lt;/li>
+&lt;li>Install Flax, Optax (optimizers), and supporting libraries&lt;/li>
+&lt;li>Configure development environment with appropriate compute resources&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Implement Core Architecture Components&lt;/strong>
+&lt;ul>
+&lt;li>Token embedding layers&lt;/li>
+&lt;li>Various positional encoding mechanisms (sinusoidal, learned, rotary)&lt;/li>
+&lt;li>Attention mechanisms (multi-head attention with causal masking)&lt;/li>
+&lt;li>Feed-forward networks&lt;/li>
+&lt;li>Normalization layers (LayerNorm, RMSNorm)&lt;/li>
+&lt;li>Complete transformer blocks&lt;/li>
+&lt;li>Model definition classes with initialization and forward functions&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="phase-2-model-implementations">Phase 2: Model Implementations&lt;/h3>
+&lt;p>We&amp;rsquo;ll implement several open-source LLM architectures, starting with simpler models and progressing to more complex ones:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>GPT-2 Style Model&lt;/strong>
+&lt;ul>
+&lt;li>Decoder-only transformer architecture&lt;/li>
+&lt;li>LayerNorm and learned positional embeddings&lt;/li>
+&lt;li>Support for various model sizes (124M to 1.5B parameters)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Gemma Architecture&lt;/strong>
+&lt;ul>
+&lt;li>Google&amp;rsquo;s efficient model developed specifically with JAX/Flax&lt;/li>
+&lt;li>RMSNorm and rotary positional embeddings&lt;/li>
+&lt;li>2B and 7B parameter configurations&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Additional Models (Time Permitting)&lt;/strong>
+&lt;ul>
+&lt;li>OpenLLaMA (open-source implementation of LLaMA)&lt;/li>
+&lt;li>Mistral (with mixture-of-experts layers)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>For each model, we&amp;rsquo;ll implement:&lt;/p>
+&lt;ul>
+&lt;li>Complete model definition classes&lt;/li>
+&lt;li>Initialization from scratch and from pre-trained weights&lt;/li>
+&lt;li>Forward pass functions optimized with JAX transformations&lt;/li>
+&lt;li>Text generation utilities&lt;/li>
+&lt;/ul>
+&lt;h3 id="phase-3-utility-functions-and-optimization">Phase 3: Utility Functions and Optimization&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Weight Loading Utilities&lt;/strong>
+&lt;ul>
+&lt;li>Parameter key remapping between different naming schemes&lt;/li>
+&lt;li>Shape and data type conversion utilities&lt;/li>
+&lt;li>Loading from HuggingFace model repositories&lt;/li>
+&lt;li>Checkpoint saving/loading with Orbax&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Inference and Generation&lt;/strong>
+&lt;ul>
+&lt;li>Greedy decoding implementation&lt;/li>
+&lt;li>Sampling-based generation with temperature control&lt;/li>
+&lt;li>Top-k and top-p (nucleus) sampling&lt;/li>
+&lt;li>Batched inference support&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Performance Optimization&lt;/strong>
+&lt;ul>
+&lt;li>JIT compilation for faster inference&lt;/li>
+&lt;li>Vectorization with vmap for batched processing&lt;/li>
+&lt;li>Device parallelism with pmap for multi-GPU/TPU setups&lt;/li>
+&lt;li>Memory optimization techniques like gradient checkpointing&lt;/li>
+&lt;li>Mixed precision support (bfloat16/fp16)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="phase-4-validation-and-documentation">Phase 4: Validation and Documentation&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Validation Against Reference Implementations&lt;/strong>
+&lt;ul>
+&lt;li>Compare outputs with HuggingFace reference models&lt;/li>
+&lt;li>Validate hidden states and logits using similarity metrics&lt;/li>
+&lt;li>Verify tokenizer consistency&lt;/li>
+&lt;li>Test text generation capabilities&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Documentation and Notebooks&lt;/strong>
+&lt;ul>
+&lt;li>Comprehensive model documentation&lt;/li>
+&lt;li>Jupyter notebooks demonstrating usage&lt;/li>
+&lt;li>Performance benchmarks&lt;/li>
+&lt;li>Best practices for working with JAX/Flax models&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="technical-challenges-and-solutions">Technical Challenges and Solutions&lt;/h2>
+&lt;h3 id="api-compatibility">API Compatibility&lt;/h3>
+&lt;p>Flax is transitioning from the Linen API to the newer NNX API. We&amp;rsquo;ll need to handle compatibility by:&lt;/p>
+&lt;ol>
+&lt;li>Using the flax.nnx.bridge API to convert between Linen and NNX modules&lt;/li>
+&lt;li>Properly handling RNG keys and variable collections&lt;/li>
+&lt;li>Testing thoroughly to ensure compatibility with different versions&lt;/li>
+&lt;/ol>
+&lt;h3 id="memory-management-for-large-models">Memory Management for Large Models&lt;/h3>
+&lt;p>For larger models, we&amp;rsquo;ll implement:&lt;/p>
+&lt;ol>
+&lt;li>Gradient checkpointing to reduce memory usage during training&lt;/li>
+&lt;li>Model parallelism strategies using JAX&amp;rsquo;s device mesh and partition specs&lt;/li>
+&lt;li>Efficient parameter handling to minimize memory overhead&lt;/li>
+&lt;/ol>
+&lt;h3 id="performance-optimization">Performance Optimization&lt;/h3>
+&lt;p>To achieve optimal performance, we&amp;rsquo;ll:&lt;/p>
+&lt;ol>
+&lt;li>Use JAX&amp;rsquo;s transformation functions (jit, vmap, pmap) appropriately&lt;/li>
+&lt;li>Apply XLA optimizations through JAX&lt;/li>
+&lt;li>Implement custom kernels where necessary using jax.lax operations&lt;/li>
+&lt;li>Leverage scan for sequential operations&lt;/li>
+&lt;/ol>
+&lt;h2 id="repository-structure">Repository Structure&lt;/h2>
+&lt;pre tabindex="0">&lt;code>jax-flax-llms/
+├── models/
+│ ├── components.py (shared transformer components)
+│ ├── gpt2/
+│ │ ├── model.py (model definition)
+│ │ ├── config.py (model configuration)
+│ │ └── utils.py (model-specific utilities)
+│ ├── gemma/
+│ │ ├── model.py
+│ │ ├── config.py
+│ │ └── utils.py
+│ └── ...
+├── utils/
+│ ├── loading.py (weight loading utilities)
+│ ├── generation.py (text generation functions)
+│ ├── optimization.py (performance optimization)
+│ └── validation.py (validation against references)
+├── notebooks/
+│ ├── 01_gpt2_tutorial.ipynb
+│ ├── 02_gemma_tutorial.ipynb
+│ └── ...
+├── tests/
+│ ├── test_components.py
+│ ├── test_gpt2.py
+│ ├── test_gemma.py
+│ └── ...
+├── requirements.txt
+└── README.md
+&lt;/code>&lt;/pre>&lt;h2 id="implementation-approach-for-each-model">Implementation Approach for Each Model&lt;/h2>
+&lt;p>For each model (using GPT-2 as an example):&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Architecture Research&lt;/strong>
+&lt;ul>
+&lt;li>Study the original architecture in detail&lt;/li>
+&lt;li>Identify key components and parameter configurations&lt;/li>
+&lt;li>Understand tokenization and preprocessing requirements&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Core Implementation&lt;/strong>
+&lt;ul>
+&lt;li>Define the model class structure&lt;/li>
+&lt;li>Implement all necessary layers and components&lt;/li>
+&lt;li>Create forward pass function with JAX optimizations&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Weight Loading&lt;/strong>
+&lt;ul>
+&lt;li>Create mapping between original weights and our implementation&lt;/li>
+&lt;li>Implement conversion functions for loading pre-trained weights&lt;/li>
+&lt;li>Test with published checkpoints&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Inference and Generation&lt;/strong>
+&lt;ul>
+&lt;li>Implement text generation capabilities&lt;/li>
+&lt;li>Optimize for inference speed using JAX transformations&lt;/li>
+&lt;li>Support various decoding strategies&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Documentation and Examples&lt;/strong>
+&lt;ul>
+&lt;li>Create comprehensive model documentation&lt;/li>
+&lt;li>Develop clear notebooks showing initialization, loading, and generation&lt;/li>
+&lt;li>Include performance benchmarks&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="tools-and-dependencies">Tools and Dependencies&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Core Libraries&lt;/strong>
+&lt;ul>
+&lt;li>JAX and JAXLIB (with GPU/TPU support)&lt;/li>
+&lt;li>Flax (neural network library)&lt;/li>
+&lt;li>Optax (optimizers)&lt;/li>
+&lt;li>Orbax (checkpointing)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Support Libraries&lt;/strong>
+&lt;ul>
+&lt;li>Transformers (for reference models and tokenizers)&lt;/li>
+&lt;li>NumPy and SciPy (numerical computing)&lt;/li>
+&lt;li>Matplotlib (visualization)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Development Tools&lt;/strong>
+&lt;ul>
+&lt;li>Jupyter notebooks (for examples and demonstrations)&lt;/li>
+&lt;li>PyTest (for testing)&lt;/li>
+&lt;li>GitHub (for version control and publication)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="educational-focus">Educational Focus&lt;/h2>
+&lt;p>Since this project is primarily educational, we&amp;rsquo;ll emphasize:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Clear, Well-Documented Code&lt;/strong>
+&lt;ul>
+&lt;li>Comprehensive docstrings&lt;/li>
+&lt;li>Explanatory comments for complex sections&lt;/li>
+&lt;li>Consistent style and naming conventions&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Conceptual Understanding&lt;/strong>
+&lt;ul>
+&lt;li>Explain architecture decisions in documentation&lt;/li>
+&lt;li>Compare implementation choices with original models&lt;/li>
+&lt;li>Highlight JAX/Flax-specific optimizations&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Practical Examples&lt;/strong>
+&lt;ul>
+&lt;li>Step-by-step notebooks for different use cases&lt;/li>
+&lt;li>Performance comparison between optimization strategies&lt;/li>
+&lt;li>Tips and best practices for working with JAX/Flax&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>This project will create a valuable educational resource for researchers and developers interested in implementing LLMs with JAX and Flax. By providing clear, optimized implementations of popular open-source architectures, along with comprehensive documentation and examples, we&amp;rsquo;ll help bridge the gap between theoretical understanding and practical implementation.&lt;/p>
+&lt;p>The end result will be a GitHub repository showcasing these implementations, ready for others to use as reference material or starting points for their own research and experimentation.&lt;/p>
+&lt;!-- raw HTML omitted --></content></item><item><title>Fine-Tuning Models</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</link><pubDate>Sun, 23 Feb 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</guid><description>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.
 Setting Up Your Colab Environment # 1. Connect to a GPU runtime # Go to Runtime &amp;gt; Change runtime type &amp;gt; GPU # 2. Verify GPU is available !nvidia-smi # 3. Install necessary libraries !pip install -q transformers datasets accelerate peft bitsandbytes trl tensorboard Method 1: QLoRA Fine-Tuning for Large Models This approach is ideal for 7B+ parameter models on Colab&amp;rsquo;s limited GPU:</description><content>&lt;p>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.&lt;/p>
 &lt;h2 id="setting-up-your-colab-environment">Setting Up Your Colab Environment&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># 1. Connect to a GPU runtime&lt;/span>

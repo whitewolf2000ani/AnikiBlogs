@@ -1,0 +1,361 @@
+<!doctype html><html lang=en>
+<head>
+<title>Implementing Open LLM Models with JAX and Flax :: Aniki's Blog</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Before diving into the implementation details, I want to summarize our approach: we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.
+Project Overview JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<link rel=canonical href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/buttons.min.2bc533403a27dfe0e93105a92502b42ce4587e2e4a87d9f7d349e51e16e09478.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/code.min.00125962708925857e7b66dbc58391d55be1191a3d0ce2034de8c9cd2c481c36.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/fonts.min.4881f0c525f3ce2a1864fb6e96676396cebe1e6fcef1933e8e1dde7041004fb5.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/footer.min.2e3eb191baee58dd05a9f0104ac1fab0827bca7c64dafe0b2579f934c33a1d69.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/header.min.b6fb4423cf82a9f9d7abc9cd010223fa3d70a6526a3f28f8e17d814c06e18f9e.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/main.min.fe8dc560fccb53a458b0db19ccb7b265764ac46b68596b7e099c6793054dd457.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/menu.min.83637a90d903026bc280d3f82f96ceb06c5fc72b7c1a8d686afb5bbf818a29f7.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/pagination.min.82f6400eae7c7c6dc3c866733c2ec0579e4089608fea69400ff85b3880aa0d3c.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/post.min.fc74ca360273c1d828da3c02b8174eba435607b369d98418ccc6f2243cd4e75d.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/prism.min.9023bbc24533d09e97a51a0a42a5a7bfe4c591ae167c5551fb1d2191d11977c0.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/syntax.min.cc789ed9377260d7949ea4c18781fc58959a89287210fe4edbff44ebfc1511b6.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/terminal.min.dd0bf9c7cacb24c1b0184f52f1869b274e06689557468cc7030ccf632328eb97.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css>
+<link rel="shortcut icon" href=https://whitewolf2000ani.github.io/AnikiBlogs/favicon.png>
+<link rel=apple-touch-icon href=https://whitewolf2000ani.github.io/AnikiBlogs/apple-touch-icon.png>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content>
+<meta name=twitter:creator content>
+<meta property="og:locale" content="en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Implementing Open LLM Models with JAX and Flax">
+<meta property="og:description" content="Before diving into the implementation details, I want to summarize our approach: we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.
+Project Overview JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.">
+<meta property="og:url" content="https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/">
+<meta property="og:site_name" content="Aniki's Blog">
+<meta property="og:image" content="https://whitewolf2000ani.github.io/AnikiBlogs/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="article:published_time" content="2025-03-21 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class="container full">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+Aniki's Blog
+</div>
+</a>
+</div>
+<ul class="menu menu--mobile">
+<li class=menu__trigger>Menu&nbsp;▾</li>
+<li>
+<ul class=menu__dropdown>
+<li><a href=/AnikiBlogs/about>About</a></li>
+<li><a href=/AnikiBlogs/showcase>Showcase</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<nav class=navigation-menu>
+<ul class="navigation-menu__inner menu--desktop">
+<li>
+<ul class=menu>
+<li class=menu__trigger>Show more&nbsp;▾</li>
+<li>
+<ul class=menu__dropdown>
+<li><a href=/AnikiBlogs/about>About</a></li>
+<li><a href=/AnikiBlogs/showcase>Showcase</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<article class=post>
+<h1 class=post-title>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/>Implementing Open LLM Models with JAX and Flax</a>
+</h1>
+<div class=post-meta><time class=post-date>2025-03-21</time></div>
+<div class=post-content><div>
+<hr>
+<p>Before diving into the implementation details,
+I want to summarize our approach:
+we&rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.</p>
+<h2 id=project-overview>Project Overview<a href=#project-overview class=hanchor arialabel=Anchor>#</a> </h2>
+<p>JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.</p>
+<h2 id=implementation-roadmap>Implementation Roadmap<a href=#implementation-roadmap class=hanchor arialabel=Anchor>#</a> </h2>
+<h3 id=phase-1-environment-setup-and-core-components>Phase 1: Environment Setup and Core Components<a href=#phase-1-environment-setup-and-core-components class=hanchor arialabel=Anchor>#</a> </h3>
+<ol>
+<li><strong>Development Environment Setup</strong>
+<ul>
+<li>Install JAX with hardware-specific optimizations (GPU/TPU)</li>
+<li>Install Flax, Optax (optimizers), and supporting libraries</li>
+<li>Configure development environment with appropriate compute resources</li>
+</ul>
+</li>
+<li><strong>Implement Core Architecture Components</strong>
+<ul>
+<li>Token embedding layers</li>
+<li>Various positional encoding mechanisms (sinusoidal, learned, rotary)</li>
+<li>Attention mechanisms (multi-head attention with causal masking)</li>
+<li>Feed-forward networks</li>
+<li>Normalization layers (LayerNorm, RMSNorm)</li>
+<li>Complete transformer blocks</li>
+<li>Model definition classes with initialization and forward functions</li>
+</ul>
+</li>
+</ol>
+<h3 id=phase-2-model-implementations>Phase 2: Model Implementations<a href=#phase-2-model-implementations class=hanchor arialabel=Anchor>#</a> </h3>
+<p>We&rsquo;ll implement several open-source LLM architectures, starting with simpler models and progressing to more complex ones:</p>
+<ol>
+<li><strong>GPT-2 Style Model</strong>
+<ul>
+<li>Decoder-only transformer architecture</li>
+<li>LayerNorm and learned positional embeddings</li>
+<li>Support for various model sizes (124M to 1.5B parameters)</li>
+</ul>
+</li>
+<li><strong>Gemma Architecture</strong>
+<ul>
+<li>Google&rsquo;s efficient model developed specifically with JAX/Flax</li>
+<li>RMSNorm and rotary positional embeddings</li>
+<li>2B and 7B parameter configurations</li>
+</ul>
+</li>
+<li><strong>Additional Models (Time Permitting)</strong>
+<ul>
+<li>OpenLLaMA (open-source implementation of LLaMA)</li>
+<li>Mistral (with mixture-of-experts layers)</li>
+</ul>
+</li>
+</ol>
+<p>For each model, we&rsquo;ll implement:</p>
+<ul>
+<li>Complete model definition classes</li>
+<li>Initialization from scratch and from pre-trained weights</li>
+<li>Forward pass functions optimized with JAX transformations</li>
+<li>Text generation utilities</li>
+</ul>
+<h3 id=phase-3-utility-functions-and-optimization>Phase 3: Utility Functions and Optimization<a href=#phase-3-utility-functions-and-optimization class=hanchor arialabel=Anchor>#</a> </h3>
+<ol>
+<li><strong>Weight Loading Utilities</strong>
+<ul>
+<li>Parameter key remapping between different naming schemes</li>
+<li>Shape and data type conversion utilities</li>
+<li>Loading from HuggingFace model repositories</li>
+<li>Checkpoint saving/loading with Orbax</li>
+</ul>
+</li>
+<li><strong>Inference and Generation</strong>
+<ul>
+<li>Greedy decoding implementation</li>
+<li>Sampling-based generation with temperature control</li>
+<li>Top-k and top-p (nucleus) sampling</li>
+<li>Batched inference support</li>
+</ul>
+</li>
+<li><strong>Performance Optimization</strong>
+<ul>
+<li>JIT compilation for faster inference</li>
+<li>Vectorization with vmap for batched processing</li>
+<li>Device parallelism with pmap for multi-GPU/TPU setups</li>
+<li>Memory optimization techniques like gradient checkpointing</li>
+<li>Mixed precision support (bfloat16/fp16)</li>
+</ul>
+</li>
+</ol>
+<h3 id=phase-4-validation-and-documentation>Phase 4: Validation and Documentation<a href=#phase-4-validation-and-documentation class=hanchor arialabel=Anchor>#</a> </h3>
+<ol>
+<li><strong>Validation Against Reference Implementations</strong>
+<ul>
+<li>Compare outputs with HuggingFace reference models</li>
+<li>Validate hidden states and logits using similarity metrics</li>
+<li>Verify tokenizer consistency</li>
+<li>Test text generation capabilities</li>
+</ul>
+</li>
+<li><strong>Documentation and Notebooks</strong>
+<ul>
+<li>Comprehensive model documentation</li>
+<li>Jupyter notebooks demonstrating usage</li>
+<li>Performance benchmarks</li>
+<li>Best practices for working with JAX/Flax models</li>
+</ul>
+</li>
+</ol>
+<h2 id=technical-challenges-and-solutions>Technical Challenges and Solutions<a href=#technical-challenges-and-solutions class=hanchor arialabel=Anchor>#</a> </h2>
+<h3 id=api-compatibility>API Compatibility<a href=#api-compatibility class=hanchor arialabel=Anchor>#</a> </h3>
+<p>Flax is transitioning from the Linen API to the newer NNX API. We&rsquo;ll need to handle compatibility by:</p>
+<ol>
+<li>Using the flax.nnx.bridge API to convert between Linen and NNX modules</li>
+<li>Properly handling RNG keys and variable collections</li>
+<li>Testing thoroughly to ensure compatibility with different versions</li>
+</ol>
+<h3 id=memory-management-for-large-models>Memory Management for Large Models<a href=#memory-management-for-large-models class=hanchor arialabel=Anchor>#</a> </h3>
+<p>For larger models, we&rsquo;ll implement:</p>
+<ol>
+<li>Gradient checkpointing to reduce memory usage during training</li>
+<li>Model parallelism strategies using JAX&rsquo;s device mesh and partition specs</li>
+<li>Efficient parameter handling to minimize memory overhead</li>
+</ol>
+<h3 id=performance-optimization>Performance Optimization<a href=#performance-optimization class=hanchor arialabel=Anchor>#</a> </h3>
+<p>To achieve optimal performance, we&rsquo;ll:</p>
+<ol>
+<li>Use JAX&rsquo;s transformation functions (jit, vmap, pmap) appropriately</li>
+<li>Apply XLA optimizations through JAX</li>
+<li>Implement custom kernels where necessary using jax.lax operations</li>
+<li>Leverage scan for sequential operations</li>
+</ol>
+<h2 id=repository-structure>Repository Structure<a href=#repository-structure class=hanchor arialabel=Anchor>#</a> </h2>
+<pre tabindex=0><code>jax-flax-llms/
+├── models/
+│   ├── components.py (shared transformer components)
+│   ├── gpt2/
+│   │   ├── model.py (model definition)
+│   │   ├── config.py (model configuration)
+│   │   └── utils.py (model-specific utilities)
+│   ├── gemma/
+│   │   ├── model.py
+│   │   ├── config.py
+│   │   └── utils.py
+│   └── ...
+├── utils/
+│   ├── loading.py (weight loading utilities)
+│   ├── generation.py (text generation functions)
+│   ├── optimization.py (performance optimization)
+│   └── validation.py (validation against references)
+├── notebooks/
+│   ├── 01_gpt2_tutorial.ipynb
+│   ├── 02_gemma_tutorial.ipynb
+│   └── ...
+├── tests/
+│   ├── test_components.py
+│   ├── test_gpt2.py
+│   ├── test_gemma.py
+│   └── ...
+├── requirements.txt
+└── README.md
+</code></pre><h2 id=implementation-approach-for-each-model>Implementation Approach for Each Model<a href=#implementation-approach-for-each-model class=hanchor arialabel=Anchor>#</a> </h2>
+<p>For each model (using GPT-2 as an example):</p>
+<ol>
+<li><strong>Architecture Research</strong>
+<ul>
+<li>Study the original architecture in detail</li>
+<li>Identify key components and parameter configurations</li>
+<li>Understand tokenization and preprocessing requirements</li>
+</ul>
+</li>
+<li><strong>Core Implementation</strong>
+<ul>
+<li>Define the model class structure</li>
+<li>Implement all necessary layers and components</li>
+<li>Create forward pass function with JAX optimizations</li>
+</ul>
+</li>
+<li><strong>Weight Loading</strong>
+<ul>
+<li>Create mapping between original weights and our implementation</li>
+<li>Implement conversion functions for loading pre-trained weights</li>
+<li>Test with published checkpoints</li>
+</ul>
+</li>
+<li><strong>Inference and Generation</strong>
+<ul>
+<li>Implement text generation capabilities</li>
+<li>Optimize for inference speed using JAX transformations</li>
+<li>Support various decoding strategies</li>
+</ul>
+</li>
+<li><strong>Documentation and Examples</strong>
+<ul>
+<li>Create comprehensive model documentation</li>
+<li>Develop clear notebooks showing initialization, loading, and generation</li>
+<li>Include performance benchmarks</li>
+</ul>
+</li>
+</ol>
+<h2 id=tools-and-dependencies>Tools and Dependencies<a href=#tools-and-dependencies class=hanchor arialabel=Anchor>#</a> </h2>
+<ol>
+<li><strong>Core Libraries</strong>
+<ul>
+<li>JAX and JAXLIB (with GPU/TPU support)</li>
+<li>Flax (neural network library)</li>
+<li>Optax (optimizers)</li>
+<li>Orbax (checkpointing)</li>
+</ul>
+</li>
+<li><strong>Support Libraries</strong>
+<ul>
+<li>Transformers (for reference models and tokenizers)</li>
+<li>NumPy and SciPy (numerical computing)</li>
+<li>Matplotlib (visualization)</li>
+</ul>
+</li>
+<li><strong>Development Tools</strong>
+<ul>
+<li>Jupyter notebooks (for examples and demonstrations)</li>
+<li>PyTest (for testing)</li>
+<li>GitHub (for version control and publication)</li>
+</ul>
+</li>
+</ol>
+<h2 id=educational-focus>Educational Focus<a href=#educational-focus class=hanchor arialabel=Anchor>#</a> </h2>
+<p>Since this project is primarily educational, we&rsquo;ll emphasize:</p>
+<ol>
+<li><strong>Clear, Well-Documented Code</strong>
+<ul>
+<li>Comprehensive docstrings</li>
+<li>Explanatory comments for complex sections</li>
+<li>Consistent style and naming conventions</li>
+</ul>
+</li>
+<li><strong>Conceptual Understanding</strong>
+<ul>
+<li>Explain architecture decisions in documentation</li>
+<li>Compare implementation choices with original models</li>
+<li>Highlight JAX/Flax-specific optimizations</li>
+</ul>
+</li>
+<li><strong>Practical Examples</strong>
+<ul>
+<li>Step-by-step notebooks for different use cases</li>
+<li>Performance comparison between optimization strategies</li>
+<li>Tips and best practices for working with JAX/Flax</li>
+</ul>
+</li>
+</ol>
+<h2 id=conclusion>Conclusion<a href=#conclusion class=hanchor arialabel=Anchor>#</a> </h2>
+<p>This project will create a valuable educational resource for researchers and developers interested in implementing LLMs with JAX and Flax. By providing clear, optimized implementations of popular open-source architectures, along with comprehensive documentation and examples, we&rsquo;ll help bridge the gap between theoretical understanding and practical implementation.</p>
+<p>The end result will be a GitHub repository showcasing these implementations, ready for others to use as reference material or starting points for their own research and experimentation.</p>
+</div></div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h>Read other posts</span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/ class="button inline next">
+Fine-Tuning Models
+</a>
+</div>
+</div>
+</article>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2025 Powered by <a href=https://gohugo.io>Hugo</a></span>
+<span>:: <a href=https://github.com/panr/hugo-theme-terminal target=_blank>Theme</a> made by <a href=https://github.com/panr target=_blank>panr</a></span>
+</div>
+</div>
+</footer>
+<script type=text/javascript src=/AnikiBlogs/bundle.min.js></script>
+</div>
+</body>
+</html>
