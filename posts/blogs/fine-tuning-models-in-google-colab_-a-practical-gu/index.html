@@ -1,0 +1,309 @@
+<!doctype html><html lang=en>
+<head>
+<title>Fine-Tuning Models :: Aniki's Blog</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.
+Setting Up Your Colab Environment # 1. Connect to a GPU runtime # Go to Runtime &amp;gt; Change runtime type &amp;gt; GPU # 2. Verify GPU is available !nvidia-smi # 3. Install necessary libraries !pip install -q transformers datasets accelerate peft bitsandbytes trl tensorboard Method 1: QLoRA Fine-Tuning for Large Models This approach is ideal for 7B+ parameter models on Colab&amp;rsquo;s limited GPU:">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<link rel=canonical href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/buttons.min.2bc533403a27dfe0e93105a92502b42ce4587e2e4a87d9f7d349e51e16e09478.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/code.min.00125962708925857e7b66dbc58391d55be1191a3d0ce2034de8c9cd2c481c36.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/fonts.min.4881f0c525f3ce2a1864fb6e96676396cebe1e6fcef1933e8e1dde7041004fb5.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/footer.min.2e3eb191baee58dd05a9f0104ac1fab0827bca7c64dafe0b2579f934c33a1d69.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/header.min.b6fb4423cf82a9f9d7abc9cd010223fa3d70a6526a3f28f8e17d814c06e18f9e.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/main.min.fe8dc560fccb53a458b0db19ccb7b265764ac46b68596b7e099c6793054dd457.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/menu.min.83637a90d903026bc280d3f82f96ceb06c5fc72b7c1a8d686afb5bbf818a29f7.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/pagination.min.82f6400eae7c7c6dc3c866733c2ec0579e4089608fea69400ff85b3880aa0d3c.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/post.min.fc74ca360273c1d828da3c02b8174eba435607b369d98418ccc6f2243cd4e75d.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/prism.min.9023bbc24533d09e97a51a0a42a5a7bfe4c591ae167c5551fb1d2191d11977c0.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/syntax.min.cc789ed9377260d7949ea4c18781fc58959a89287210fe4edbff44ebfc1511b6.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/terminal.min.dd0bf9c7cacb24c1b0184f52f1869b274e06689557468cc7030ccf632328eb97.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css>
+<link rel="shortcut icon" href=https://whitewolf2000ani.github.io/AnikiBlogs/favicon.png>
+<link rel=apple-touch-icon href=https://whitewolf2000ani.github.io/AnikiBlogs/apple-touch-icon.png>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content>
+<meta name=twitter:creator content>
+<meta property="og:locale" content="en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fine-Tuning Models">
+<meta property="og:description" content="Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.
+Setting Up Your Colab Environment # 1. Connect to a GPU runtime # Go to Runtime &amp;gt; Change runtime type &amp;gt; GPU # 2. Verify GPU is available !nvidia-smi # 3. Install necessary libraries !pip install -q transformers datasets accelerate peft bitsandbytes trl tensorboard Method 1: QLoRA Fine-Tuning for Large Models This approach is ideal for 7B+ parameter models on Colab&amp;rsquo;s limited GPU:">
+<meta property="og:url" content="https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/">
+<meta property="og:site_name" content="Aniki's Blog">
+<meta property="og:image" content="https://whitewolf2000ani.github.io/AnikiBlogs/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="article:published_time" content="2025-02-23 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class="container full">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/>
+<div class=logo>
+Aniki's Blog
+</div>
+</a>
+</div>
+<ul class="menu menu--mobile">
+<li class=menu__trigger>Menu&nbsp;▾</li>
+<li>
+<ul class=menu__dropdown>
+<li><a href=/AnikiBlogs/about>About</a></li>
+<li><a href=/AnikiBlogs/showcase>Showcase</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<nav class=navigation-menu>
+<ul class="navigation-menu__inner menu--desktop">
+<li>
+<ul class=menu>
+<li class=menu__trigger>Show more&nbsp;▾</li>
+<li>
+<ul class=menu__dropdown>
+<li><a href=/AnikiBlogs/about>About</a></li>
+<li><a href=/AnikiBlogs/showcase>Showcase</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<article class=post>
+<h1 class=post-title>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/>Fine-Tuning Models</a>
+</h1>
+<div class=post-meta><time class=post-date>2025-02-23</time></div>
+<div class=post-content><div>
+<p>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.</p>
+<h2 id=setting-up-your-colab-environment>Setting Up Your Colab Environment<a href=#setting-up-your-colab-environment class=hanchor arialabel=Anchor>#</a> </h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># 1. Connect to a GPU runtime</span>
+<span style=color:#75715e># Go to Runtime &gt; Change runtime type &gt; GPU</span>
+
+<span style=color:#75715e># 2. Verify GPU is available</span>
+<span style=color:#960050;background-color:#1e0010>!</span>nvidia<span style=color:#f92672>-</span>smi
+
+<span style=color:#75715e># 3. Install necessary libraries</span>
+<span style=color:#960050;background-color:#1e0010>!</span>pip install <span style=color:#f92672>-</span>q transformers datasets accelerate peft bitsandbytes trl tensorboard
+</code></pre></div><h2 id=method-1-qlora-fine-tuning-for-large-models>Method 1: QLoRA Fine-Tuning for Large Models<a href=#method-1-qlora-fine-tuning-for-large-models class=hanchor arialabel=Anchor>#</a> </h2>
+<p>This approach is ideal for 7B+ parameter models on Colab&rsquo;s limited GPU:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Import libraries</span>
+<span style=color:#f92672>import</span> torch
+<span style=color:#f92672>from</span> transformers <span style=color:#f92672>import</span> AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+<span style=color:#f92672>from</span> peft <span style=color:#f92672>import</span> LoraConfig, get_peft_model
+<span style=color:#f92672>from</span> datasets <span style=color:#f92672>import</span> load_dataset
+<span style=color:#f92672>from</span> trl <span style=color:#f92672>import</span> SFTTrainer, SFTConfig
+
+<span style=color:#75715e># Configure quantization</span>
+bnb_config <span style=color:#f92672>=</span> BitsAndBytesConfig(
+    load_in_4bit<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>,
+    bnb_4bit_quant_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nf4&#34;</span>,
+    bnb_4bit_compute_dtype<span style=color:#f92672>=</span>torch<span style=color:#f92672>.</span>float16
+)
+
+<span style=color:#75715e># Load model and tokenizer</span>
+model_id <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;meta-llama/Llama-2-7b-hf&#34;</span>  <span style=color:#75715e># Or any compatible model</span>
+tokenizer <span style=color:#f92672>=</span> AutoTokenizer<span style=color:#f92672>.</span>from_pretrained(model_id)
+tokenizer<span style=color:#f92672>.</span>pad_token <span style=color:#f92672>=</span> tokenizer<span style=color:#f92672>.</span>eos_token
+
+model <span style=color:#f92672>=</span> AutoModelForCausalLM<span style=color:#f92672>.</span>from_pretrained(
+    model_id,
+    quantization_config<span style=color:#f92672>=</span>bnb_config,
+    device_map<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;auto&#34;</span>
+)
+
+<span style=color:#75715e># Configure LoRA</span>
+lora_config <span style=color:#f92672>=</span> LoraConfig(
+    r<span style=color:#f92672>=</span><span style=color:#ae81ff>16</span>,
+    lora_alpha<span style=color:#f92672>=</span><span style=color:#ae81ff>32</span>,
+    lora_dropout<span style=color:#f92672>=</span><span style=color:#ae81ff>0.05</span>,
+    bias<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;none&#34;</span>,
+    task_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;CAUSAL_LM&#34;</span>,
+    target_modules<span style=color:#f92672>=</span>[<span style=color:#e6db74>&#34;q_proj&#34;</span>, <span style=color:#e6db74>&#34;v_proj&#34;</span>, <span style=color:#e6db74>&#34;k_proj&#34;</span>, <span style=color:#e6db74>&#34;o_proj&#34;</span>, <span style=color:#e6db74>&#34;gate_proj&#34;</span>, <span style=color:#e6db74>&#34;up_proj&#34;</span>, <span style=color:#e6db74>&#34;down_proj&#34;</span>]
+)
+
+<span style=color:#75715e># Apply LoRA to model</span>
+model <span style=color:#f92672>=</span> get_peft_model(model, lora_config)
+model<span style=color:#f92672>.</span>print_trainable_parameters()
+
+<span style=color:#75715e># Prepare dataset</span>
+<span style=color:#75715e># Option 1: Load from Hugging Face</span>
+dataset <span style=color:#f92672>=</span> load_dataset(<span style=color:#e6db74>&#34;Abirate/english_quotes&#34;</span>, split<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;train&#34;</span>)
+
+<span style=color:#75715e># Option 2: Or upload CSV to Colab</span>
+<span style=color:#f92672>from</span> google.colab <span style=color:#f92672>import</span> files
+uploaded <span style=color:#f92672>=</span> files<span style=color:#f92672>.</span>upload()  <span style=color:#75715e># Upload your CSV</span>
+<span style=color:#f92672>import</span> pandas <span style=color:#66d9ef>as</span> pd
+<span style=color:#f92672>from</span> datasets <span style=color:#f92672>import</span> Dataset
+df <span style=color:#f92672>=</span> pd<span style=color:#f92672>.</span>read_csv(<span style=color:#e6db74>&#34;your_file.csv&#34;</span>)
+dataset <span style=color:#f92672>=</span> Dataset<span style=color:#f92672>.</span>from_pandas(df)
+
+<span style=color:#75715e># Configure trainer</span>
+training_args <span style=color:#f92672>=</span> SFTConfig(
+    output_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;./results&#34;</span>,
+    num_train_epochs<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>,
+    per_device_train_batch_size<span style=color:#f92672>=</span><span style=color:#ae81ff>4</span>,
+    gradient_accumulation_steps<span style=color:#f92672>=</span><span style=color:#ae81ff>4</span>,
+    learning_rate<span style=color:#f92672>=</span><span style=color:#ae81ff>2e-4</span>,
+    logging_steps<span style=color:#f92672>=</span><span style=color:#ae81ff>50</span>,
+    save_strategy<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;epoch&#34;</span>,
+    fp16<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>,
+)
+
+<span style=color:#75715e># Initialize trainer</span>
+trainer <span style=color:#f92672>=</span> SFTTrainer(
+    model<span style=color:#f92672>=</span>model,
+    args<span style=color:#f92672>=</span>training_args,
+    train_dataset<span style=color:#f92672>=</span>dataset,
+    tokenizer<span style=color:#f92672>=</span>tokenizer,
+    dataset_text_field<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;quote&#34;</span>  <span style=color:#75715e># Change to your text column name</span>
+)
+
+<span style=color:#75715e># Start training</span>
+trainer<span style=color:#f92672>.</span>train()
+
+<span style=color:#75715e># Save the model</span>
+peft_model_id <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;my-fine-tuned-model&#34;</span>
+trainer<span style=color:#f92672>.</span>model<span style=color:#f92672>.</span>save_pretrained(peft_model_id)
+tokenizer<span style=color:#f92672>.</span>save_pretrained(peft_model_id)
+
+<span style=color:#75715e># Save to Google Drive (to avoid losing work)</span>
+<span style=color:#f92672>from</span> google.colab <span style=color:#f92672>import</span> drive
+drive<span style=color:#f92672>.</span>mount(<span style=color:#e6db74>&#39;/content/drive&#39;</span>)
+<span style=color:#960050;background-color:#1e0010>!</span>cp <span style=color:#f92672>-</span>r {peft_model_id} <span style=color:#f92672>/</span>content<span style=color:#f92672>/</span>drive<span style=color:#f92672>/</span>MyDrive<span style=color:#f92672>/</span>
+</code></pre></div><h2 id=method-2-full-fine-tuning-for-smaller-models>Method 2: Full Fine-Tuning for Smaller Models<a href=#method-2-full-fine-tuning-for-smaller-models class=hanchor arialabel=Anchor>#</a> </h2>
+<p>For smaller models (under 3B parameters) that fit fully in Colab&rsquo;s GPU:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> torch
+<span style=color:#f92672>from</span> transformers <span style=color:#f92672>import</span> AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
+<span style=color:#f92672>from</span> datasets <span style=color:#f92672>import</span> load_dataset
+
+<span style=color:#75715e># Load model and tokenizer</span>
+model_id <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;gpt2&#34;</span>  <span style=color:#75715e># Or another smaller model</span>
+tokenizer <span style=color:#f92672>=</span> AutoTokenizer<span style=color:#f92672>.</span>from_pretrained(model_id)
+tokenizer<span style=color:#f92672>.</span>pad_token <span style=color:#f92672>=</span> tokenizer<span style=color:#f92672>.</span>eos_token
+model <span style=color:#f92672>=</span> AutoModelForCausalLM<span style=color:#f92672>.</span>from_pretrained(model_id)
+
+<span style=color:#75715e># Prepare your dataset</span>
+dataset <span style=color:#f92672>=</span> load_dataset(<span style=color:#e6db74>&#34;imdb&#34;</span>, split<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;train&#34;</span>)
+
+<span style=color:#75715e># Define data preprocessing</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>tokenize_function</span>(examples):
+    <span style=color:#66d9ef>return</span> tokenizer(examples[<span style=color:#e6db74>&#34;text&#34;</span>], padding<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;max_length&#34;</span>, truncation<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>, max_length<span style=color:#f92672>=</span><span style=color:#ae81ff>512</span>)
+
+tokenized_datasets <span style=color:#f92672>=</span> dataset<span style=color:#f92672>.</span>map(tokenize_function, batched<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+
+<span style=color:#75715e># Configure training</span>
+training_args <span style=color:#f92672>=</span> TrainingArguments(
+    output_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;./results&#34;</span>,
+    num_train_epochs<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>,
+    per_device_train_batch_size<span style=color:#f92672>=</span><span style=color:#ae81ff>8</span>,
+    save_strategy<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;epoch&#34;</span>,
+    evaluation_strategy<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;epoch&#34;</span>,
+    logging_dir<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;./logs&#34;</span>,
+)
+
+<span style=color:#75715e># Initialize trainer</span>
+trainer <span style=color:#f92672>=</span> Trainer(
+    model<span style=color:#f92672>=</span>model,
+    args<span style=color:#f92672>=</span>training_args,
+    train_dataset<span style=color:#f92672>=</span>tokenized_datasets,
+)
+
+<span style=color:#75715e># Start training</span>
+trainer<span style=color:#f92672>.</span>train()
+
+<span style=color:#75715e># Save the model</span>
+model<span style=color:#f92672>.</span>save_pretrained(<span style=color:#e6db74>&#34;./fine-tuned-gpt2&#34;</span>)
+tokenizer<span style=color:#f92672>.</span>save_pretrained(<span style=color:#e6db74>&#34;./fine-tuned-gpt2&#34;</span>)
+
+<span style=color:#75715e># Save to Google Drive</span>
+<span style=color:#960050;background-color:#1e0010>!</span>cp <span style=color:#f92672>-</span>r <span style=color:#f92672>./</span>fine<span style=color:#f92672>-</span>tuned<span style=color:#f92672>-</span>gpt2 <span style=color:#f92672>/</span>content<span style=color:#f92672>/</span>drive<span style=color:#f92672>/</span>MyDrive<span style=color:#f92672>/</span>
+</code></pre></div><h2 id=dealing-with-colab-limitations>Dealing with Colab Limitations<a href=#dealing-with-colab-limitations class=hanchor arialabel=Anchor>#</a> </h2>
+<h3 id=session-timeouts>Session Timeouts<a href=#session-timeouts class=hanchor arialabel=Anchor>#</a> </h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Add this to prevent idle timeouts</span>
+<span style=color:#f92672>from</span> IPython.display <span style=color:#f92672>import</span> display, Javascript
+display(Javascript(<span style=color:#e6db74>&#39;&#39;&#39;
+</span><span style=color:#e6db74>function ClickConnect(){
+</span><span style=color:#e6db74>  console.log(&#34;Clicking connect button&#34;); 
+</span><span style=color:#e6db74>  document.querySelector(&#34;colab-connect-button&#34;).click()
+</span><span style=color:#e6db74>}
+</span><span style=color:#e6db74>setInterval(ClickConnect, 60000)
+</span><span style=color:#e6db74>&#39;&#39;&#39;</span>))
+</code></pre></div><h3 id=memory-management>Memory Management<a href=#memory-management class=hanchor arialabel=Anchor>#</a> </h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Clear GPU memory if needed</span>
+<span style=color:#f92672>import</span> gc
+gc<span style=color:#f92672>.</span>collect()
+torch<span style=color:#f92672>.</span>cuda<span style=color:#f92672>.</span>empty_cache()
+
+<span style=color:#75715e># Monitor memory usage</span>
+<span style=color:#960050;background-color:#1e0010>!</span>nvidia<span style=color:#f92672>-</span>smi
+</code></pre></div><h3 id=checkpointing>Checkpointing<a href=#checkpointing class=hanchor arialabel=Anchor>#</a> </h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Configure checkpointing for recovery</span>
+training_args <span style=color:#f92672>=</span> TrainingArguments(
+    <span style=color:#75715e># ... other args</span>
+    save_strategy<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;steps&#34;</span>,
+    save_steps<span style=color:#f92672>=</span><span style=color:#ae81ff>500</span>,
+    save_total_limit<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,  <span style=color:#75715e># Keep only the last 2 checkpoints</span>
+)
+</code></pre></div><h2 id=testing-your-fine-tuned-model>Testing Your Fine-Tuned Model<a href=#testing-your-fine-tuned-model class=hanchor arialabel=Anchor>#</a> </h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Load your fine-tuned model</span>
+<span style=color:#f92672>from</span> peft <span style=color:#f92672>import</span> PeftModel, PeftConfig
+
+<span style=color:#75715e># For LoRA models</span>
+config <span style=color:#f92672>=</span> PeftConfig<span style=color:#f92672>.</span>from_pretrained(<span style=color:#e6db74>&#34;my-fine-tuned-model&#34;</span>)
+model <span style=color:#f92672>=</span> AutoModelForCausalLM<span style=color:#f92672>.</span>from_pretrained(
+    config<span style=color:#f92672>.</span>base_model_name_or_path,
+    torch_dtype<span style=color:#f92672>=</span>torch<span style=color:#f92672>.</span>float16,
+    device_map<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;auto&#34;</span>
+)
+model <span style=color:#f92672>=</span> PeftModel<span style=color:#f92672>.</span>from_pretrained(model, <span style=color:#e6db74>&#34;my-fine-tuned-model&#34;</span>)
+
+<span style=color:#75715e># Generate text</span>
+tokenizer <span style=color:#f92672>=</span> AutoTokenizer<span style=color:#f92672>.</span>from_pretrained(<span style=color:#e6db74>&#34;my-fine-tuned-model&#34;</span>)
+inputs <span style=color:#f92672>=</span> tokenizer(<span style=color:#e6db74>&#34;Your prompt text here&#34;</span>, return_tensors<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pt&#34;</span>)<span style=color:#f92672>.</span>to(<span style=color:#e6db74>&#34;cuda&#34;</span>)
+outputs <span style=color:#f92672>=</span> model<span style=color:#f92672>.</span>generate(<span style=color:#f92672>**</span>inputs, max_length<span style=color:#f92672>=</span><span style=color:#ae81ff>100</span>)
+print(tokenizer<span style=color:#f92672>.</span>decode(outputs[<span style=color:#ae81ff>0</span>], skip_special_tokens<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>))
+</code></pre></div><h2 id=best-practices-for-colab-fine-tuning>Best Practices for Colab Fine-Tuning<a href=#best-practices-for-colab-fine-tuning class=hanchor arialabel=Anchor>#</a> </h2>
+<ol>
+<li><strong>Always connect to Google Drive</strong> to prevent losing work if Collab disconnects</li>
+<li><strong>Start small</strong> - Test your pipeline with a tiny subset of data before full training</li>
+<li><strong>Monitor GPU usage</strong> regularly with <code>!nvidia-smi</code></li>
+<li><strong>Use QLoRA for large models</strong> - It&rsquo;s the most efficient way to fine-tune on Colab</li>
+<li><strong>Save checkpoints frequently</strong> and to Google Drive</li>
+<li><strong>Close other tabs</strong> in your browser to prevent Collab from disconnecting due to inactivity</li>
+</ol>
+<p>This guide provides everything you need to fine-tune models in Google Collab, from small BERT variants all the way to 7B+ parameter models using memory-efficient techniques.</p>
+</div></div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h>Read other posts</span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/ class="button inline next">
+Obsidian Notes -> Blogs
+</a>
+</div>
+</div>
+</article>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2025 Powered by <a href=https://gohugo.io>Hugo</a></span>
+<span>:: <a href=https://github.com/panr/hugo-theme-terminal target=_blank>Theme</a> made by <a href=https://github.com/panr target=_blank>panr</a></span>
+</div>
+</div>
+</footer>
+<script type=text/javascript src=/AnikiBlogs/bundle.min.js></script>
+</div>
+</body>
+</html>

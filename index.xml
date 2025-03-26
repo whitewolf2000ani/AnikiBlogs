@@ -1,4 +1,176 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 05 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Thu, 05 Dec 2024 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 23 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>Fine-Tuning Models</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</link><pubDate>Sun, 23 Feb 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</guid><description>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.
+Setting Up Your Colab Environment # 1. Connect to a GPU runtime # Go to Runtime &amp;gt; Change runtime type &amp;gt; GPU # 2. Verify GPU is available !nvidia-smi # 3. Install necessary libraries !pip install -q transformers datasets accelerate peft bitsandbytes trl tensorboard Method 1: QLoRA Fine-Tuning for Large Models This approach is ideal for 7B+ parameter models on Colab&amp;rsquo;s limited GPU:</description><content>&lt;p>Google Collab provides free GPU/TPU resources perfect for fine-tuning AI models. Here&amp;rsquo;s a complete guide to fine-tuning models in Colab, from setup to saving your trained model.&lt;/p>
+&lt;h2 id="setting-up-your-colab-environment">Setting Up Your Colab Environment&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># 1. Connect to a GPU runtime&lt;/span>
+&lt;span style="color:#75715e"># Go to Runtime &amp;gt; Change runtime type &amp;gt; GPU&lt;/span>
+&lt;span style="color:#75715e"># 2. Verify GPU is available&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">!&lt;/span>nvidia&lt;span style="color:#f92672">-&lt;/span>smi
+&lt;span style="color:#75715e"># 3. Install necessary libraries&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">!&lt;/span>pip install &lt;span style="color:#f92672">-&lt;/span>q transformers datasets accelerate peft bitsandbytes trl tensorboard
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="method-1-qlora-fine-tuning-for-large-models">Method 1: QLoRA Fine-Tuning for Large Models&lt;/h2>
+&lt;p>This approach is ideal for 7B+ parameter models on Colab&amp;rsquo;s limited GPU:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Import libraries&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> torch
+&lt;span style="color:#f92672">from&lt;/span> transformers &lt;span style="color:#f92672">import&lt;/span> AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+&lt;span style="color:#f92672">from&lt;/span> peft &lt;span style="color:#f92672">import&lt;/span> LoraConfig, get_peft_model
+&lt;span style="color:#f92672">from&lt;/span> datasets &lt;span style="color:#f92672">import&lt;/span> load_dataset
+&lt;span style="color:#f92672">from&lt;/span> trl &lt;span style="color:#f92672">import&lt;/span> SFTTrainer, SFTConfig
+&lt;span style="color:#75715e"># Configure quantization&lt;/span>
+bnb_config &lt;span style="color:#f92672">=&lt;/span> BitsAndBytesConfig(
+load_in_4bit&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>,
+bnb_4bit_quant_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;nf4&amp;#34;&lt;/span>,
+bnb_4bit_compute_dtype&lt;span style="color:#f92672">=&lt;/span>torch&lt;span style="color:#f92672">.&lt;/span>float16
+)
+&lt;span style="color:#75715e"># Load model and tokenizer&lt;/span>
+model_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;meta-llama/Llama-2-7b-hf&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Or any compatible model&lt;/span>
+tokenizer &lt;span style="color:#f92672">=&lt;/span> AutoTokenizer&lt;span style="color:#f92672">.&lt;/span>from_pretrained(model_id)
+tokenizer&lt;span style="color:#f92672">.&lt;/span>pad_token &lt;span style="color:#f92672">=&lt;/span> tokenizer&lt;span style="color:#f92672">.&lt;/span>eos_token
+model &lt;span style="color:#f92672">=&lt;/span> AutoModelForCausalLM&lt;span style="color:#f92672">.&lt;/span>from_pretrained(
+model_id,
+quantization_config&lt;span style="color:#f92672">=&lt;/span>bnb_config,
+device_map&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;auto&amp;#34;&lt;/span>
+)
+&lt;span style="color:#75715e"># Configure LoRA&lt;/span>
+lora_config &lt;span style="color:#f92672">=&lt;/span> LoraConfig(
+r&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">16&lt;/span>,
+lora_alpha&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">32&lt;/span>,
+lora_dropout&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.05&lt;/span>,
+bias&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;none&amp;#34;&lt;/span>,
+task_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;CAUSAL_LM&amp;#34;&lt;/span>,
+target_modules&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;q_proj&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;v_proj&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;k_proj&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;o_proj&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;gate_proj&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;up_proj&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;down_proj&amp;#34;&lt;/span>]
+)
+&lt;span style="color:#75715e"># Apply LoRA to model&lt;/span>
+model &lt;span style="color:#f92672">=&lt;/span> get_peft_model(model, lora_config)
+model&lt;span style="color:#f92672">.&lt;/span>print_trainable_parameters()
+&lt;span style="color:#75715e"># Prepare dataset&lt;/span>
+&lt;span style="color:#75715e"># Option 1: Load from Hugging Face&lt;/span>
+dataset &lt;span style="color:#f92672">=&lt;/span> load_dataset(&lt;span style="color:#e6db74">&amp;#34;Abirate/english_quotes&amp;#34;&lt;/span>, split&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;train&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e"># Option 2: Or upload CSV to Colab&lt;/span>
+&lt;span style="color:#f92672">from&lt;/span> google.colab &lt;span style="color:#f92672">import&lt;/span> files
+uploaded &lt;span style="color:#f92672">=&lt;/span> files&lt;span style="color:#f92672">.&lt;/span>upload() &lt;span style="color:#75715e"># Upload your CSV&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> pandas &lt;span style="color:#66d9ef">as&lt;/span> pd
+&lt;span style="color:#f92672">from&lt;/span> datasets &lt;span style="color:#f92672">import&lt;/span> Dataset
+df &lt;span style="color:#f92672">=&lt;/span> pd&lt;span style="color:#f92672">.&lt;/span>read_csv(&lt;span style="color:#e6db74">&amp;#34;your_file.csv&amp;#34;&lt;/span>)
+dataset &lt;span style="color:#f92672">=&lt;/span> Dataset&lt;span style="color:#f92672">.&lt;/span>from_pandas(df)
+&lt;span style="color:#75715e"># Configure trainer&lt;/span>
+training_args &lt;span style="color:#f92672">=&lt;/span> SFTConfig(
+output_dir&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;./results&amp;#34;&lt;/span>,
+num_train_epochs&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">3&lt;/span>,
+per_device_train_batch_size&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span>,
+gradient_accumulation_steps&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span>,
+learning_rate&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">2e-4&lt;/span>,
+logging_steps&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">50&lt;/span>,
+save_strategy&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;epoch&amp;#34;&lt;/span>,
+fp16&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>,
+)
+&lt;span style="color:#75715e"># Initialize trainer&lt;/span>
+trainer &lt;span style="color:#f92672">=&lt;/span> SFTTrainer(
+model&lt;span style="color:#f92672">=&lt;/span>model,
+args&lt;span style="color:#f92672">=&lt;/span>training_args,
+train_dataset&lt;span style="color:#f92672">=&lt;/span>dataset,
+tokenizer&lt;span style="color:#f92672">=&lt;/span>tokenizer,
+dataset_text_field&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;quote&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Change to your text column name&lt;/span>
+)
+&lt;span style="color:#75715e"># Start training&lt;/span>
+trainer&lt;span style="color:#f92672">.&lt;/span>train()
+&lt;span style="color:#75715e"># Save the model&lt;/span>
+peft_model_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;my-fine-tuned-model&amp;#34;&lt;/span>
+trainer&lt;span style="color:#f92672">.&lt;/span>model&lt;span style="color:#f92672">.&lt;/span>save_pretrained(peft_model_id)
+tokenizer&lt;span style="color:#f92672">.&lt;/span>save_pretrained(peft_model_id)
+&lt;span style="color:#75715e"># Save to Google Drive (to avoid losing work)&lt;/span>
+&lt;span style="color:#f92672">from&lt;/span> google.colab &lt;span style="color:#f92672">import&lt;/span> drive
+drive&lt;span style="color:#f92672">.&lt;/span>mount(&lt;span style="color:#e6db74">&amp;#39;/content/drive&amp;#39;&lt;/span>)
+&lt;span style="color:#960050;background-color:#1e0010">!&lt;/span>cp &lt;span style="color:#f92672">-&lt;/span>r {peft_model_id} &lt;span style="color:#f92672">/&lt;/span>content&lt;span style="color:#f92672">/&lt;/span>drive&lt;span style="color:#f92672">/&lt;/span>MyDrive&lt;span style="color:#f92672">/&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="method-2-full-fine-tuning-for-smaller-models">Method 2: Full Fine-Tuning for Smaller Models&lt;/h2>
+&lt;p>For smaller models (under 3B parameters) that fit fully in Colab&amp;rsquo;s GPU:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> torch
+&lt;span style="color:#f92672">from&lt;/span> transformers &lt;span style="color:#f92672">import&lt;/span> AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
+&lt;span style="color:#f92672">from&lt;/span> datasets &lt;span style="color:#f92672">import&lt;/span> load_dataset
+&lt;span style="color:#75715e"># Load model and tokenizer&lt;/span>
+model_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;gpt2&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Or another smaller model&lt;/span>
+tokenizer &lt;span style="color:#f92672">=&lt;/span> AutoTokenizer&lt;span style="color:#f92672">.&lt;/span>from_pretrained(model_id)
+tokenizer&lt;span style="color:#f92672">.&lt;/span>pad_token &lt;span style="color:#f92672">=&lt;/span> tokenizer&lt;span style="color:#f92672">.&lt;/span>eos_token
+model &lt;span style="color:#f92672">=&lt;/span> AutoModelForCausalLM&lt;span style="color:#f92672">.&lt;/span>from_pretrained(model_id)
+&lt;span style="color:#75715e"># Prepare your dataset&lt;/span>
+dataset &lt;span style="color:#f92672">=&lt;/span> load_dataset(&lt;span style="color:#e6db74">&amp;#34;imdb&amp;#34;&lt;/span>, split&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;train&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e"># Define data preprocessing&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">tokenize_function&lt;/span>(examples):
+&lt;span style="color:#66d9ef">return&lt;/span> tokenizer(examples[&lt;span style="color:#e6db74">&amp;#34;text&amp;#34;&lt;/span>], padding&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;max_length&amp;#34;&lt;/span>, truncation&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>, max_length&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">512&lt;/span>)
+tokenized_datasets &lt;span style="color:#f92672">=&lt;/span> dataset&lt;span style="color:#f92672">.&lt;/span>map(tokenize_function, batched&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>)
+&lt;span style="color:#75715e"># Configure training&lt;/span>
+training_args &lt;span style="color:#f92672">=&lt;/span> TrainingArguments(
+output_dir&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;./results&amp;#34;&lt;/span>,
+num_train_epochs&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">3&lt;/span>,
+per_device_train_batch_size&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">8&lt;/span>,
+save_strategy&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;epoch&amp;#34;&lt;/span>,
+evaluation_strategy&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;epoch&amp;#34;&lt;/span>,
+logging_dir&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;./logs&amp;#34;&lt;/span>,
+)
+&lt;span style="color:#75715e"># Initialize trainer&lt;/span>
+trainer &lt;span style="color:#f92672">=&lt;/span> Trainer(
+model&lt;span style="color:#f92672">=&lt;/span>model,
+args&lt;span style="color:#f92672">=&lt;/span>training_args,
+train_dataset&lt;span style="color:#f92672">=&lt;/span>tokenized_datasets,
+)
+&lt;span style="color:#75715e"># Start training&lt;/span>
+trainer&lt;span style="color:#f92672">.&lt;/span>train()
+&lt;span style="color:#75715e"># Save the model&lt;/span>
+model&lt;span style="color:#f92672">.&lt;/span>save_pretrained(&lt;span style="color:#e6db74">&amp;#34;./fine-tuned-gpt2&amp;#34;&lt;/span>)
+tokenizer&lt;span style="color:#f92672">.&lt;/span>save_pretrained(&lt;span style="color:#e6db74">&amp;#34;./fine-tuned-gpt2&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e"># Save to Google Drive&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">!&lt;/span>cp &lt;span style="color:#f92672">-&lt;/span>r &lt;span style="color:#f92672">./&lt;/span>fine&lt;span style="color:#f92672">-&lt;/span>tuned&lt;span style="color:#f92672">-&lt;/span>gpt2 &lt;span style="color:#f92672">/&lt;/span>content&lt;span style="color:#f92672">/&lt;/span>drive&lt;span style="color:#f92672">/&lt;/span>MyDrive&lt;span style="color:#f92672">/&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dealing-with-colab-limitations">Dealing with Colab Limitations&lt;/h2>
+&lt;h3 id="session-timeouts">Session Timeouts&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Add this to prevent idle timeouts&lt;/span>
+&lt;span style="color:#f92672">from&lt;/span> IPython.display &lt;span style="color:#f92672">import&lt;/span> display, Javascript
+display(Javascript(&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&amp;#39;
+&lt;/span>&lt;span style="color:#e6db74">function ClickConnect(){
+&lt;/span>&lt;span style="color:#e6db74"> console.log(&amp;#34;Clicking connect button&amp;#34;);
+&lt;/span>&lt;span style="color:#e6db74"> document.querySelector(&amp;#34;colab-connect-button&amp;#34;).click()
+&lt;/span>&lt;span style="color:#e6db74">}
+&lt;/span>&lt;span style="color:#e6db74">setInterval(ClickConnect, 60000)
+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&amp;#39;&lt;/span>))
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="memory-management">Memory Management&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Clear GPU memory if needed&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> gc
+gc&lt;span style="color:#f92672">.&lt;/span>collect()
+torch&lt;span style="color:#f92672">.&lt;/span>cuda&lt;span style="color:#f92672">.&lt;/span>empty_cache()
+&lt;span style="color:#75715e"># Monitor memory usage&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">!&lt;/span>nvidia&lt;span style="color:#f92672">-&lt;/span>smi
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="checkpointing">Checkpointing&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Configure checkpointing for recovery&lt;/span>
+training_args &lt;span style="color:#f92672">=&lt;/span> TrainingArguments(
+&lt;span style="color:#75715e"># ... other args&lt;/span>
+save_strategy&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;steps&amp;#34;&lt;/span>,
+save_steps&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">500&lt;/span>,
+save_total_limit&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>, &lt;span style="color:#75715e"># Keep only the last 2 checkpoints&lt;/span>
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="testing-your-fine-tuned-model">Testing Your Fine-Tuned Model&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Load your fine-tuned model&lt;/span>
+&lt;span style="color:#f92672">from&lt;/span> peft &lt;span style="color:#f92672">import&lt;/span> PeftModel, PeftConfig
+&lt;span style="color:#75715e"># For LoRA models&lt;/span>
+config &lt;span style="color:#f92672">=&lt;/span> PeftConfig&lt;span style="color:#f92672">.&lt;/span>from_pretrained(&lt;span style="color:#e6db74">&amp;#34;my-fine-tuned-model&amp;#34;&lt;/span>)
+model &lt;span style="color:#f92672">=&lt;/span> AutoModelForCausalLM&lt;span style="color:#f92672">.&lt;/span>from_pretrained(
+config&lt;span style="color:#f92672">.&lt;/span>base_model_name_or_path,
+torch_dtype&lt;span style="color:#f92672">=&lt;/span>torch&lt;span style="color:#f92672">.&lt;/span>float16,
+device_map&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;auto&amp;#34;&lt;/span>
+)
+model &lt;span style="color:#f92672">=&lt;/span> PeftModel&lt;span style="color:#f92672">.&lt;/span>from_pretrained(model, &lt;span style="color:#e6db74">&amp;#34;my-fine-tuned-model&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e"># Generate text&lt;/span>
+tokenizer &lt;span style="color:#f92672">=&lt;/span> AutoTokenizer&lt;span style="color:#f92672">.&lt;/span>from_pretrained(&lt;span style="color:#e6db74">&amp;#34;my-fine-tuned-model&amp;#34;&lt;/span>)
+inputs &lt;span style="color:#f92672">=&lt;/span> tokenizer(&lt;span style="color:#e6db74">&amp;#34;Your prompt text here&amp;#34;&lt;/span>, return_tensors&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;pt&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>to(&lt;span style="color:#e6db74">&amp;#34;cuda&amp;#34;&lt;/span>)
+outputs &lt;span style="color:#f92672">=&lt;/span> model&lt;span style="color:#f92672">.&lt;/span>generate(&lt;span style="color:#f92672">**&lt;/span>inputs, max_length&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">100&lt;/span>)
+print(tokenizer&lt;span style="color:#f92672">.&lt;/span>decode(outputs[&lt;span style="color:#ae81ff">0&lt;/span>], skip_special_tokens&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>))
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="best-practices-for-colab-fine-tuning">Best Practices for Colab Fine-Tuning&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Always connect to Google Drive&lt;/strong> to prevent losing work if Collab disconnects&lt;/li>
+&lt;li>&lt;strong>Start small&lt;/strong> - Test your pipeline with a tiny subset of data before full training&lt;/li>
+&lt;li>&lt;strong>Monitor GPU usage&lt;/strong> regularly with &lt;code>!nvidia-smi&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Use QLoRA for large models&lt;/strong> - It&amp;rsquo;s the most efficient way to fine-tune on Colab&lt;/li>
+&lt;li>&lt;strong>Save checkpoints frequently&lt;/strong> and to Google Drive&lt;/li>
+&lt;li>&lt;strong>Close other tabs&lt;/strong> in your browser to prevent Collab from disconnecting due to inactivity&lt;/li>
+&lt;/ol>
+&lt;p>This guide provides everything you need to fine-tune models in Google Collab, from small BERT variants all the way to 7B+ parameter models using memory-efficient techniques.&lt;/p></content></item><item><title>Obsidian Notes -> Blogs</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</link><pubDate>Thu, 05 Dec 2024 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/my-blogging-setup/</guid><description>Why am I doing this? A Repository or a store for whatever cool concepts I study/Understand. It&amp;rsquo;s really important to learn in Public. How am I doing this? Obsidian https://obsidian.md/ Hugo for building the static website blazingly fast. Why are we using HUGO? The simple answer is HUGO converts Markdown files to Website code directly(Isn&amp;rsquo;t this convenient😁)
 Prerequisites for Hugo Git -&amp;gt; Install According to Operating System.</description><content>&lt;h2 id="why-am-i-doing-this">Why am I doing this?&lt;/h2>
 &lt;ul>
 &lt;li>A Repository or a store for whatever cool concepts I study/Understand.&lt;/li>
