@@ -78,6 +78,21 @@ Aniki's Blog
 <div class=posts>
 <article class="post on-list">
 <h2 class=post-title>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/>ASTx to Python Mapping Strategy</a>
+</h2>
+<div class=post-meta><time class=post-date>2025-03-24</time></div>
+<div class=post-content>
+1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
+BinaryOp( lhs: Expr, rhs: Expr, op: BinaryOpKind ) Python AST Equivalent:
+ast.BinOp( left: ast.expr, op: operator, right: ast.expr ) Conversion Logic:
+# Operator mapping table OP_MAP = { BinaryOpKind.add: ast.Add(), BinaryOpKind.sub: ast.Sub(), BinaryOpKind.mul: ast.Mult() } @dispatch def visit(self, node: BinaryOp) -> ast.BinOp: return ast.BinOp( left=self.visit(node.lhs), op=OP_MAP[node.op], right=self.visit(node.rhs) ) 2. Statement Node Mapping ASTx DeleteStmt → Python ast.Delete ASTx Structure:
+</div>
+<div>
+<a class="read-more button inline" href=/AnikiBlogs/posts/blogs/astx-python-ast-mapping/>Read more</a>
+</div>
+</article>
+<article class="post on-list">
+<h2 class=post-title>
 <a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/>Implementing Open LLM Models with JAX and Flax</a>
 </h2>
 <div class=post-meta><time class=post-date>2025-03-21</time></div>

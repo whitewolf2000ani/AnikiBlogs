@@ -1,4 +1,176 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 21 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Implementing Open LLM Models with JAX and Flax</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</guid><description>Before diving into the implementation details, I want to summarize our approach: we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</link><description>Recent content in Posts on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 24 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>ASTx to Python Mapping Strategy</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link><pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</guid><description>1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
+BinaryOp( lhs: Expr, rhs: Expr, op: BinaryOpKind ) Python AST Equivalent:
+ast.BinOp( left: ast.expr, op: operator, right: ast.expr ) Conversion Logic:
+# Operator mapping table OP_MAP = { BinaryOpKind.add: ast.Add(), BinaryOpKind.sub: ast.Sub(), BinaryOpKind.mul: ast.Mult() } @dispatch def visit(self, node: BinaryOp) -&amp;gt; ast.BinOp: return ast.BinOp( left=self.visit(node.lhs), op=OP_MAP[node.op], right=self.visit(node.rhs) ) 2. Statement Node Mapping ASTx DeleteStmt → Python ast.Delete ASTx Structure:</description><content>&lt;hr>
+&lt;h2 id="1-expression-node-mapping">1. Expression Node Mapping&lt;/h2>
+&lt;h3 id="astx-binaryop--python-astbinop">ASTx BinaryOp → Python ast.BinOp&lt;/h3>
+&lt;p>&lt;strong>ASTx Structure&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">BinaryOp(
+lhs: Expr,
+rhs: Expr,
+op: BinaryOpKind
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Python AST Equivalent&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">ast&lt;span style="color:#f92672">.&lt;/span>BinOp(
+left: ast&lt;span style="color:#f92672">.&lt;/span>expr,
+op: operator,
+right: ast&lt;span style="color:#f92672">.&lt;/span>expr
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Conversion Logic&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Operator mapping table&lt;/span>
+OP_MAP &lt;span style="color:#f92672">=&lt;/span> {
+BinaryOpKind&lt;span style="color:#f92672">.&lt;/span>add: ast&lt;span style="color:#f92672">.&lt;/span>Add(),
+BinaryOpKind&lt;span style="color:#f92672">.&lt;/span>sub: ast&lt;span style="color:#f92672">.&lt;/span>Sub(),
+BinaryOpKind&lt;span style="color:#f92672">.&lt;/span>mul: ast&lt;span style="color:#f92672">.&lt;/span>Mult()
+}
+&lt;span style="color:#a6e22e">@dispatch&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">visit&lt;/span>(self, node: BinaryOp) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>BinOp:
+&lt;span style="color:#66d9ef">return&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>BinOp(
+left&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>visit(node&lt;span style="color:#f92672">.&lt;/span>lhs),
+op&lt;span style="color:#f92672">=&lt;/span>OP_MAP[node&lt;span style="color:#f92672">.&lt;/span>op],
+right&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>visit(node&lt;span style="color:#f92672">.&lt;/span>rhs)
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="2-statement-node-mapping">2. Statement Node Mapping&lt;/h2>
+&lt;h3 id="astx-deletestmt--python-astdelete">ASTx DeleteStmt → Python ast.Delete&lt;/h3>
+&lt;p>&lt;strong>ASTx Structure&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">DeleteStmt(
+value: Iterable[Identifier]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Python AST Equivalent&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">ast&lt;span style="color:#f92672">.&lt;/span>Delete(
+targets: list[ast&lt;span style="color:#f92672">.&lt;/span>expr]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Conversion Logic&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#a6e22e">@dispatch&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">visit&lt;/span>(self, node: DeleteStmt) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>Delete:
+&lt;span style="color:#66d9ef">return&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>Delete(
+targets&lt;span style="color:#f92672">=&lt;/span>[ast&lt;span style="color:#f92672">.&lt;/span>Name(id&lt;span style="color:#f92672">=&lt;/span>ident&lt;span style="color:#f92672">.&lt;/span>value, ctx&lt;span style="color:#f92672">=&lt;/span>ast&lt;span style="color:#f92672">.&lt;/span>Del())
+&lt;span style="color:#66d9ef">for&lt;/span> ident &lt;span style="color:#f92672">in&lt;/span> node&lt;span style="color:#f92672">.&lt;/span>value]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Special Handling&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Convert ASTx Identifiers to Python Name nodes with Del context&lt;/li>
+&lt;li>Handle nested deletion targets (e.g., del x)&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="3-declaration-mapping">3. Declaration Mapping&lt;/h2>
+&lt;h3 id="astx-variabledeclaration--python-astassign">ASTx VariableDeclaration → Python ast.Assign&lt;/h3>
+&lt;p>&lt;strong>ASTx Structure&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">VariableDeclaration(
+name: str,
+type_: DataType,
+value: Expr
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Python AST Equivalent&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">ast&lt;span style="color:#f92672">.&lt;/span>Assign(
+targets: list[ast&lt;span style="color:#f92672">.&lt;/span>Name],
+value: ast&lt;span style="color:#f92672">.&lt;/span>expr
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Conversion Logic&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#a6e22e">@dispatch&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">visit&lt;/span>(self, node: VariableDeclaration) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>Assign:
+&lt;span style="color:#66d9ef">return&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>Assign(
+targets&lt;span style="color:#f92672">=&lt;/span>[ast&lt;span style="color:#f92672">.&lt;/span>Name(id&lt;span style="color:#f92672">=&lt;/span>node&lt;span style="color:#f92672">.&lt;/span>name, ctx&lt;span style="color:#f92672">=&lt;/span>ast&lt;span style="color:#f92672">.&lt;/span>Store())],
+value&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>visit(node&lt;span style="color:#f92672">.&lt;/span>value)
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Edge Cases&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Support for multiple assignment targets&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="4-control-flow-mapping">4. Control Flow Mapping&lt;/h2>
+&lt;h3 id="astx-ifstmt--python-astif">ASTx IfStmt → Python ast.If&lt;/h3>
+&lt;p>&lt;strong>ASTx Structure&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">IfStmt(
+condition: Expr,
+then_block: list[Statement],
+else_block: list[Statement]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Python AST Equivalent&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">ast&lt;span style="color:#f92672">.&lt;/span>If(
+test: ast&lt;span style="color:#f92672">.&lt;/span>expr,
+body: list[ast&lt;span style="color:#f92672">.&lt;/span>stmt],
+orelse: list[ast&lt;span style="color:#f92672">.&lt;/span>stmt]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Conversion Logic&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#a6e22e">@dispatch&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">visit&lt;/span>(self, node: IfStmt) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>If:
+&lt;span style="color:#66d9ef">return&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>If(
+test&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>visit(node&lt;span style="color:#f92672">.&lt;/span>condition),
+body&lt;span style="color:#f92672">=&lt;/span>[self&lt;span style="color:#f92672">.&lt;/span>visit(stmt) &lt;span style="color:#66d9ef">for&lt;/span> stmt &lt;span style="color:#f92672">in&lt;/span> node&lt;span style="color:#f92672">.&lt;/span>then_block],
+orelse&lt;span style="color:#f92672">=&lt;/span>[self&lt;span style="color:#f92672">.&lt;/span>visit(stmt) &lt;span style="color:#66d9ef">for&lt;/span> stmt &lt;span style="color:#f92672">in&lt;/span> node&lt;span style="color:#f92672">.&lt;/span>else_block]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Special Handling&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Empty else block conversion&lt;/li>
+&lt;li>Nested if-elif-else structures&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="5-function-definition-mapping">5. Function Definition Mapping&lt;/h2>
+&lt;h3 id="astx-functiondef--python-astfunctiondef">ASTx FunctionDef → Python ast.FunctionDef&lt;/h3>
+&lt;p>&lt;strong>ASTx Structure&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">FunctionDef(
+name: str,
+args: Arguments,
+return_type: DataType,
+body: list[Statement]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Python AST Equivalent&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">ast&lt;span style="color:#f92672">.&lt;/span>FunctionDef(
+name: str,
+args: ast&lt;span style="color:#f92672">.&lt;/span>arguments,
+body: list[ast&lt;span style="color:#f92672">.&lt;/span>stmt],
+decorator_list: list[ast&lt;span style="color:#f92672">.&lt;/span>expr]
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Conversion Logic&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#a6e22e">@dispatch&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">visit&lt;/span>(self, node: FunctionDef) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>FunctionDef:
+&lt;span style="color:#66d9ef">return&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>FunctionDef(
+name&lt;span style="color:#f92672">=&lt;/span>node&lt;span style="color:#f92672">.&lt;/span>name,
+args&lt;span style="color:#f92672">=&lt;/span>self&lt;span style="color:#f92672">.&lt;/span>visit(node&lt;span style="color:#f92672">.&lt;/span>args),
+body&lt;span style="color:#f92672">=&lt;/span>[self&lt;span style="color:#f92672">.&lt;/span>visit(stmt) &lt;span style="color:#66d9ef">for&lt;/span> stmt &lt;span style="color:#f92672">in&lt;/span> node&lt;span style="color:#f92672">.&lt;/span>body],
+decorator_list&lt;span style="color:#f92672">=&lt;/span>[],
+returns&lt;span style="color:#f92672">=&lt;/span>ast&lt;span style="color:#f92672">.&lt;/span>Name(id&lt;span style="color:#f92672">=&lt;/span>node&lt;span style="color:#f92672">.&lt;/span>return_type&lt;span style="color:#f92672">.&lt;/span>__name__)
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Special Handling&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Argument type annotations&lt;/li>
+&lt;li>Return type declarations&lt;/li>
+&lt;li>Decorator support&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="6-context-management-strategy">6. Context Management Strategy&lt;/h2>
+&lt;p>&lt;strong>ASTx Context&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">Variable(
+name: str,
+type_: DataType
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Python Context Handling&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ContextManager&lt;/span>:
+&lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+self&lt;span style="color:#f92672">.&lt;/span>scope_stack &lt;span style="color:#f92672">=&lt;/span> [{}]
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">add_variable&lt;/span>(self, name: str, node: ast&lt;span style="color:#f92672">.&lt;/span>AST):
+self&lt;span style="color:#f92672">.&lt;/span>scope_stack[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>][name] &lt;span style="color:#f92672">=&lt;/span> node
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_variable&lt;/span>(self, name: str) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>expr:
+&lt;span style="color:#66d9ef">for&lt;/span> scope &lt;span style="color:#f92672">in&lt;/span> reversed(self&lt;span style="color:#f92672">.&lt;/span>scope_stack):
+&lt;span style="color:#66d9ef">if&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> scope:
+&lt;span style="color:#66d9ef">return&lt;/span> scope[name]
+&lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">NameError&lt;/span>(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Variable &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>name&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> not defined&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="validation-strategy">Validation Strategy&lt;/h2>
+&lt;ul>
+&lt;li>Round Trip Validation&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_binary_op_roundtrip&lt;/span>():
+&lt;span style="color:#75715e"># ASTx → Python AST → Python code&lt;/span>
+astx_node &lt;span style="color:#f92672">=&lt;/span> BinaryOp(LiteralInt32(&lt;span style="color:#ae81ff">2&lt;/span>), LiteralInt32(&lt;span style="color:#ae81ff">3&lt;/span>), BinaryOpKind&lt;span style="color:#f92672">.&lt;/span>add)
+transpiler &lt;span style="color:#f92672">=&lt;/span> ASTxPythonASTTranspiler()
+py_ast &lt;span style="color:#f92672">=&lt;/span> transpiler&lt;span style="color:#f92672">.&lt;/span>visit(astx_node)
+&lt;span style="color:#75715e"># Generate Python code&lt;/span>
+code &lt;span style="color:#f92672">=&lt;/span> ast&lt;span style="color:#f92672">.&lt;/span>unparse(py_ast)
+&lt;span style="color:#66d9ef">assert&lt;/span> code &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;(2 + 3)&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Implementing Open LLM Models with JAX and Flax</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</guid><description>Before diving into the implementation details, I want to summarize our approach: we&amp;rsquo;ll be creating JAX/Flax implementations of popular open-source LLM architectures, documenting everything thoroughly, and providing clear notebooks to demonstrate their usage.
 Project Overview JAX, combined with Flax, provides a powerful framework for implementing high-performance neural networks with benefits like JIT compilation, automatic differentiation, and excellent hardware acceleration support. Our goal is to create clean, well-documented implementations of open-source LLM architectures that can serve as reference material and starting points for further research.</description><content>&lt;hr>
 &lt;p>Before diving into the implementation details,
 I want to summarize our approach:
