@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://whitewolf2000ani.github.io/AnikiBlogs/</loc>
-    <lastmod>2025-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2025-03-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</loc>
-    <lastmod>2025-03-21T00:00:00+00:00</lastmod>
+    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</loc>
+    <lastmod>2025-03-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/</loc>
+    <lastmod>2025-03-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</loc>
     <lastmod>2025-03-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/fine-tuning-models-in-google-colab_-a-practical-gu/</loc>

@@ -6,7 +6,19 @@
     <description>Recent content on Aniki&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASTx to Python Mapping Strategy</title>
+      <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link>
+      <pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</guid>
+      <description>1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
+BinaryOp( lhs: Expr, rhs: Expr, op: BinaryOpKind ) Python AST Equivalent:
+ast.BinOp( left: ast.expr, op: operator, right: ast.expr ) Conversion Logic:
+# Operator mapping table OP_MAP = { BinaryOpKind.add: ast.Add(), BinaryOpKind.sub: ast.Sub(), BinaryOpKind.mul: ast.Mult() } @dispatch def visit(self, node: BinaryOp) -&amp;gt; ast.BinOp: return ast.BinOp( left=self.visit(node.lhs), op=OP_MAP[node.op], right=self.visit(node.rhs) )  2. Statement Node Mapping ASTx DeleteStmt → Python ast.Delete ASTx Structure:</description>
+    </item>
+    
     <item>
       <title>Implementing Open LLM Models with JAX and Flax</title>
       <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/implementing-open-llm-models-with-jax-and-flax/</link>
