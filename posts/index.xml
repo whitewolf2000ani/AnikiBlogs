@@ -242,7 +242,212 @@ name = person_name
 &lt;p>Building this Mini-WDL extension taught me how language tooling works under the hood—from defining syntax rules to debugging token scopes. While solving issues like comment detection was challenging, it reinforced my understanding of TextMate grammars and VS Code’s API.
 This project is just the beginning! With basic syntax highlighting and language configuration in place, I’m excited to explore advanced features like semantic highlighting and LSP integration in the next blog.
 A blog on working with WDL is also coming up!
-If you’re interested in building your own extensions or contributing to WDL tooling, check out my GitHub repository: &lt;a href="https://github.com/whitewolf2000ani/Mini-WDL">github.com/whitewolf2000ani/Mini-WDL&lt;/a>.&lt;/p></content></item><item><title>ASTx to Python Mapping Strategy</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link><pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</guid><description>1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
+If you’re interested in building your own extensions or contributing to WDL tooling, check out my GitHub repository: &lt;a href="https://github.com/whitewolf2000ani/Mini-WDL">github.com/whitewolf2000ani/Mini-WDL&lt;/a>.&lt;/p></content></item><item><title>What I learned about WDL</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/</link><pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/</guid><description>What is WDL? The Workflow Description Language (WDL) is an open-source language designed to simplify complex computational workflows, particularly in genomics and bioinformatics. Developed by the Broad Institute and maintained by the OpenWDL community, WDL allows scientists to define analysis pipelines in a human-readable format.
+Why It Matters:
+Standardizes workflow definitions across platforms Enables reproducibility in scientific research Simplifies scaling from laptops to cloud environments WDL Syntax: A Step-by-Step Breakdown Let’s dissect a simple WDL workflow to understand its structure.</description><content>&lt;hr>
+&lt;h3 id="what-is-wdl">&lt;strong>What is WDL?&lt;/strong>&lt;/h3>
+&lt;p>The &lt;strong>Workflow Description Language (WDL)&lt;/strong> is an open-source language designed to simplify complex computational workflows, particularly in genomics and bioinformatics. Developed by the Broad Institute and maintained by the OpenWDL community, WDL allows scientists to define analysis pipelines in a human-readable format.&lt;/p>
+&lt;p>&lt;strong>Why It Matters&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>Standardizes workflow definitions across platforms&lt;/li>
+&lt;li>Enables reproducibility in scientific research&lt;/li>
+&lt;li>Simplifies scaling from laptops to cloud environments&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="wdl-syntax-a-step-by-step-breakdown">&lt;strong>WDL Syntax: A Step-by-Step Breakdown&lt;/strong>&lt;/h3>
+&lt;p>Let’s dissect a simple WDL workflow to understand its structure.&lt;/p>
+&lt;h4 id="example-workflow">&lt;strong>Example Workflow&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">version 1.2 # Modern WDL version
+task say_hello {
+input {
+String greeting
+String name
+}
+command &amp;lt;&amp;lt;&amp;lt;;
+echo &amp;quot;~{greeting}, ~{name}!&amp;quot;
+&amp;gt;&amp;gt;&amp;gt;;
+output {
+String message = read_string(stdout())
+}
+requirements {
+container: &amp;quot;ubuntu:latest&amp;quot;
+}
+}
+workflow main {
+input {
+String name
+Boolean is_pirate = false
+}
+Array[String] greetings = select_all([
+&amp;quot;Hello&amp;quot;,
+&amp;quot;Hallo&amp;quot;,
+&amp;quot;Hej&amp;quot;,
+(
+if is_pirate
+then &amp;quot;Ahoy&amp;quot;
+else None
+),
+])
+scatter (greeting in greetings) {
+call say_hello {
+input:
+greeting = greeting,
+name = name
+}
+}
+output {
+Array[String] messages = say_hello.message
+}
+}
+&lt;/code>&lt;/pre>&lt;hr>
+&lt;h3 id="line-by-line-breakdown">&lt;strong>Line-by-Line Breakdown&lt;/strong>&lt;/h3>
+&lt;h4 id="1-version-declaration">&lt;strong>1. Version Declaration&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">version 1.2
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>New in 1.2&lt;/strong>: Adds features like &lt;code>select_all()&lt;/code> and improved error handling.&lt;/li>
+&lt;li>&lt;strong>Best Practice&lt;/strong>: Always declare versions explicitly for compatibility.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="2-task-definition">&lt;strong>2. Task Definition&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">task say_hello {
+input {
+String greeting
+String name
+}
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>Input Parameters&lt;/strong>: Declares two required inputs for personalization.&lt;/li>
+&lt;li>&lt;strong>Flexibility&lt;/strong>: Tasks can be reused across workflows with different inputs.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="3-command-section-heredoc-syntax">&lt;strong>3. Command Section (Heredoc Syntax)&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">command &amp;gt;&amp;gt;&amp;gt;;
+echo &amp;quot;~{greeting}, ~{name}!&amp;quot;
+&amp;lt;&amp;lt;&amp;lt;;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>&lt;code>&amp;lt;&amp;lt;&amp;lt;;&lt;/code> Syntax&lt;/strong>: Allows multi-line commands without escaping quotes.&lt;/li>
+&lt;li>&lt;strong>Variable Substitution&lt;/strong>: &lt;code>~{}&lt;/code> injects WDL variables into shell commands.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="4-output-declaration">&lt;strong>4. Output Declaration&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">output {
+String message = read_string(stdout())
+}
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>&lt;code>read_string()&lt;/code>&lt;/strong>: Built-in function captures command output.&lt;/li>
+&lt;li>&lt;strong>Type Safety&lt;/strong>: Explicit &lt;code>String&lt;/code> type ensures data consistency.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="5-runtime-requirements">&lt;strong>5. Runtime Requirements&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">requirements {
+container: &amp;quot;ubuntu:latest&amp;quot;
+}
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>Reproducibility&lt;/strong>: Uses Docker containers for consistent environments.&lt;/li>
+&lt;li>&lt;strong>Alternatives&lt;/strong>: Can specify CPU/memory constraints instead.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="6-workflow-inputs">&lt;strong>6. Workflow Inputs&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">input {
+String name
+Boolean is_pirate = false
+}
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>Default Values&lt;/strong>: &lt;code>is_pirate&lt;/code> is optional (defaults to &lt;code>false&lt;/code>).&lt;/li>
+&lt;li>&lt;strong>Runtime Flexibility&lt;/strong>: Users can override defaults when executing.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="7-array-with-conditional-logic">&lt;strong>7. Array with Conditional Logic&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">Array[String] greetings = select_all([
+&amp;quot;Hello&amp;quot;,
+&amp;quot;Hallo&amp;quot;,
+&amp;quot;Hej&amp;quot;,
+(if is_pirate then &amp;quot;Ahoy&amp;quot; else None),
+])
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>&lt;code>select_all()&lt;/code>&lt;/strong>: Filters out &lt;code>None&lt;/code> values, creating a clean array.&lt;/li>
+&lt;li>&lt;strong>Conditional Expression&lt;/strong>: Adds &amp;ldquo;Ahoy&amp;rdquo; only if &lt;code>is_pirate&lt;/code> is &lt;code>true&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="8-parallel-execution">&lt;strong>8. Parallel Execution&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">scatter (greeting in greetings) {
+call say_hello { input: greeting, name }
+}
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>Scatter/Gather&lt;/strong>: Runs &lt;code>say_hello&lt;/code> in parallel for each greeting.&lt;/li>
+&lt;li>&lt;strong>Cloud Optimization&lt;/strong>: Automatically scales on distributed systems.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h4 id="9-workflow-output">&lt;strong>9. Workflow Output&lt;/strong>&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">output {
+Array[String] messages = say_hello.message
+}
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;strong>Aggregation&lt;/strong>: Collects outputs from all parallel tasks.&lt;/li>
+&lt;li>&lt;strong>Downstream Use&lt;/strong>: These messages could feed into another workflow.&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="key-wdl-12-features-demonstrated">&lt;strong>Key WDL 1.2 Features Demonstrated&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Conditional Arrays&lt;/strong>:&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">(if is_pirate then &amp;quot;Ahoy&amp;quot; else None)
+&lt;/code>&lt;/pre>&lt;pre>&lt;code>- Enables dynamic workflow configurations based on inputs.
+&lt;/code>&lt;/pre>
+&lt;ol start="2">
+&lt;li>&lt;strong>Scatter Parallelization&lt;/strong>:&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">scatter (greeting in greetings) { ... }
+&lt;/code>&lt;/pre>&lt;pre>&lt;code>- Simplifies parallel processing of large datasets.
+&lt;/code>&lt;/pre>
+&lt;ol start="3">
+&lt;li>&lt;strong>Type-Safe Outputs&lt;/strong>:&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">Array[String] messages = say_hello.message
+&lt;/code>&lt;/pre>&lt;pre>&lt;code>- Ensures data integrity between workflow steps.
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;h3 id="running-the-workflow">&lt;strong>Running the Workflow&lt;/strong>&lt;/h3>
+&lt;p>&lt;strong>Input JSON&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;main.name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Dave&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;main.is_pirate&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Expected Output&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;main.messages&amp;#34;&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;Hello, Dave!&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Hallo, Dave!&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Hej, Dave!&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;Ahoy, Dave!&amp;#34;&lt;/span>]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="getting-started-with-wdl">&lt;strong>Getting Started with WDL&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Install a WDL Runner&lt;/strong>:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># For MiniWDL (used in our project): &lt;/span>
+pip install miniwdl
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>&lt;strong>Write Your First Workflow&lt;/strong>:&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl">version 1.0
+workflow hello_wdl {
+call say_hello
+output {
+String message = &amp;quot;Workflow completed!&amp;quot;
+}
+}
+task say_hello {
+command { echo &amp;quot;Hello, WDL!&amp;quot; }
+}
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>&lt;strong>Run It&lt;/strong>:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">miniwdl run hello.wdl
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="conclusion">&lt;strong>Conclusion&lt;/strong>&lt;/h3>
+&lt;p>By learning WDL, I gained the foundation needed to build tools around WDL, which aims to make workflow development even more intuitive.&lt;/p>
+&lt;p>&lt;strong>Resources&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.openwdl.org/">OpenWDL Documentation&lt;/a> -&amp;gt; The documentation is really good to understand WDL.&lt;/li>
+&lt;li>&lt;a href="https://docs.openwdl.org/getting-started/quickstart.html">WDL Quickstart Guide&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>ASTx to Python Mapping Strategy</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link><pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</guid><description>1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
 BinaryOp( lhs: Expr, rhs: Expr, op: BinaryOpKind ) Python AST Equivalent:
 ast.BinOp( left: ast.expr, op: operator, right: ast.expr ) Conversion Logic:
 # Operator mapping table OP_MAP = { BinaryOpKind.add: ast.Add(), BinaryOpKind.sub: ast.Sub(), BinaryOpKind.mul: ast.Mult() } @dispatch def visit(self, node: BinaryOp) -&amp;gt; ast.BinOp: return ast.BinOp( left=self.visit(node.lhs), op=OP_MAP[node.op], right=self.visit(node.rhs) ) 2. Statement Node Mapping ASTx DeleteStmt → Python ast.Delete ASTx Structure:</description><content>&lt;hr>

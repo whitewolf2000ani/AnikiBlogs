@@ -1,0 +1,329 @@
+<!doctype html><html lang=en>
+<head>
+<title>What I learned about WDL :: Aniki's Blog</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="What is WDL? The Workflow Description Language (WDL) is an open-source language designed to simplify complex computational workflows, particularly in genomics and bioinformatics. Developed by the Broad Institute and maintained by the OpenWDL community, WDL allows scientists to define analysis pipelines in a human-readable format.
+Why It Matters:
+ Standardizes workflow definitions across platforms Enables reproducibility in scientific research Simplifies scaling from laptops to cloud environments   WDL Syntax: A Step-by-Step Breakdown Let’s dissect a simple WDL workflow to understand its structure.">
+<meta name=keywords content>
+<meta name=robots content="noodp">
+<link rel=canonical href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/buttons.min.2bc533403a27dfe0e93105a92502b42ce4587e2e4a87d9f7d349e51e16e09478.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/code.min.00125962708925857e7b66dbc58391d55be1191a3d0ce2034de8c9cd2c481c36.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/fonts.min.4881f0c525f3ce2a1864fb6e96676396cebe1e6fcef1933e8e1dde7041004fb5.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/footer.min.2e3eb191baee58dd05a9f0104ac1fab0827bca7c64dafe0b2579f934c33a1d69.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/header.min.b6fb4423cf82a9f9d7abc9cd010223fa3d70a6526a3f28f8e17d814c06e18f9e.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/main.min.fe8dc560fccb53a458b0db19ccb7b265764ac46b68596b7e099c6793054dd457.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/menu.min.83637a90d903026bc280d3f82f96ceb06c5fc72b7c1a8d686afb5bbf818a29f7.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/pagination.min.82f6400eae7c7c6dc3c866733c2ec0579e4089608fea69400ff85b3880aa0d3c.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/post.min.fc74ca360273c1d828da3c02b8174eba435607b369d98418ccc6f2243cd4e75d.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/prism.min.9023bbc24533d09e97a51a0a42a5a7bfe4c591ae167c5551fb1d2191d11977c0.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/syntax.min.cc789ed9377260d7949ea4c18781fc58959a89287210fe4edbff44ebfc1511b6.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/terminal.min.dd0bf9c7cacb24c1b0184f52f1869b274e06689557468cc7030ccf632328eb97.css>
+<link rel=stylesheet href=https://whitewolf2000ani.github.io/AnikiBlogs/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css>
+<link rel="shortcut icon" href=https://whitewolf2000ani.github.io/AnikiBlogs/favicon.png>
+<link rel=apple-touch-icon href=https://whitewolf2000ani.github.io/AnikiBlogs/apple-touch-icon.png>
+<meta name=twitter:card content="summary">
+<meta name=twitter:site content>
+<meta name=twitter:creator content>
+<meta property="og:locale" content="en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What I learned about WDL">
+<meta property="og:description" content="What is WDL? The Workflow Description Language (WDL) is an open-source language designed to simplify complex computational workflows, particularly in genomics and bioinformatics. Developed by the Broad Institute and maintained by the OpenWDL community, WDL allows scientists to define analysis pipelines in a human-readable format.
+Why It Matters:
+ Standardizes workflow definitions across platforms Enables reproducibility in scientific research Simplifies scaling from laptops to cloud environments   WDL Syntax: A Step-by-Step Breakdown Let’s dissect a simple WDL workflow to understand its structure.">
+<meta property="og:url" content="https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/">
+<meta property="og:site_name" content="Aniki's Blog">
+<meta property="og:image" content="https://whitewolf2000ani.github.io/AnikiBlogs/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="article:published_time" content="2025-03-28 00:00:00 +0000 UTC">
+</head>
+<body>
+<div class="container center">
+<header class=header>
+<div class=header__inner>
+<div class=header__logo>
+<a href=/AnikiBlogs/>
+<div class=logo>
+Aniki's Blog
+</div>
+</a>
+</div>
+<ul class="menu menu--mobile">
+<li class=menu__trigger>Menu&nbsp;▾</li>
+<li>
+<ul class=menu__dropdown>
+<li><a href=/AnikiBlogs/about>About</a></li>
+<li><a href=/AnikiBlogs/showcase>Showcase</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<nav class=navigation-menu>
+<ul class="navigation-menu__inner menu--desktop">
+<li>
+<ul class=menu>
+<li class=menu__trigger>Show more&nbsp;▾</li>
+<li>
+<ul class=menu__dropdown>
+<li><a href=/AnikiBlogs/about>About</a></li>
+<li><a href=/AnikiBlogs/showcase>Showcase</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</header>
+<div class=content>
+<article class=post>
+<h1 class=post-title>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/>What I learned about WDL</a>
+</h1>
+<div class=post-meta><time class=post-date>2025-03-28</time></div>
+<div class=post-content><div>
+<hr>
+<h3 id=what-is-wdl><strong>What is WDL?</strong><a href=#what-is-wdl class=hanchor arialabel=Anchor>#</a> </h3>
+<p>The <strong>Workflow Description Language (WDL)</strong> is an open-source language designed to simplify complex computational workflows, particularly in genomics and bioinformatics. Developed by the Broad Institute and maintained by the OpenWDL community, WDL allows scientists to define analysis pipelines in a human-readable format.</p>
+<p><strong>Why It Matters</strong>:</p>
+<ul>
+<li>Standardizes workflow definitions across platforms</li>
+<li>Enables reproducibility in scientific research</li>
+<li>Simplifies scaling from laptops to cloud environments</li>
+</ul>
+<hr>
+<h3 id=wdl-syntax-a-step-by-step-breakdown><strong>WDL Syntax: A Step-by-Step Breakdown</strong><a href=#wdl-syntax-a-step-by-step-breakdown class=hanchor arialabel=Anchor>#</a> </h3>
+<p>Let’s dissect a simple WDL workflow to understand its structure.</p>
+<h4 id=example-workflow><strong>Example Workflow</strong><a href=#example-workflow class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>version 1.2  # Modern WDL version
+
+task say_hello {
+    input {
+        String greeting
+        String name
+    }
+    
+    command &lt;&lt;&lt;;
+        echo &quot;~{greeting}, ~{name}!&quot;
+    &gt;&gt;&gt;;
+    
+    output {
+        String message = read_string(stdout())
+    }
+    
+    requirements {
+        container: &quot;ubuntu:latest&quot;
+    }
+}
+
+workflow main {
+    input {
+        String name
+        Boolean is_pirate = false
+    }
+    
+    Array[String] greetings = select_all([
+        &quot;Hello&quot;,
+        &quot;Hallo&quot;,
+        &quot;Hej&quot;,
+        (
+            if is_pirate
+            then &quot;Ahoy&quot;
+            else None
+        ),
+    ])
+    
+    scatter (greeting in greetings) {
+        call say_hello {
+            input:
+                greeting = greeting,
+                name = name
+        }
+    }
+    
+    output {
+        Array[String] messages = say_hello.message
+    }
+}
+</code></pre><hr>
+<h3 id=line-by-line-breakdown><strong>Line-by-Line Breakdown</strong><a href=#line-by-line-breakdown class=hanchor arialabel=Anchor>#</a> </h3>
+<h4 id=1-version-declaration><strong>1. Version Declaration</strong><a href=#1-version-declaration class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>version 1.2  
+</code></pre><ul>
+<li><strong>New in 1.2</strong>: Adds features like <code>select_all()</code> and improved error handling.</li>
+<li><strong>Best Practice</strong>: Always declare versions explicitly for compatibility.</li>
+</ul>
+<hr>
+<h4 id=2-task-definition><strong>2. Task Definition</strong><a href=#2-task-definition class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>task say_hello {
+  input {
+      String greeting
+      String name
+  }
+</code></pre><ul>
+<li><strong>Input Parameters</strong>: Declares two required inputs for personalization.</li>
+<li><strong>Flexibility</strong>: Tasks can be reused across workflows with different inputs.</li>
+</ul>
+<hr>
+<h4 id=3-command-section-heredoc-syntax><strong>3. Command Section (Heredoc Syntax)</strong><a href=#3-command-section-heredoc-syntax class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>command &gt;&gt;&gt;;
+    echo &quot;~{greeting}, ~{name}!&quot;
+&lt;&lt;&lt;;  
+</code></pre><ul>
+<li><strong><code>&lt;&lt;&lt;;</code> Syntax</strong>: Allows multi-line commands without escaping quotes.</li>
+<li><strong>Variable Substitution</strong>: <code>~{}</code> injects WDL variables into shell commands.</li>
+</ul>
+<hr>
+<h4 id=4-output-declaration><strong>4. Output Declaration</strong><a href=#4-output-declaration class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>output {
+    String message = read_string(stdout())
+}
+</code></pre><ul>
+<li><strong><code>read_string()</code></strong>: Built-in function captures command output.</li>
+<li><strong>Type Safety</strong>: Explicit <code>String</code> type ensures data consistency.</li>
+</ul>
+<hr>
+<h4 id=5-runtime-requirements><strong>5. Runtime Requirements</strong><a href=#5-runtime-requirements class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>requirements {
+    container: &quot;ubuntu:latest&quot;
+}
+</code></pre><ul>
+<li><strong>Reproducibility</strong>: Uses Docker containers for consistent environments.</li>
+<li><strong>Alternatives</strong>: Can specify CPU/memory constraints instead.</li>
+</ul>
+<hr>
+<h4 id=6-workflow-inputs><strong>6. Workflow Inputs</strong><a href=#6-workflow-inputs class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>input {
+    String name
+    Boolean is_pirate = false
+}
+</code></pre><ul>
+<li><strong>Default Values</strong>: <code>is_pirate</code> is optional (defaults to <code>false</code>).</li>
+<li><strong>Runtime Flexibility</strong>: Users can override defaults when executing.</li>
+</ul>
+<hr>
+<h4 id=7-array-with-conditional-logic><strong>7. Array with Conditional Logic</strong><a href=#7-array-with-conditional-logic class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>Array[String] greetings = select_all([
+    &quot;Hello&quot;,
+    &quot;Hallo&quot;,
+    &quot;Hej&quot;,
+    (if is_pirate then &quot;Ahoy&quot; else None),
+])
+</code></pre><ul>
+<li><strong><code>select_all()</code></strong>: Filters out <code>None</code> values, creating a clean array.</li>
+<li><strong>Conditional Expression</strong>: Adds &ldquo;Ahoy&rdquo; only if <code>is_pirate</code> is <code>true</code>.</li>
+</ul>
+<hr>
+<h4 id=8-parallel-execution><strong>8. Parallel Execution</strong><a href=#8-parallel-execution class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>scatter (greeting in greetings) {
+    call say_hello { input: greeting, name }
+}
+</code></pre><ul>
+<li><strong>Scatter/Gather</strong>: Runs <code>say_hello</code> in parallel for each greeting.</li>
+<li><strong>Cloud Optimization</strong>: Automatically scales on distributed systems.</li>
+</ul>
+<hr>
+<h4 id=9-workflow-output><strong>9. Workflow Output</strong><a href=#9-workflow-output class=hanchor arialabel=Anchor>#</a> </h4>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>output {
+    Array[String] messages = say_hello.message
+}
+</code></pre><ul>
+<li><strong>Aggregation</strong>: Collects outputs from all parallel tasks.</li>
+<li><strong>Downstream Use</strong>: These messages could feed into another workflow.</li>
+</ul>
+<hr>
+<h3 id=key-wdl-12-features-demonstrated><strong>Key WDL 1.2 Features Demonstrated</strong><a href=#key-wdl-12-features-demonstrated class=hanchor arialabel=Anchor>#</a> </h3>
+<ol>
+<li><strong>Conditional Arrays</strong>:</li>
+</ol>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>(if is_pirate then &quot;Ahoy&quot; else None)
+</code></pre><pre><code>- Enables dynamic workflow configurations based on inputs.
+</code></pre>
+<ol start=2>
+<li><strong>Scatter Parallelization</strong>:</li>
+</ol>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>scatter (greeting in greetings) { ... }
+</code></pre><pre><code>- Simplifies parallel processing of large datasets.
+</code></pre>
+<ol start=3>
+<li><strong>Type-Safe Outputs</strong>:</li>
+</ol>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>Array[String] messages = say_hello.message
+</code></pre><pre><code>- Ensures data integrity between workflow steps.
+</code></pre>
+<hr>
+<h3 id=running-the-workflow><strong>Running the Workflow</strong><a href=#running-the-workflow class=hanchor arialabel=Anchor>#</a> </h3>
+<p><strong>Input JSON</strong>:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;main.name&#34;</span>: <span style=color:#e6db74>&#34;Dave&#34;</span>,
+  <span style=color:#f92672>&#34;main.is_pirate&#34;</span>: <span style=color:#66d9ef>true</span>
+}
+</code></pre></div><p><strong>Expected Output</strong>:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;main.messages&#34;</span>: [<span style=color:#e6db74>&#34;Hello, Dave!&#34;</span>, <span style=color:#e6db74>&#34;Hallo, Dave!&#34;</span>, <span style=color:#e6db74>&#34;Hej, Dave!&#34;</span>, <span style=color:#e6db74>&#34;Ahoy, Dave!&#34;</span>]
+}
+</code></pre></div><hr>
+<h3 id=getting-started-with-wdl><strong>Getting Started with WDL</strong><a href=#getting-started-with-wdl class=hanchor arialabel=Anchor>#</a> </h3>
+<ol>
+<li><strong>Install a WDL Runner</strong>:</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># For MiniWDL (used in our project):  </span>
+pip install miniwdl  
+</code></pre></div><ol start=2>
+<li><strong>Write Your First Workflow</strong>:</li>
+</ol>
+<pre tabindex=0><code class=language-wdl data-lang=wdl>version 1.0  
+workflow hello_wdl {  
+  call say_hello  
+  output {  
+    String message = &quot;Workflow completed!&quot;  
+  }  
+}  
+task say_hello {  
+  command { echo &quot;Hello, WDL!&quot; }  
+}  
+</code></pre><ol start=3>
+<li><strong>Run It</strong>:</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>miniwdl run hello.wdl  
+</code></pre></div><hr>
+<h3 id=conclusion><strong>Conclusion</strong><a href=#conclusion class=hanchor arialabel=Anchor>#</a> </h3>
+<p>By learning WDL, I gained the foundation needed to build tools around WDL, which aims to make workflow development even more intuitive.</p>
+<p><strong>Resources</strong>:</p>
+<ul>
+<li><a href=https://docs.openwdl.org/>OpenWDL Documentation</a> -> The documentation is really good to understand WDL.</li>
+<li><a href=https://docs.openwdl.org/getting-started/quickstart.html>WDL Quickstart Guide</a></li>
+</ul>
+</div></div>
+<div class=pagination>
+<div class=pagination__title>
+<span class=pagination__title-h>Read other posts</span>
+<hr>
+</div>
+<div class=pagination__buttons>
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/building-the-mini-wdl-vs-code-extension/ class="button inline prev">
+A VsCode extension for Mini-WDL
+</a>
+::
+<a href=https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/ class="button inline next">
+ASTx to Python Mapping Strategy
+</a>
+</div>
+</div>
+</article>
+</div>
+<footer class=footer>
+<div class=footer__inner>
+<div class=copyright>
+<span>© 2025 Powered by <a href=https://gohugo.io>Hugo</a></span>
+<span>:: <a href=https://github.com/panr/hugo-theme-terminal target=_blank>Theme</a> made by <a href=https://github.com/panr target=_blank>panr</a></span>
+</div>
+</div>
+</footer>
+<script type=text/javascript src=/AnikiBlogs/bundle.min.js></script>
+</div>
+</body>
+</html>
