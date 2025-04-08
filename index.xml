@@ -1,4 +1,248 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 24 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>ASTx to Python Mapping Strategy</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link><pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</guid><description>1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aniki's Blog</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/</link><description>Recent content on Aniki's Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/index.xml" rel="self" type="application/rss+xml"/><item><title>A VsCode extension for Mini-WDL</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/building-the-mini-wdl-vs-code-extension/</link><pubDate>Wed, 02 Apr 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/building-the-mini-wdl-vs-code-extension/</guid><description>Introduction Creating a VS Code extension for Mini-WDL was an exciting journey filled with learning, debugging, and problem-solving. This blog details how I implemented syntax highlighting and language configuration for Mini-WDL, along with the challenges I faced—particularly around marking comments correctly—and how I overcame them. Let’s dive in!
+1. Setting Up the Project **Step 1: Followed the documentation VsCode To start, I used Yeoman’s generator to create the basic structure of the VS Code extension:</description><content>&lt;h3 id="introduction">&lt;strong>Introduction&lt;/strong>&lt;/h3>
+&lt;p>Creating a VS Code extension for Mini-WDL was an exciting journey filled with learning, debugging, and problem-solving. This blog details how I implemented syntax highlighting and language configuration for Mini-WDL, along with the challenges I faced—particularly around marking comments correctly—and how I overcame them. Let’s dive in!&lt;/p>
+&lt;hr>
+&lt;h3 id="1-setting-up-the-project">&lt;strong>1. Setting Up the Project&lt;/strong>&lt;/h3>
+&lt;h4 id="step-1-followed-the-documentation-vscodehttpscodevisualstudiocomapiget-startedyour-first-extension">**Step 1: Followed the documentation &lt;a href="https://code.visualstudio.com/api/get-started/your-first-extension">VsCode&lt;/a>&lt;/h4>
+&lt;p>To start, I used Yeoman’s generator to create the basic structure of the VS Code extension:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">mkdir mini-wdl-extension
+cd mini-wdl-extension
+npx yo code
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>During the prompts, I chose:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>TypeScript&lt;/strong> for type safety&lt;/li>
+&lt;li>&lt;strong>No bundler&lt;/strong> for simplicity&lt;/li>
+&lt;li>&lt;strong>npm&lt;/strong> as the package manager&lt;/li>
+&lt;/ul>
+&lt;p>This generated a project structure with files like &lt;code>extension.ts&lt;/code>, &lt;code>package.json&lt;/code>, and &lt;code>.vscode/launch.json&lt;/code>.&lt;/p>
+&lt;ul>
+&lt;li>Folder Structure, we need to create a syntaxes directory mentioned.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JSON" data-lang="JSON">&lt;span style="color:#960050;background-color:#1e0010">mini-wdl-extension/&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">.vscode/&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">VS&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Code-specific&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">settings&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">│&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">launch.json&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Debug&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">configuration&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">the&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">│&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">└──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">tasks.json&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Task&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">runner&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">configuration&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">src/&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">VS&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Code&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">source&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">files&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">│&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension.ts&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Main&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">entry&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">point&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">the&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">VS&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Code&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">│&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">server.ts&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Language&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">client&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">setup&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">connecting&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">to&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">the&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">server&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">syntaxes/&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">TextMate&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">grammar&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">syntax&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">highlighting&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">│&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">└──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">mini-wdl.tmLanguage.json&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Syntax&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">highlighting&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">rules&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Mini-WDL&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">language-configuration.json&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Language-specific&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">editor&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">configurations&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">(e.g.,&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">comments,&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">brackets)&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">package.json&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">VS&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Code&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">metadata&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">and&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">dependencies&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">tsconfig.json&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">TypeScript&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">configuration&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">the&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">├──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">README.md&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Documentation&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">for&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">your&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">extension&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">(this&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">file)&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">└──&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">node_modules/&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">Node.js&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">dependencies&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">(created&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">after&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">`npm&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">install`)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="2-adding-syntax-highlighting">&lt;strong>2. Adding Syntax Highlighting&lt;/strong>&lt;/h3>
+&lt;h4 id="step-2-creating-textmate-grammar">&lt;strong>Step 2: Creating TextMate Grammar&lt;/strong>&lt;/h4>
+&lt;p>I created a TextMate grammar file (&lt;code>syntaxes/mini-wdl.tmLanguage.json&lt;/code>) to define syntax highlighting rules for WDL keywords, strings, and comments.&lt;/p>
+&lt;p>Here’s what the grammar looked like:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mini WDL&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;scopeName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;source.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;fileTypes&amp;#34;&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;wdl&amp;#34;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#keywords&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#comments&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#strings&amp;#34;&lt;/span> }
+],
+&lt;span style="color:#f92672">&amp;#34;repository&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;keywords&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;keyword.control.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\b(task|workflow|input|output|command)\\b&amp;#34;&lt;/span>
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;comments&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;comment.line.number-sign.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#.*$&amp;#34;&lt;/span>
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;strings&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;string.quoted.double.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;begin&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;end&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;constant.character.escape.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\\\.&amp;#34;&lt;/span>
+}
+]
+}
+]
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h3 id="3-configuring-language-basics">&lt;strong>3. Configuring Language Basics&lt;/strong>&lt;/h3>
+&lt;h4 id="step-3-language-configuration-file">&lt;strong>Step 3: Language Configuration File&lt;/strong>&lt;/h4>
+&lt;p>I added a language configuration file (&lt;code>language-configuration.json&lt;/code>) to define comment styles, brackets, and auto-closing pairs:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;comments&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;lineComment&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;brackets&amp;#34;&lt;/span>: [
+[&lt;span style="color:#e6db74">&amp;#34;{&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;}&amp;#34;&lt;/span>],
+[&lt;span style="color:#e6db74">&amp;#34;[&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;]&amp;#34;&lt;/span>],
+[&lt;span style="color:#e6db74">&amp;#34;(&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;)&amp;#34;&lt;/span>]
+],
+&lt;span style="color:#f92672">&amp;#34;autoClosingPairs&amp;#34;&lt;/span>: [
+{ &lt;span style="color:#f92672">&amp;#34;open&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;{&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;close&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;}&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;open&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;close&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;]&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;open&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\&amp;#34;&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;close&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\&amp;#34;&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;open&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#39;&amp;#34;&lt;/span>, &lt;span style="color:#f92672">&amp;#34;close&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#39;&amp;#34;&lt;/span> }
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This ensured that typing &lt;code>{&lt;/code> or &lt;code>&amp;quot;&lt;/code> would automatically close with &lt;code>}&lt;/code> or &lt;code>&amp;quot;&lt;/code>.&lt;/p>
+&lt;hr>
+&lt;h3 id="4-challenges-faced">&lt;strong>4. Challenges Faced&lt;/strong>&lt;/h3>
+&lt;h4 id="problem-comments-not-getting-marked-correctly-and-the-keywords-didnt-highlight">&lt;strong>Problem: Comments Not Getting Marked Correctly and the keywords didn&amp;rsquo;t highlight&lt;/strong>&lt;/h4>
+&lt;p>Initially, comments were not being detected or highlighted properly in &lt;code>.wdl&lt;/code> files. This was frustrating because comments are critical for workflow readability.
+&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Screenshot_2025-04-06_131443_1.png" alt="Image Description">
+&lt;em>The comments, keywords were not hihglighted as you can see in this image.&lt;/em>&lt;/p>
+&lt;h4 id="root-cause">&lt;strong>Root Cause:&lt;/strong>&lt;/h4>
+&lt;p>The issue was with my regex pattern for comments in the TextMate grammar file. My initial implementation only matched simple &lt;code>#&lt;/code> comments but failed when there were special characters or escaped sequences.&lt;/p>
+&lt;h4 id="solution">&lt;strong>Solution:&lt;/strong>&lt;/h4>
+&lt;p>I updated the regex to handle edge cases like escaped characters within comments:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;comment.line.number-sign.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#.*$&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Update the &lt;code>mini-wdl.tmLanguge.json&lt;/code> to make it more robust&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JSON" data-lang="JSON">{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mini WDL&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;scopeName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;source.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;fileTypes&amp;#34;&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;wdl&amp;#34;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#keywords&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#strings&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#comments&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#types&amp;#34;&lt;/span> },
+{ &lt;span style="color:#f92672">&amp;#34;include&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#variables&amp;#34;&lt;/span> }
+],
+&lt;span style="color:#f92672">&amp;#34;repository&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;keywords&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;keyword.control.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\b(task|workflow|call|if|else|then|scatter|input|output|command|meta|parameter_meta|runtime)\\b&amp;#34;&lt;/span>
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;strings&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;string.quoted.double.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;begin&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;end&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;constant.character.escape.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\\\.&amp;#34;&lt;/span>
+}
+]
+},
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;string.quoted.single.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;begin&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#39;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;end&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#39;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;constant.character.escape.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\\\.&amp;#34;&lt;/span>
+}
+]
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;comments&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;comment.line.number-sign&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#.*$&amp;#34;&lt;/span>
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;types&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;storage.type.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\b(Boolean|Int|Float|String|File|Array|Map|Object|Pair)\\b&amp;#34;&lt;/span>
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;variables&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;patterns&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;variable.other.mini-wdl&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;\\b[a-zA-Z][a-zA-Z0-9_]*\\b&amp;#34;&lt;/span>
+}
+]
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Additionally, I verified token scopes using VS Code’s Developer Tools: (==This helped me a lot==)&lt;/p>
+&lt;ol>
+&lt;li>Press &lt;code>Ctrl+Shift+P&lt;/code> (or &lt;code>Cmd+Shift+P&lt;/code> on macOS).&lt;/li>
+&lt;li>Type “Developer: Inspect Editor Tokens and Scopes.”&lt;/li>
+&lt;li>Click on different parts of your code to see applied tokens.&lt;/li>
+&lt;/ol>
+&lt;p>This helped me confirm that comments were now being marked correctly!
+&lt;img src="https://whitewolf2000ani.github.io/AnikiBlogs/images/Pasted_image_20250408112347.png" alt="Image Description">
+&lt;em>And then we got this&lt;/em> 😖😁 &lt;em>everything came to light&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h3 id="5-testing-the-extension">&lt;strong>5. Testing the Extension&lt;/strong>&lt;/h3>
+&lt;h4 id="step-4-creating-a-test-file">&lt;strong>Step 4: Creating a Test File&lt;/strong>&lt;/h4>
+&lt;p>I created a test file (&lt;code>test.wdl&lt;/code>) to verify syntax highlighting and language configuration:&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-wdl" data-lang="wdl"># This is a test WDL workflow
+task hello {
+input {
+String name
+Int count = 3
+}
+command {
+echo &amp;quot;Hello ${name}&amp;quot;
+echo &amp;quot;Count: ${count}&amp;quot;
+}
+}
+workflow test_workflow {
+input {
+String person_name = &amp;quot;World&amp;quot;
+}
+call hello {
+input:
+name = person_name
+}
+}
+&lt;/code>&lt;/pre>&lt;h4 id="step-5-running-the-extension">&lt;strong>Step 5: Running the Extension&lt;/strong>&lt;/h4>
+&lt;ol>
+&lt;li>Compile the extension:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">npm run compile
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Launch in debug mode (or press F5 in VS Code).&lt;/li>
+&lt;/ol>
+&lt;p>When I opened &lt;code>test.wdl&lt;/code>, keywords like &lt;code>task&lt;/code>, &lt;code>workflow&lt;/code>, and &lt;code>input&lt;/code> were correctly highlighted, and comments were marked as expected.&lt;/p>
+&lt;hr>
+&lt;h3 id="6-lessons-learned">&lt;strong>6. Lessons Learned&lt;/strong>&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Regex Debugging:&lt;/strong> Writing robust regex patterns requires testing edge cases (e.g., escaped characters). Tools like VS Code’s scope inspector are invaluable.&lt;/li>
+&lt;li>&lt;strong>Language Configuration:&lt;/strong> Small details like auto-closing pairs significantly improve usability.&lt;/li>
+&lt;li>&lt;strong>Testing Matters:&lt;/strong> Creating test files early helps catch issues before they become blockers.&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h3 id="7-conclusion">&lt;strong>7. Conclusion&lt;/strong>&lt;/h3>
+&lt;p>Building this Mini-WDL extension taught me how language tooling works under the hood—from defining syntax rules to debugging token scopes. While solving issues like comment detection was challenging, it reinforced my understanding of TextMate grammars and VS Code’s API.
+This project is just the beginning! With basic syntax highlighting and language configuration in place, I’m excited to explore advanced features like semantic highlighting and LSP integration in the next blog.
+A blog on working with WDL is also coming up!
+If you’re interested in building your own extensions or contributing to WDL tooling, check out my GitHub repository: &lt;a href="https://github.com/whitewolf2000ani/Mini-WDL">github.com/whitewolf2000ani/Mini-WDL&lt;/a>.&lt;/p></content></item><item><title>ASTx to Python Mapping Strategy</title><link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link><pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate><guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</guid><description>1. Expression Node Mapping ASTx BinaryOp → Python ast.BinOp ASTx Structure:
 BinaryOp( lhs: Expr, rhs: Expr, op: BinaryOpKind ) Python AST Equivalent:
 ast.BinOp( left: ast.expr, op: operator, right: ast.expr ) Conversion Logic:
 # Operator mapping table OP_MAP = { BinaryOpKind.add: ast.Add(), BinaryOpKind.sub: ast.Sub(), BinaryOpKind.mul: ast.Mult() } @dispatch def visit(self, node: BinaryOp) -&amp;gt; ast.BinOp: return ast.BinOp( left=self.visit(node.lhs), op=OP_MAP[node.op], right=self.visit(node.rhs) ) 2. Statement Node Mapping ASTx DeleteStmt → Python ast.Delete ASTx Structure:</description><content>&lt;hr>
