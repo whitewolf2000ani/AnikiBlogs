@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Aniki&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 24 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://whitewolf2000ani.github.io/AnikiBlogs/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A VsCode extension for Mini-WDL</title>
+      <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/building-the-mini-wdl-vs-code-extension/</link>
+      <pubDate>Wed, 02 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/building-the-mini-wdl-vs-code-extension/</guid>
+      <description>Introduction Creating a VS Code extension for Mini-WDL was an exciting journey filled with learning, debugging, and problem-solving. This blog details how I implemented syntax highlighting and language configuration for Mini-WDL, along with the challenges I faced—particularly around marking comments correctly—and how I overcame them. Let’s dive in!
+ 1. Setting Up the Project **Step 1: Followed the documentation VsCode To start, I used Yeoman’s generator to create the basic structure of the VS Code extension:</description>
+    </item>
+    
     <item>
       <title>ASTx to Python Mapping Strategy</title>
       <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link>
