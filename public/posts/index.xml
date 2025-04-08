@@ -18,6 +18,17 @@
     </item>
     
     <item>
+      <title>What I learned about WDL</title>
+      <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/</link>
+      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/wdl-the-workflow-description-language-powering-bioinformatics/</guid>
+      <description>What is WDL? The Workflow Description Language (WDL) is an open-source language designed to simplify complex computational workflows, particularly in genomics and bioinformatics. Developed by the Broad Institute and maintained by the OpenWDL community, WDL allows scientists to define analysis pipelines in a human-readable format.
+Why It Matters:
+ Standardizes workflow definitions across platforms Enables reproducibility in scientific research Simplifies scaling from laptops to cloud environments   WDL Syntax: A Step-by-Step Breakdown Let’s dissect a simple WDL workflow to understand its structure.</description>
+    </item>
+    
+    <item>
       <title>ASTx to Python Mapping Strategy</title>
       <link>https://whitewolf2000ani.github.io/AnikiBlogs/posts/blogs/astx-python-ast-mapping/</link>
       <pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate>
