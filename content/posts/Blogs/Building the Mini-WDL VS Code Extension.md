@@ -11,7 +11,7 @@ Creating a VS Code extension for Mini-WDL was an exciting journey filled with le
 
 ### **1. Setting Up the Project**
 
-#### **Step 1: Followed the documentation [VsCode](https://code.visualstudio.com/api/get-started/your-first-extension)
+#### Step 1: Followed the documentation [VsCode](https://code.visualstudio.com/api/get-started/your-first-extension)
 
 To start, I used Yeoman’s generator to create the basic structure of the VS Code extension:
 
